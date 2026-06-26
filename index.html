@@ -65,10 +65,18 @@
         .view-section.active {
             display: block;
         }
+        .view-section-flex.active {
+            display: flex;
+        }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
 
         /* Modal backdrop blur */
@@ -80,9 +88,85 @@
 </head>
 <body class="py-6 px-4 md:px-8 lg:px-12 min-h-screen flex flex-col relative">
 
-    <!-- VIEW 1: MAIN ASSETS DIRECTORY -->
-    <div id="view-home" class="view-section active max-w-6xl w-full mx-auto space-y-6">
+    <!-- VIEW 0: INTRO SCREEN -->
+    <div id="view-intro" class="view-section view-section-flex active flex-col items-center justify-center min-h-[85vh] w-full max-w-4xl mx-auto text-center space-y-8">
         
+        <div class="relative">
+            <!-- Decorative Background Element -->
+            <div class="absolute inset-0 bg-blue-500/10 blur-[50px] rounded-full animate-[pulse-slow_3s_ease-in-out_infinite]"></div>
+            
+            <div class="hud-card p-12 rounded-sm relative z-10 border-white/10 border-dashed">
+                <div class="hud-corner hud-corner-tl"></div>
+                <div class="hud-corner hud-corner-tr"></div>
+                <div class="hud-corner hud-corner-bl"></div>
+                <div class="hud-corner hud-corner-br"></div>
+                
+                <p class="text-sm md:text-base uppercase tracking-[0.5em] text-blue-500 font-bold mb-4" data-i18n="intro_sys">Global Distribution Network</p>
+                <h1 class="text-5xl md:text-7xl font-black tracking-widest text-white uppercase mb-8" data-i18n="intro_init">
+                    SYSTEM INITIALIZATION
+                </h1>
+                
+                <button onclick="switchView('view-home')" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 rounded-sm overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                    <span class="relative text-lg font-bold uppercase tracking-[0.2em] text-white flex items-center gap-3">
+                        <span data-i18n="intro_btn">ACCESS HUB</span>
+                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW: SETTINGS -->
+    <div id="view-settings" class="view-section max-w-3xl w-full mx-auto space-y-6 mt-10">
+        
+        <!-- Navigation Bar -->
+        <div class="flex items-center justify-between mb-4">
+            <button onclick="switchView('view-home')" class="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors px-4 py-2 bg-white/5 border border-white/10 rounded-sm hover:bg-white/10">
+                <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                <span data-i18n="settings_back">Return to Directory</span>
+            </button>
+        </div>
+
+        <!-- Settings Panel -->
+        <div class="hud-card p-8 rounded-sm">
+            <div class="hud-corner hud-corner-tl"></div>
+            <div class="hud-corner hud-corner-tr"></div>
+            <div class="hud-corner hud-corner-bl"></div>
+            <div class="hud-corner hud-corner-br"></div>
+
+            <div class="flex flex-col items-center justify-center text-center gap-2 mb-8 border-b border-white/10 pb-6">
+                <svg class="w-12 h-12 text-gray-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <h2 class="text-3xl font-black tracking-widest text-white uppercase" data-i18n="settings_title">SYSTEM SETTINGS</h2>
+            </div>
+
+            <!-- Language Setting -->
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between p-4 bg-white/5 border border-white/10 rounded-sm">
+                <div>
+                    <h3 class="text-lg font-bold text-white uppercase tracking-wider mb-1" data-i18n="settings_lang_title">Language / Idioma</h3>
+                    <p class="text-gray-400 text-sm font-medium" data-i18n="settings_lang_desc">Select your preferred interface language.</p>
+                </div>
+                <div class="mt-4 md:mt-0 w-full md:w-auto">
+                    <select id="language-selector" onchange="changeLanguage(this.value)" class="w-full md:w-64 bg-[#0d0e12] border border-white/20 text-white text-sm font-bold uppercase tracking-wider rounded-sm focus:ring-blue-500 focus:border-blue-500 block p-3 outline-none cursor-pointer">
+                        <option value="en-US">English (USA)</option>
+                        <option value="es-LA">Español (Latinoamérica)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- VIEW 1: MAIN ASSETS DIRECTORY -->
+    <div id="view-home" class="view-section max-w-6xl w-full mx-auto space-y-6">
+        
+        <!-- Hub Navigation / Toolbar -->
+        <div class="flex justify-end mb-2">
+            <button onclick="switchView('view-settings')" class="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors px-4 py-2 bg-white/5 border border-white/10 rounded-sm hover:bg-white/10">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <span data-i18n="btn_settings">SETTINGS</span>
+            </button>
+        </div>
+
         <!-- Hub Header -->
         <header class="hud-card p-6 rounded-sm">
             <div class="hud-corner hud-corner-tl"></div>
@@ -91,11 +175,11 @@
             <div class="hud-corner hud-corner-br"></div>
             
             <div class="flex flex-col items-center justify-center text-center gap-2">
-                <p class="text-xs uppercase tracking-[0.4em] text-gray-500 font-bold mb-1">Global Distribution Network</p>
-                <h1 class="text-4xl md:text-5xl font-black tracking-widest text-white uppercase">
+                <p class="text-xs uppercase tracking-[0.4em] text-gray-500 font-bold mb-1" data-i18n="hub_subtitle">Global Distribution Network</p>
+                <h1 class="text-4xl md:text-5xl font-black tracking-widest text-white uppercase" data-i18n="hub_title">
                     ASSETS DIRECTORY
                 </h1>
-                <p class="text-gray-400 text-sm mt-2 font-medium">Select a module to view documentation, previews, and download links.</p>
+                <p class="text-gray-400 text-sm mt-2 font-medium" data-i18n="hub_desc">Select a module to view documentation, previews, and download links.</p>
             </div>
         </header>
 
@@ -110,24 +194,23 @@
                 <div class="hud-corner hud-corner-br"></div>
                 
                 <div class="bg-black/50 aspect-video relative overflow-hidden mb-4 border-b border-white/10 flex items-center justify-center">
-                    <!-- Thumbnail (Using your image as thumbnail) -->
                     <img src="Sol%27s%20RNG%20Photo%20V0.1.png" onerror="this.src='https://placehold.co/600x337/07080a/474853?text=SOL\'S+RNG'" alt="Sol's RNG Thumbnail" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                    <span class="absolute bottom-3 left-3 text-xs font-bold px-2 py-1 bg-white/10 border border-white/20 rounded-sm text-white backdrop-blur-sm">V0.1 RELEASE</span>
+                    <span class="absolute bottom-3 left-3 text-xs font-bold px-2 py-1 bg-white/10 border border-white/20 rounded-sm text-white backdrop-blur-sm" data-i18n="card1_badge">V0.1 RELEASE</span>
                 </div>
                 
                 <div class="p-4 pt-0">
-                    <h3 class="text-xl font-bold text-white uppercase tracking-wider mb-2 group-hover:text-blue-400 transition-colors">Sol's RNG System</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed font-medium mb-4 line-clamp-2">
+                    <h3 class="text-xl font-bold text-white uppercase tracking-wider mb-2 group-hover:text-blue-400 transition-colors" data-i18n="card1_title">Sol's RNG System</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-medium mb-4 line-clamp-2" data-i18n="card1_desc">
                         Complete aura rolling system with equip/skip mechanics, automated infinite rolls, and quick roll bypass features.
                     </p>
                     <div class="flex items-center text-xs font-bold uppercase tracking-widest text-gray-500 group-hover:text-white transition-colors">
-                        Access Module <span class="ml-2">→</span>
+                        <span data-i18n="card1_btn">Access Module</span> <span class="ml-2">→</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Asset Card: Placeholder (For future games) -->
+            <!-- Asset Card: Placeholder -->
             <div class="hud-card p-1 rounded-sm opacity-50 border-dashed border-white/20">
                 <div class="hud-corner hud-corner-tl"></div>
                 <div class="hud-corner hud-corner-tr"></div>
@@ -141,12 +224,12 @@
                 </div>
                 
                 <div class="p-4 pt-0">
-                    <h3 class="text-xl font-bold text-gray-400 uppercase tracking-wider mb-2">Unassigned Slot</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed font-medium mb-4">
+                    <h3 class="text-xl font-bold text-gray-400 uppercase tracking-wider mb-2" data-i18n="card2_title">Unassigned Slot</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed font-medium mb-4" data-i18n="card2_desc">
                         System pending future development. Check back later for new asset releases.
                     </p>
                     <div class="flex items-center text-xs font-bold uppercase tracking-widest text-gray-600">
-                        Locked <span class="ml-2">🔒</span>
+                        <span data-i18n="card2_btn">Locked</span> <span class="ml-2">🔒</span>
                     </div>
                 </div>
             </div>
@@ -161,7 +244,7 @@
         <div class="flex items-center justify-between mb-2">
             <button onclick="switchView('view-home')" class="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors px-4 py-2 bg-white/5 border border-white/10 rounded-sm hover:bg-white/10">
                 <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-                Return to Directory
+                <span data-i18n="sols_back">Return to Directory</span>
             </button>
         </div>
 
@@ -174,13 +257,13 @@
             
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="text-center md:text-left">
-                    <p class="text-xs uppercase tracking-[0.4em] text-gray-500 font-bold mb-1">Asset Distribution Protocol</p>
-                    <h1 class="text-3xl md:text-4xl font-black tracking-widest text-white uppercase">
+                    <p class="text-xs uppercase tracking-[0.4em] text-gray-500 font-bold mb-1" data-i18n="sols_subtitle">Asset Distribution Protocol</p>
+                    <h1 class="text-3xl md:text-4xl font-black tracking-widest text-white uppercase" data-i18n="sols_title">
                         SOL'S RNG ASSETS
                     </h1>
                 </div>
                 <div class="px-4 py-2 bg-white/5 border border-white/10 text-center rounded-sm">
-                    <span class="block text-xs uppercase tracking-widest text-gray-400 font-bold">Release Phase</span>
+                    <span class="block text-xs uppercase tracking-widest text-gray-400 font-bold" data-i18n="sols_phase">Release Phase</span>
                     <span class="text-lg font-bold text-white tracking-widest uppercase">Version 0.1</span>
                 </div>
             </div>
@@ -199,11 +282,11 @@
                     <div class="hud-corner hud-corner-br"></div>
                     
                     <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-base text-gray-400">▪</span> Version Documentation
+                        <span class="text-base text-gray-400">▪</span> <span data-i18n="sols_doc_title">Version Documentation</span>
                     </div>
                     
-                    <h2 class="text-2xl font-bold text-white mb-3 uppercase tracking-wider">V0.1 Update</h2>
-                    <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 font-medium">
+                    <h2 class="text-2xl font-bold text-white mb-3 uppercase tracking-wider" data-i18n="sols_doc_h2">V0.1 Update</h2>
+                    <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 font-medium" data-i18n="sols_doc_p">
                         This release includes the main loop handlers for the equip and skip mechanics, integrated alongside the classic RNG automation flows detailed in the registry list below.
                     </p>
 
@@ -212,26 +295,26 @@
                         <table class="w-full text-left border-collapse text-xs md:text-sm">
                             <thead>
                                 <tr class="bg-white/[0.03] border-b border-white/10 text-gray-400 uppercase tracking-widest text-[10px] font-bold">
-                                    <th class="p-4 border-r border-white/10 w-1/3">System Interface</th>
-                                    <th class="p-4">Technical Execution & Features</th>
+                                    <th class="p-4 border-r border-white/10 w-1/3" data-i18n="sols_tbl_h1">System Interface</th>
+                                    <th class="p-4" data-i18n="sols_tbl_h2">Technical Execution & Features</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-white/10">
                                 <tr class="hover:bg-white/[0.01] transition-colors">
-                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide">Roll System</td>
-                                    <td class="p-4 text-gray-400 leading-relaxed font-medium">
+                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide" data-i18n="sols_tbl_r1_t">Roll System</td>
+                                    <td class="p-4 text-gray-400 leading-relaxed font-medium" data-i18n="sols_tbl_r1_d">
                                         Triggers a 2.5s to 3.2s RNG roll cycle sequence. Displays the resulting aura viewport alongside modal selectors to instantly EQUIP or SKIP the obtained asset.
                                     </td>
                                 </tr>
                                 <tr class="hover:bg-white/[0.01] transition-colors">
-                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide">Auto-Roll System</td>
-                                    <td class="p-4 text-gray-400 leading-relaxed font-medium">
+                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide" data-i18n="sols_tbl_r2_t">Auto-Roll System</td>
+                                    <td class="p-4 text-gray-400 leading-relaxed font-medium" data-i18n="sols_tbl_r2_d">
                                         Initiates an automated and infinite rolling process, sending sequential results directly to your character loop without manual action.
                                     </td>
                                 </tr>
                                 <tr class="hover:bg-white/[0.01] transition-colors">
-                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide">Quick Roll System</td>
-                                    <td class="p-4 text-gray-400 leading-relaxed font-medium">
+                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide" data-i18n="sols_tbl_r3_t">Quick Roll System</td>
+                                    <td class="p-4 text-gray-400 leading-relaxed font-medium" data-i18n="sols_tbl_r3_d">
                                         Safely bypasses all chronological animations and camera delays to return the calculated auras instantly.
                                     </td>
                                 </tr>
@@ -248,11 +331,11 @@
                     <div class="hud-corner hud-corner-br"></div>
                     
                     <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-base text-gray-400">▪</span> System Media & Preview
+                        <span class="text-base text-gray-400">▪</span> <span data-i18n="sols_media_title">System Media & Preview</span>
                     </div>
                     
-                    <h2 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Visual Demonstration</h2>
-                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-4 font-medium">
+                    <h2 class="text-xl font-bold text-white mb-2 uppercase tracking-wide" data-i18n="sols_media_h2">Visual Demonstration</h2>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-4 font-medium" data-i18n="sols_media_p">
                         Media preview showcasing the actual UI structure in action. Click any frame to expand the viewport.
                     </p>
 
@@ -268,19 +351,14 @@
                             <video 
                                 id="main-preview-video"
                                 class="w-full h-full object-cover absolute inset-0 opacity-80 group-hover:opacity-100 transition-all duration-300 pointer-events-none" 
-                                autoplay 
-                                loop 
-                                muted 
-                                playsinline
+                                autoplay loop muted playsinline
                                 src="Sol%27s%20RNG%20Video%20V0.1.mp4">
                             </video>
                             
                             <!-- Hover Overlay -->
                             <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all duration-300 z-10 pointer-events-none">
-                                <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637zM12 9.75v4.5m2.25-2.25h-4.5"></path>
-                                </svg>
-                                <span class="text-xs uppercase font-extrabold tracking-[0.2em] text-white border border-white/30 px-3 py-1.5 bg-black/90 rounded-sm shadow-xl">
+                                <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637zM12 9.75v4.5m2.25-2.25h-4.5"></path></svg>
+                                <span class="text-xs uppercase font-extrabold tracking-[0.2em] text-white border border-white/30 px-3 py-1.5 bg-black/90 rounded-sm shadow-xl" data-i18n="sols_media_vid">
                                     Expand with Sound
                                 </span>
                             </div>
@@ -302,10 +380,8 @@
 
                             <!-- Hover Overlay -->
                             <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all duration-300 z-10 pointer-events-none">
-                                <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637zM12 9.75v4.5m2.25-2.25h-4.5"></path>
-                                </svg>
-                                <span class="text-xs uppercase font-extrabold tracking-[0.2em] text-white border border-white/30 px-3 py-1.5 bg-black/90 rounded-sm shadow-xl">
+                                <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637zM12 9.75v4.5m2.25-2.25h-4.5"></path></svg>
+                                <span class="text-xs uppercase font-extrabold tracking-[0.2em] text-white border border-white/30 px-3 py-1.5 bg-black/90 rounded-sm shadow-xl" data-i18n="sols_media_img">
                                     Click to Expand
                                 </span>
                             </div>
@@ -322,41 +398,35 @@
                     <div class="hud-corner hud-corner-br"></div>
 
                     <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-base text-gray-400">▪</span> Hub Support & FAQ
+                        <span class="text-base text-gray-400">▪</span> <span data-i18n="sols_faq_title">Hub Support & FAQ</span>
                     </div>
-                    <h2 class="text-xl font-bold text-white mb-4 uppercase tracking-wide">Frequently Asked Questions</h2>
+                    <h2 class="text-xl font-bold text-white mb-4 uppercase tracking-wide" data-i18n="sols_faq_h2">Frequently Asked Questions</h2>
 
                     <div class="space-y-3">
                         <!-- FAQ Item 1 -->
                         <div class="border border-white/5 bg-white/[0.01] rounded-sm transition-all">
                             <button class="faq-toggle w-full p-4 flex justify-between items-center text-left font-bold text-white uppercase text-xs md:text-sm tracking-wider hover:bg-white/[0.03] transition-colors focus:outline-none">
-                                <span>How do I modify aura rarities?</span>
-                                <svg class="w-4 h-4 transform transition-transform duration-200 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                </svg>
+                                <span data-i18n="sols_faq_q1">How do I modify aura rarities?</span>
+                                <svg class="w-4 h-4 transform transition-transform duration-200 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                             </button>
                             <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
                                 <div class="p-4 text-xs md:text-sm text-gray-400 border-t border-white/5 leading-relaxed font-medium">
-                                    <p class="mb-2">To modify the rarities of the auras, you need to follow this path in the Roblox Studio Explorer:</p>
+                                    <p class="mb-2" data-i18n="sols_faq_a1_1">To modify the rarities of the auras, you need to follow this path in the Roblox Studio Explorer:</p>
                                     
-                                    <!-- Styled code path display -->
                                     <div class="flex flex-wrap items-center gap-2 mt-3 bg-black/40 p-3 rounded border border-white/5">
                                         <code class="bg-[#050505] text-blue-400 px-2 py-1.5 rounded-md border border-blue-500/20 font-mono shadow-inner flex items-center gap-2">
-                                            <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg>
-                                            ReplicatedStorage
+                                            <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z"/></svg> ReplicatedStorage
                                         </code>
                                         <span class="text-gray-600 font-bold">›</span>
                                         <code class="bg-[#050505] text-yellow-400 px-2 py-1.5 rounded-md border border-yellow-500/20 font-mono shadow-inner flex items-center gap-2">
-                                            <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg>
-                                            Modules
+                                            <svg class="w-4 h-4 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></svg> Modules
                                         </code>
                                         <span class="text-gray-600 font-bold">›</span>
                                         <code class="bg-[#050505] text-green-400 px-2 py-1.5 rounded-md border border-green-500/20 font-mono shadow-inner flex items-center gap-2">
-                                            <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                                            Auras
+                                            <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg> Auras
                                         </code>
                                     </div>
-                                    <p class="mt-3">Inside the <code class="text-green-400 font-bold">Auras</code> module script, you will find all the rarity configurations ready to be edited.</p>
+                                    <p class="mt-3"><span data-i18n="sols_faq_a1_2">Inside the Auras module script, you will find all the rarity configurations ready to be edited.</span></p>
                                 </div>
                             </div>
                         </div>
@@ -364,13 +434,11 @@
                         <!-- FAQ Item 2 -->
                         <div class="border border-white/5 bg-white/[0.01] rounded-sm transition-all">
                             <button class="faq-toggle w-full p-4 flex justify-between items-center text-left font-bold text-white uppercase text-xs md:text-sm tracking-wider hover:bg-white/[0.03] transition-colors focus:outline-none">
-                                <span>How often will there be an update?</span>
-                                <svg class="w-4 h-4 transform transition-transform duration-200 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                </svg>
+                                <span data-i18n="sols_faq_q2">How often will there be an update?</span>
+                                <svg class="w-4 h-4 transform transition-transform duration-200 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                             </button>
                             <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-                                <p class="p-4 text-xs md:text-sm text-gray-400 border-t border-white/5 leading-relaxed font-medium">
+                                <p class="p-4 text-xs md:text-sm text-gray-400 border-t border-white/5 leading-relaxed font-medium" data-i18n="sols_faq_a2">
                                     Updates for this asset will likely take between 1 and 2 weeks, depending on my available free time.
                                 </p>
                             </div>
@@ -379,25 +447,21 @@
                         <!-- FAQ Item 3 -->
                         <div class="border border-white/5 bg-white/[0.01] rounded-sm transition-all">
                             <button class="faq-toggle w-full p-4 flex justify-between items-center text-left font-bold text-white uppercase text-xs md:text-sm tracking-wider hover:bg-white/[0.03] transition-colors focus:outline-none">
-                                <span>How can I contact you?</span>
-                                <svg class="w-4 h-4 transform transition-transform duration-200 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                                </svg>
+                                <span data-i18n="sols_faq_q3">How can I contact you?</span>
+                                <svg class="w-4 h-4 transform transition-transform duration-200 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                             </button>
                             <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
-                                <p class="p-4 text-xs md:text-sm text-gray-400 border-t border-white/5 leading-relaxed font-medium">
+                                <p class="p-4 text-xs md:text-sm text-gray-400 border-t border-white/5 leading-relaxed font-medium" data-i18n="sols_faq_a3">
                                     At the moment, the only available method to contact me is through Discord.
                                 </p>
                             </div>
                         </div>
                     </div>
                 </section>
-                
             </div>
 
             <!-- Right Side: Downloads -->
             <div class="space-y-6">
-                
                 <!-- Downloads Panel -->
                 <section class="hud-card p-6 rounded-sm border-white/20">
                     <div class="hud-corner hud-corner-tl"></div>
@@ -406,19 +470,17 @@
                     <div class="hud-corner hud-corner-br"></div>
                     
                     <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-base text-gray-400">▪</span> Asset Download
+                        <span class="text-base text-gray-400">▪</span> <span data-i18n="sols_dl_title">Asset Download</span>
                     </div>
                     
-                    <h2 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">System Build</h2>
-                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-6 font-medium">
+                    <h2 class="text-lg font-bold text-white mb-2 uppercase tracking-wide" data-i18n="sols_dl_h2">System Build</h2>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-6 font-medium" data-i18n="sols_dl_p">
                         Download the main file to import into Roblox Studio.
                     </p>
                     
                     <button class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-4 rounded-sm border border-white/20 transition-colors uppercase tracking-widest text-sm flex items-center justify-center gap-2 shadow-lg">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                        </svg>
-                        Download .RBXM
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                        <span data-i18n="sols_dl_btn">Download .RBXM</span>
                     </button>
                 </section>
             </div>
@@ -427,62 +489,188 @@
 
     <!-- EXPAND MEDIA MODAL -->
     <div id="media-modal" class="fixed inset-0 z-50 hidden items-center justify-center opacity-0 transition-opacity duration-300">
-        <!-- Backdrop -->
         <div class="absolute inset-0 bg-black/90 modal-backdrop" onclick="closeModal()"></div>
-        
-        <!-- Close Button -->
         <button onclick="closeModal()" class="absolute top-6 right-6 z-50 p-2 bg-black/50 hover:bg-red-500/80 border border-white/20 hover:border-red-500 rounded-sm text-white transition-all">
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-            </svg>
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
-
-        <!-- Content Container -->
         <div class="relative z-10 w-full max-w-5xl px-4 flex items-center justify-center" onclick="event.stopPropagation()">
-            <!-- HUD styling for expanded view -->
             <div class="hud-card p-1 rounded-sm shadow-2xl w-full">
                 <div class="hud-corner hud-corner-tl"></div>
                 <div class="hud-corner hud-corner-tr"></div>
                 <div class="hud-corner hud-corner-bl"></div>
                 <div class="hud-corner hud-corner-br"></div>
-                
-                <!-- Dynamic Video -->
-                <video id="expanded-video" class="w-full hidden rounded-sm" controls autoplay>
-                    Your browser does not support the video tag.
-                </video>
-                
-                <!-- Dynamic Image -->
+                <video id="expanded-video" class="w-full hidden rounded-sm" controls autoplay></video>
                 <img id="expanded-image" class="w-full hidden rounded-sm object-contain max-h-[80vh]" alt="Expanded Preview">
             </div>
         </div>
     </div>
 
     <script>
-        // --- 1. SPA Navigation Logic ---
+        // --- 1. LOCALIZATION SYSTEM (i18n) ---
+        const translations = {
+            'en-US': {
+                'intro_sys': 'Global Distribution Network',
+                'intro_init': 'SYSTEM INITIALIZATION',
+                'intro_btn': 'ACCESS HUB',
+                'settings_title': 'SYSTEM SETTINGS',
+                'settings_back': 'Return to Directory',
+                'settings_lang_title': 'Language / Idioma',
+                'settings_lang_desc': 'Select your preferred interface language.',
+                'btn_settings': 'SETTINGS',
+                'hub_subtitle': 'Global Distribution Network',
+                'hub_title': 'ASSETS DIRECTORY',
+                'hub_desc': 'Select a module to view documentation, previews, and download links.',
+                'card1_badge': 'V0.1 RELEASE',
+                'card1_title': "Sol's RNG System",
+                'card1_desc': 'Complete aura rolling system with equip/skip mechanics, automated infinite rolls, and quick roll bypass features.',
+                'card1_btn': 'Access Module',
+                'card2_title': 'Unassigned Slot',
+                'card2_desc': 'System pending future development. Check back later for new asset releases.',
+                'card2_btn': 'Locked',
+                'sols_back': 'Return to Directory',
+                'sols_subtitle': 'Asset Distribution Protocol',
+                'sols_title': "SOL'S RNG ASSETS",
+                'sols_phase': 'Release Phase',
+                'sols_doc_title': 'Version Documentation',
+                'sols_doc_h2': 'V0.1 Update',
+                'sols_doc_p': 'This release includes the main loop handlers for the equip and skip mechanics, integrated alongside the classic RNG automation flows detailed in the registry list below.',
+                'sols_tbl_h1': 'System Interface',
+                'sols_tbl_h2': 'Technical Execution & Features',
+                'sols_tbl_r1_t': 'Roll System',
+                'sols_tbl_r1_d': 'Triggers a 2.5s to 3.2s RNG roll cycle sequence. Displays the resulting aura viewport alongside modal selectors to instantly EQUIP or SKIP the obtained asset.',
+                'sols_tbl_r2_t': 'Auto-Roll System',
+                'sols_tbl_r2_d': 'Initiates an automated and infinite rolling process, sending sequential results directly to your character loop without manual action.',
+                'sols_tbl_r3_t': 'Quick Roll System',
+                'sols_tbl_r3_d': 'Safely bypasses all chronological animations and camera delays to return the calculated auras instantly.',
+                'sols_media_title': 'System Media & Preview',
+                'sols_media_h2': 'Visual Demonstration',
+                'sols_media_p': 'Media preview showcasing the actual UI structure in action. Click any frame to expand the viewport.',
+                'sols_media_vid': 'Expand with Sound',
+                'sols_media_img': 'Click to Expand',
+                'sols_faq_title': 'Hub Support & FAQ',
+                'sols_faq_h2': 'Frequently Asked Questions',
+                'sols_faq_q1': 'How do I modify aura rarities?',
+                'sols_faq_a1_1': 'To modify the rarities of the auras, you need to follow this path in the Roblox Studio Explorer:',
+                'sols_faq_a1_2': 'Inside the Auras module script, you will find all the rarity configurations ready to be edited.',
+                'sols_faq_q2': 'How often will there be an update?',
+                'sols_faq_a2': 'Updates for this asset will likely take between 1 and 2 weeks, depending on my available free time.',
+                'sols_faq_q3': 'How can I contact you?',
+                'sols_faq_a3': 'At the moment, the only available method to contact me is through Discord.',
+                'sols_dl_title': 'Asset Download',
+                'sols_dl_h2': 'System Build',
+                'sols_dl_p': 'Download the main file to import into Roblox Studio.',
+                'sols_dl_btn': 'Download .RBXM'
+            },
+            'es-LA': {
+                'intro_sys': 'Red Global de Distribución',
+                'intro_init': 'INICIALIZACIÓN DEL SISTEMA',
+                'intro_btn': 'ACCEDER AL HUB',
+                'settings_title': 'CONFIGURACIÓN DEL SISTEMA',
+                'settings_back': 'Volver al Directorio',
+                'settings_lang_title': 'Idioma / Language',
+                'settings_lang_desc': 'Seleccione su idioma de interfaz preferido.',
+                'btn_settings': 'AJUSTES',
+                'hub_subtitle': 'Red Global de Distribución',
+                'hub_title': 'DIRECTORIO DE ACTIVOS',
+                'hub_desc': 'Seleccione un módulo para ver documentación, vistas previas y enlaces de descarga.',
+                'card1_badge': 'LANZAMIENTO V0.1',
+                'card1_title': "Sistema Sol's RNG",
+                'card1_desc': 'Sistema completo de tiradas de aura con mecánicas de equipar/omitir, tiradas infinitas automáticas y funciones de salto rápido.',
+                'card1_btn': 'Acceder al Módulo',
+                'card2_title': 'Espacio sin Asignar',
+                'card2_desc': 'Sistema pendiente de desarrollo futuro. Vuelve más tarde para nuevos lanzamientos.',
+                'card2_btn': 'Bloqueado',
+                'sols_back': 'Volver al Directorio',
+                'sols_subtitle': 'Protocolo de Distribución de Activos',
+                'sols_title': "ACTIVOS DE SOL'S RNG",
+                'sols_phase': 'Fase de Lanzamiento',
+                'sols_doc_title': 'Documentación de la Versión',
+                'sols_doc_h2': 'Actualización V0.1',
+                'sols_doc_p': 'Esta versión incluye los manejadores del bucle principal para las mecánicas de equipar y omitir, integradas junto a los flujos clásicos de automatización detallados abajo.',
+                'sols_tbl_h1': 'Interfaz del Sistema',
+                'sols_tbl_h2': 'Ejecución Técnica y Características',
+                'sols_tbl_r1_t': 'Sistema de Tirada',
+                'sols_tbl_r1_d': 'Inicia una secuencia de ciclo RNG de 2.5s a 3.2s. Muestra el aura resultante junto a selectores modales para EQUIPAR u OMITIR al instante el activo obtenido.',
+                'sols_tbl_r2_t': 'Auto-Tirada',
+                'sols_tbl_r2_d': 'Inicia un proceso de tirada infinito y automatizado, enviando resultados secuenciales directamente al bucle de tu personaje sin acción manual.',
+                'sols_tbl_r3_t': 'Tirada Rápida',
+                'sols_tbl_r3_d': 'Omite de forma segura todas las animaciones cronológicas y retrasos de cámara para devolver las auras calculadas al instante.',
+                'sols_media_title': 'Medios y Vista Previa',
+                'sols_media_h2': 'Demostración Visual',
+                'sols_media_p': 'Vista previa que muestra la estructura real de la UI en acción. Haz clic en cualquier recuadro para expandir.',
+                'sols_media_vid': 'Expandir con Sonido',
+                'sols_media_img': 'Clic para Expandir',
+                'sols_faq_title': 'Soporte y Preguntas Frecuentes',
+                'sols_faq_h2': 'Preguntas Frecuentes',
+                'sols_faq_q1': '¿Cómo modifico las rarezas de las auras?',
+                'sols_faq_a1_1': 'Para modificar las rarezas de las auras, debes seguir esta ruta en el Explorador de Roblox Studio:',
+                'sols_faq_a1_2': 'Dentro del script del módulo Auras, encontrarás todas las configuraciones de rareza listas para ser editadas.',
+                'sols_faq_q2': '¿Con qué frecuencia habrá una actualización?',
+                'sols_faq_a2': 'Las actualizaciones para este activo probablemente tomarán entre 1 y 2 semanas, dependiendo de mi tiempo libre disponible.',
+                'sols_faq_q3': '¿Cómo puedo contactarte?',
+                'sols_faq_a3': 'Por el momento, el único método disponible para contactarme es a través de Discord.',
+                'sols_dl_title': 'Descarga de Activos',
+                'sols_dl_h2': 'Construcción del Sistema',
+                'sols_dl_p': 'Descarga el archivo principal para importarlo en Roblox Studio.',
+                'sols_dl_btn': 'Descargar .RBXM'
+            }
+        };
+
+        // Initialize language
+        let currentLang = 'en-US';
+
+        function changeLanguage(langCode) {
+            currentLang = langCode;
+            document.documentElement.lang = langCode.split('-')[0];
+            
+            // Update all elements with a data-i18n attribute
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang][key]) {
+                    el.innerText = translations[currentLang][key];
+                }
+            });
+            
+            // Save preference to LocalStorage (optional but good practice)
+            try { localStorage.setItem('preferredLang', langCode); } catch(e){}
+        }
+
+        // Try to load saved language on startup
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const savedLang = localStorage.getItem('preferredLang');
+                if(savedLang && (savedLang === 'en-US' || savedLang === 'es-LA')) {
+                    document.getElementById('language-selector').value = savedLang;
+                    changeLanguage(savedLang);
+                } else {
+                    changeLanguage('en-US'); // Ensure English is default and loaded
+                }
+            } catch(e) {
+                changeLanguage('en-US');
+            }
+        });
+
+
+        // --- 2. SPA Navigation Logic ---
         function switchView(viewId) {
-            // Hide all views
             document.querySelectorAll('.view-section').forEach(el => {
                 el.classList.remove('active');
             });
-            // Show the target view
             const target = document.getElementById(viewId);
             if(target) {
                 target.classList.add('active');
-                window.scrollTo(0, 0); // Scroll to top when switching pages
+                window.scrollTo(0, 0); 
             }
         }
 
-        // --- 2. Modal Expansion Logic ---
+        // --- 3. Modal Expansion Logic ---
         const modal = document.getElementById('media-modal');
         const expVideo = document.getElementById('expanded-video');
         const expImage = document.getElementById('expanded-image');
 
         function openModal(type, src) {
-            // Setup display
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            
-            // Allow a tiny delay for transition classes to apply visually
             setTimeout(() => {
                 modal.classList.remove('opacity-0');
                 modal.classList.add('opacity-100');
@@ -501,37 +689,29 @@
         }
 
         function closeModal() {
-            // Fade out
             modal.classList.remove('opacity-100');
             modal.classList.add('opacity-0');
-            
-            // Stop video
             expVideo.pause();
-            
-            // Hide after transition
             setTimeout(() => {
                 modal.classList.add('hidden');
                 modal.classList.remove('flex');
                 expVideo.src = '';
                 expImage.src = '';
-            }, 300); // Matches duration-300 in CSS
+            }, 300);
         }
 
-        // Add Event Listeners for the cards
+        // --- 4. Event Listeners ---
         document.addEventListener('DOMContentLoaded', () => {
-            // Video Card Click
             document.getElementById('video-card').addEventListener('click', function() {
                 const src = this.querySelector('video').src;
                 openModal('video', src);
             });
 
-            // Photo Card Click
             document.getElementById('photo-card').addEventListener('click', function() {
                 const src = this.querySelector('img').src;
                 openModal('image', src);
             });
 
-            // --- 3. FAQ Toggles ---
             const faqToggles = document.querySelectorAll('.faq-toggle');
             faqToggles.forEach(toggle => {
                 toggle.addEventListener('click', () => {
@@ -539,12 +719,10 @@
                     const icon = toggle.querySelector('svg');
                     
                     if (content.classList.contains('max-h-0')) {
-                        // Open
                         content.classList.remove('max-h-0');
                         content.classList.add('max-h-[500px]'); 
                         icon.classList.add('rotate-180');
                     } else {
-                        // Close
                         content.classList.add('max-h-0');
                         content.classList.remove('max-h-[500px]');
                         icon.classList.remove('rotate-180');
@@ -552,11 +730,8 @@
                 });
             });
             
-            // Close modal on Escape key press
             document.addEventListener('keydown', function(event){
-                if(event.key === "Escape"){
-                    closeModal();
-                }
+                if(event.key === "Escape"){ closeModal(); }
             });
         });
     </script>
