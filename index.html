@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sol's RNG Assets - Release Hub</title>
+    <title>Assets Hub & Sol's RNG Release</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Official Rajdhani Font -->
@@ -56,12 +56,115 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #474853;
         }
+
+        /* View transition styles */
+        .view-section {
+            display: none;
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        .view-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Modal backdrop blur */
+        .modal-backdrop {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
     </style>
 </head>
-<body class="py-6 px-4 md:px-8 lg:px-12 min-h-screen">
+<body class="py-6 px-4 md:px-8 lg:px-12 min-h-screen flex flex-col relative">
 
-    <div class="max-w-6xl w-full mx-auto space-y-6">
+    <!-- VIEW 1: MAIN ASSETS DIRECTORY -->
+    <div id="view-home" class="view-section active max-w-6xl w-full mx-auto space-y-6">
         
+        <!-- Hub Header -->
+        <header class="hud-card p-6 rounded-sm">
+            <div class="hud-corner hud-corner-tl"></div>
+            <div class="hud-corner hud-corner-tr"></div>
+            <div class="hud-corner hud-corner-bl"></div>
+            <div class="hud-corner hud-corner-br"></div>
+            
+            <div class="flex flex-col items-center justify-center text-center gap-2">
+                <p class="text-xs uppercase tracking-[0.4em] text-gray-500 font-bold mb-1">Global Distribution Network</p>
+                <h1 class="text-4xl md:text-5xl font-black tracking-widest text-white uppercase">
+                    ASSETS DIRECTORY
+                </h1>
+                <p class="text-gray-400 text-sm mt-2 font-medium">Select a module to view documentation, previews, and download links.</p>
+            </div>
+        </header>
+
+        <!-- Assets Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start mt-8">
+            
+            <!-- Asset Card: Sol's RNG -->
+            <div onclick="switchView('view-sols-rng')" class="hud-card p-1 rounded-sm group cursor-pointer transition-all duration-300 hover:border-white/30 hover:scale-[1.02]">
+                <div class="hud-corner hud-corner-tl"></div>
+                <div class="hud-corner hud-corner-tr"></div>
+                <div class="hud-corner hud-corner-bl"></div>
+                <div class="hud-corner hud-corner-br"></div>
+                
+                <div class="bg-black/50 aspect-video relative overflow-hidden mb-4 border-b border-white/10 flex items-center justify-center">
+                    <!-- Thumbnail (Using your image as thumbnail) -->
+                    <img src="Sol%27s%20RNG%20Photo%20V0.1.png" onerror="this.src='https://placehold.co/600x337/07080a/474853?text=SOL\'S+RNG'" alt="Sol's RNG Thumbnail" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity duration-500">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <span class="absolute bottom-3 left-3 text-xs font-bold px-2 py-1 bg-white/10 border border-white/20 rounded-sm text-white backdrop-blur-sm">V0.1 RELEASE</span>
+                </div>
+                
+                <div class="p-4 pt-0">
+                    <h3 class="text-xl font-bold text-white uppercase tracking-wider mb-2 group-hover:text-blue-400 transition-colors">Sol's RNG System</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed font-medium mb-4 line-clamp-2">
+                        Complete aura rolling system with equip/skip mechanics, automated infinite rolls, and quick roll bypass features.
+                    </p>
+                    <div class="flex items-center text-xs font-bold uppercase tracking-widest text-gray-500 group-hover:text-white transition-colors">
+                        Access Module <span class="ml-2">→</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Asset Card: Placeholder (For future games) -->
+            <div class="hud-card p-1 rounded-sm opacity-50 border-dashed border-white/20">
+                <div class="hud-corner hud-corner-tl"></div>
+                <div class="hud-corner hud-corner-tr"></div>
+                <div class="hud-corner hud-corner-bl"></div>
+                <div class="hud-corner hud-corner-br"></div>
+                
+                <div class="bg-black/30 aspect-video relative overflow-hidden mb-4 border-b border-white/5 flex items-center justify-center">
+                    <svg class="w-12 h-12 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                </div>
+                
+                <div class="p-4 pt-0">
+                    <h3 class="text-xl font-bold text-gray-400 uppercase tracking-wider mb-2">Unassigned Slot</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed font-medium mb-4">
+                        System pending future development. Check back later for new asset releases.
+                    </p>
+                    <div class="flex items-center text-xs font-bold uppercase tracking-widest text-gray-600">
+                        Locked <span class="ml-2">🔒</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- VIEW 2: SOL'S RNG ASSET PAGE -->
+    <div id="view-sols-rng" class="view-section max-w-6xl w-full mx-auto space-y-6">
+        
+        <!-- Navigation Bar -->
+        <div class="flex items-center justify-between mb-2">
+            <button onclick="switchView('view-home')" class="group flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors px-4 py-2 bg-white/5 border border-white/10 rounded-sm hover:bg-white/10">
+                <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                Return to Directory
+            </button>
+        </div>
+
         <!-- Header Panel -->
         <header class="hud-card p-6 rounded-sm">
             <div class="hud-corner hud-corner-tl"></div>
@@ -194,7 +297,8 @@
                                 id="main-preview-photo"
                                 alt="Sol's RNG Interface Preview"
                                 class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-300 pointer-events-none"
-                                src="Sol%27s%20RNG%20Photo%20V0.1.png">
+                                src="Sol%27s%20RNG%20Photo%20V0.1.png"
+                                onerror="this.src='https://placehold.co/600x337/07080a/474853?text=Preview+Image'">
 
                             <!-- Hover Overlay -->
                             <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all duration-300 z-10 pointer-events-none">
@@ -223,7 +327,7 @@
                     <h2 class="text-xl font-bold text-white mb-4 uppercase tracking-wide">Frequently Asked Questions</h2>
 
                     <div class="space-y-3">
-                        <!-- FAQ Item 1 (WITH CUSTOM COLORED PATHS) -->
+                        <!-- FAQ Item 1 -->
                         <div class="border border-white/5 bg-white/[0.01] rounded-sm transition-all">
                             <button class="faq-toggle w-full p-4 flex justify-between items-center text-left font-bold text-white uppercase text-xs md:text-sm tracking-wider hover:bg-white/[0.03] transition-colors focus:outline-none">
                                 <span>How do I modify aura rarities?</span>
@@ -321,17 +425,119 @@
         </div>
     </div>
 
-    <!-- Script for FAQ toggles -->
+    <!-- EXPAND MEDIA MODAL -->
+    <div id="media-modal" class="fixed inset-0 z-50 hidden items-center justify-center opacity-0 transition-opacity duration-300">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-black/90 modal-backdrop" onclick="closeModal()"></div>
+        
+        <!-- Close Button -->
+        <button onclick="closeModal()" class="absolute top-6 right-6 z-50 p-2 bg-black/50 hover:bg-red-500/80 border border-white/20 hover:border-red-500 rounded-sm text-white transition-all">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+
+        <!-- Content Container -->
+        <div class="relative z-10 w-full max-w-5xl px-4 flex items-center justify-center" onclick="event.stopPropagation()">
+            <!-- HUD styling for expanded view -->
+            <div class="hud-card p-1 rounded-sm shadow-2xl w-full">
+                <div class="hud-corner hud-corner-tl"></div>
+                <div class="hud-corner hud-corner-tr"></div>
+                <div class="hud-corner hud-corner-bl"></div>
+                <div class="hud-corner hud-corner-br"></div>
+                
+                <!-- Dynamic Video -->
+                <video id="expanded-video" class="w-full hidden rounded-sm" controls autoplay>
+                    Your browser does not support the video tag.
+                </video>
+                
+                <!-- Dynamic Image -->
+                <img id="expanded-image" class="w-full hidden rounded-sm object-contain max-h-[80vh]" alt="Expanded Preview">
+            </div>
+        </div>
+    </div>
+
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const faqToggles = document.querySelectorAll('.faq-toggle');
+        // --- 1. SPA Navigation Logic ---
+        function switchView(viewId) {
+            // Hide all views
+            document.querySelectorAll('.view-section').forEach(el => {
+                el.classList.remove('active');
+            });
+            // Show the target view
+            const target = document.getElementById(viewId);
+            if(target) {
+                target.classList.add('active');
+                window.scrollTo(0, 0); // Scroll to top when switching pages
+            }
+        }
+
+        // --- 2. Modal Expansion Logic ---
+        const modal = document.getElementById('media-modal');
+        const expVideo = document.getElementById('expanded-video');
+        const expImage = document.getElementById('expanded-image');
+
+        function openModal(type, src) {
+            // Setup display
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
             
+            // Allow a tiny delay for transition classes to apply visually
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modal.classList.add('opacity-100');
+            }, 10);
+
+            if (type === 'video') {
+                expVideo.src = src;
+                expVideo.classList.remove('hidden');
+                expImage.classList.add('hidden');
+                expVideo.play();
+            } else if (type === 'image') {
+                expImage.src = src;
+                expImage.classList.remove('hidden');
+                expVideo.classList.add('hidden');
+            }
+        }
+
+        function closeModal() {
+            // Fade out
+            modal.classList.remove('opacity-100');
+            modal.classList.add('opacity-0');
+            
+            // Stop video
+            expVideo.pause();
+            
+            // Hide after transition
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                expVideo.src = '';
+                expImage.src = '';
+            }, 300); // Matches duration-300 in CSS
+        }
+
+        // Add Event Listeners for the cards
+        document.addEventListener('DOMContentLoaded', () => {
+            // Video Card Click
+            document.getElementById('video-card').addEventListener('click', function() {
+                const src = this.querySelector('video').src;
+                openModal('video', src);
+            });
+
+            // Photo Card Click
+            document.getElementById('photo-card').addEventListener('click', function() {
+                const src = this.querySelector('img').src;
+                openModal('image', src);
+            });
+
+            // --- 3. FAQ Toggles ---
+            const faqToggles = document.querySelectorAll('.faq-toggle');
             faqToggles.forEach(toggle => {
                 toggle.addEventListener('click', () => {
                     const content = toggle.nextElementSibling;
                     const icon = toggle.querySelector('svg');
                     
-                    // Check if closed
                     if (content.classList.contains('max-h-0')) {
                         // Open
                         content.classList.remove('max-h-0');
@@ -344,6 +550,13 @@
                         icon.classList.remove('rotate-180');
                     }
                 });
+            });
+            
+            // Close modal on Escape key press
+            document.addEventListener('keydown', function(event){
+                if(event.key === "Escape"){
+                    closeModal();
+                }
             });
         });
     </script>
