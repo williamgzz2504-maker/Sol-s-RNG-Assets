@@ -1,13 +1,13 @@
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sol's RNG Assets - Release Hub</title>
-    <!-- Tailwind CSS -->
+    <!-- Tailwind CSS para la estructura responsiva -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fuente oficial Rajdhani de Google Fonts -->
+    <!-- Fuente oficial Rajdhani desde Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -42,7 +42,7 @@
         .hud-corner-bl { bottom: 0px; left: 0px; border-width: 0 0 3px 3px; }
         .hud-corner-br { bottom: 0px; right: 0px; border-width: 0 3px 3px 0; }
 
-        /* Barra de desplazamiento personalizada que coincide con los menús del cliente de Roblox */
+        /* Barra de desplazamiento personalizada */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -58,7 +58,7 @@
             background: #474853;
         }
 
-        /* Restablecimiento del control deslizante (Neo-slider) */
+        /* Restablecimiento del control deslizante */
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
@@ -84,21 +84,21 @@
             
             <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="text-center md:text-left">
-                    <p class="text-xs uppercase tracking-[0.4em] text-gray-500 font-bold mb-1">Asset Distribution Protocol</p>
+                    <p class="text-xs uppercase tracking-[0.4em] text-gray-500 font-bold mb-1">Protocolo de Distribución de Recursos</p>
                     <h1 class="text-3xl md:text-4xl font-black tracking-widest text-white uppercase">
                         SOL'S RNG ASSETS
                     </h1>
                 </div>
                 <div class="px-4 py-2 bg-white/5 border border-white/10 text-center rounded-sm">
-                    <span class="block text-xs uppercase tracking-widest text-gray-400 font-bold">Release Stage</span>
-                    <span class="text-lg font-bold text-white tracking-widest uppercase">Version 0.1</span>
+                    <span class="block text-xs uppercase tracking-widest text-gray-400 font-bold">Fase de Lanzamiento</span>
+                    <span class="text-lg font-bold text-white tracking-widest uppercase">Versión 0.1</span>
                 </div>
             </div>
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             
-            <!-- Lado Izquierdo: Actualizaciones, Documentación y Medios -->
+            <!-- Lado Izquierdo: Documentación, Medios e FAQ -->
             <div class="lg:col-span-2 space-y-6">
                 
                 <!-- Sección de Documentación de la Versión -->
@@ -109,40 +109,40 @@
                     <div class="hud-corner hud-corner-br"></div>
                     
                     <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-base text-gray-400">▪</span> Release Documentation
+                        <span class="text-base text-gray-400">▪</span> Documentación de Versión
                     </div>
                     
-                    <h2 class="text-2xl font-bold text-white mb-3 uppercase tracking-wider">Update V0.1</h2>
+                    <h2 class="text-2xl font-bold text-white mb-3 uppercase tracking-wider">Actualización V0.1</h2>
                     <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 font-medium">
-                        This update includes the core loop handlers for the equip and skip mechanics, integrated along with the classic RNG automation workflows detailed in the registry list below.
+                        Esta versión incluye los manejadores del bucle principal para las mecánicas de equipar y omitir, integrados junto con los flujos de automatización RNG clásicos detallados en la lista de registro a continuación.
                     </p>
 
-                    <!-- Tabla de Datos de Características del Sistema -->
+                    <!-- Tabla de Datos -->
                     <div class="overflow-x-auto border border-white/10 rounded-sm">
                         <table class="w-full text-left border-collapse text-xs md:text-sm">
                             <thead>
                                 <tr class="bg-white/[0.03] border-b border-white/10 text-gray-400 uppercase tracking-widest text-[10px] font-bold">
-                                    <th class="p-4 border-r border-white/10 w-1/3">System Interface</th>
-                                    <th class="p-4">Technical Execution & Features</th>
+                                    <th class="p-4 border-r border-white/10 w-1/3">Interfaz del Sistema</th>
+                                    <th class="p-4">Ejecución Técnica y Funciones</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-white/10">
                                 <tr class="hover:bg-white/[0.01] transition-colors">
-                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide">Roll System</td>
+                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide">Sistema de Roll</td>
                                     <td class="p-4 text-gray-400 leading-relaxed font-medium">
-                                        Triggers an RNG rolling cycle sequence lasting roughly 2.5s to 3.2s. Displays the resulting aura viewport alongside modal selectors to instantly EQUIP or SKIP the rolled asset.
+                                        Activa una secuencia de ciclo de roll RNG de 2.5s a 3.2s. Muestra el visor de aura resultante junto con selectores modales para EQUIPAR u OMITIR instantáneamente el recurso obtenido.
                                     </td>
                                 </tr>
                                 <tr class="hover:bg-white/[0.01] transition-colors">
-                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide">Autoroll System</td>
+                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide">Sistema de Autoroll</td>
                                     <td class="p-4 text-gray-400 leading-relaxed font-medium">
-                                        Initiates an infinite automated rolling process, feeding sequential results straight to your character loop without manual action.
+                                        Inicia un proceso automatizado e infinito de rolls, enviando resultados secuenciales directo a tu bucle de personaje sin acción manual.
                                     </td>
                                 </tr>
                                 <tr class="hover:bg-white/[0.01] transition-colors">
-                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide">Quick Roll System</td>
+                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide">Sistema de Roll Rápido</td>
                                     <td class="p-4 text-gray-400 leading-relaxed font-medium">
-                                        Safely bypasses all timeline animations and camera frame delays to return computed auras instantly.
+                                        Omite de forma segura todas las animaciones cronológicas y retrasos de cámara para devolver las auras calculadas instantáneamente.
                                     </td>
                                 </tr>
                             </tbody>
@@ -158,18 +158,18 @@
                     <div class="hud-corner hud-corner-br"></div>
                     
                     <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-base text-gray-400">▪</span> System Media & Preview
+                        <span class="text-base text-gray-400">▪</span> Medios del Sistema y Vista Previa
                     </div>
                     
-                    <h2 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Visual Demonstration</h2>
+                    <h2 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Demostración Visual</h2>
                     <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-4 font-medium">
-                        Preview media showcasing the actual HUD system structure and user interface in action inside Roblox Studio. Click on any media to expand and experience with audio.
+                        Vista previa de los medios que muestran la estructura de la interfaz de usuario real en funcionamiento. Haz clic en cualquier recuadro para expandir el visor.
                     </p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                         
                         <!-- Contenedor del Slot de Video -->
-                        <div id="video-card" class="aspect-video bg-black border border-white/10 rounded-sm relative overflow-hidden flex items-center justify-center group cursor-pointer transition-all duration-300 hover:border-white/40 hover:scale-[1.01] hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                        <div id="video-card" class="aspect-video bg-black border border-white/10 rounded-sm relative overflow-hidden flex items-center justify-center group cursor-pointer transition-all duration-300 hover:border-white/40 hover:scale-[1.01]">
                             <div class="hud-corner hud-corner-tl"></div>
                             <div class="hud-corner hud-corner-tr"></div>
                             <div class="hud-corner hud-corner-bl"></div>
@@ -177,7 +177,7 @@
 
                             <video 
                                 id="main-preview-video"
-                                class="w-full h-full object-cover absolute inset-0 opacity-80 group-hover:opacity-100 transition-all duration-300" 
+                                class="w-full h-full object-cover absolute inset-0 opacity-80 group-hover:opacity-100 transition-all duration-300 pointer-events-none" 
                                 autoplay 
                                 loop 
                                 muted 
@@ -185,28 +185,24 @@
                                 src="Sol%27s%20RNG%20Video%20V0.1.mp4">
                             </video>
                             
-                            <!-- Overlay Hover: Clic para expandir -->
-                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all duration-300 z-10">
-                                <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Overlay Hover -->
+                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all duration-300 z-10 pointer-events-none">
+                                <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637zM12 9.75v4.5m2.25-2.25h-4.5"></path>
                                 </svg>
                                 <span class="text-xs uppercase font-extrabold tracking-[0.2em] text-white border border-white/30 px-3 py-1.5 bg-black/90 rounded-sm shadow-xl">
-                                    Expand with Sound
+                                    Expandir con Sonido
                                 </span>
                             </div>
                             
-                            <!-- Placeholder visual si el video falla al cargar -->
-                            <div id="video-placeholder" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10 bg-white/5" style="display: none;">
-                                <svg class="w-8 h-8 text-gray-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
-                                </svg>
-                                <span class="text-xs text-gray-400 uppercase font-bold tracking-widest">System Video Preview</span>
-                                <span class="text-[10px] text-gray-600 uppercase mt-1">Video failed to load</span>
+                            <!-- Fallback Local -->
+                            <div id="video-placeholder" class="absolute inset-0 flex-col items-center justify-center p-4 text-center z-0 bg-white/5 pointer-events-none hidden">
+                                <span class="text-xs text-gray-400 uppercase font-bold tracking-widest">Haz clic para probar el visor</span>
                             </div>
                         </div>
 
                         <!-- Contenedor del Slot de Imagen -->
-                        <div id="photo-card" class="aspect-video bg-black border border-white/10 flex flex-col items-center justify-center rounded-sm relative group overflow-hidden cursor-pointer transition-all duration-300 hover:border-white/40 hover:scale-[1.01] hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                        <div id="photo-card" class="aspect-video bg-black border border-white/10 flex flex-col items-center justify-center rounded-sm relative group overflow-hidden cursor-pointer transition-all duration-300 hover:border-white/40 hover:scale-[1.01]">
                             <div class="hud-corner hud-corner-tl"></div>
                             <div class="hud-corner hud-corner-tr"></div>
                             <div class="hud-corner hud-corner-bl"></div>
@@ -215,29 +211,85 @@
                             <img 
                                 id="main-preview-photo"
                                 alt="Sol's RNG Interface Preview"
-                                class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-300"
+                                class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-300 pointer-events-none"
                                 src="Sol%27s%20RNG%20Photo%20V0.1.png">
 
-                            <!-- Overlay Hover: Clic para expandir -->
-                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all duration-300 z-10">
-                                <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Overlay Hover -->
+                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all duration-300 z-10 pointer-events-none">
+                                <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637zM12 9.75v4.5m2.25-2.25h-4.5"></path>
                                 </svg>
                                 <span class="text-xs uppercase font-extrabold tracking-[0.2em] text-white border border-white/30 px-3 py-1.5 bg-black/90 rounded-sm shadow-xl">
-                                    Click to Expand
+                                    Click para Expandir
                                 </span>
                             </div>
                             
-                            <!-- Placeholder visual si la imagen falla al cargar -->
-                            <div id="photo-placeholder" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10 bg-white/5" style="display: none;">
-                                <svg class="w-8 h-8 text-gray-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                                </svg>
-                                <span class="text-xs text-gray-500 uppercase font-bold tracking-widest">Interface Screen</span>
-                                <span class="text-[10px] text-gray-600 uppercase mt-1">Image Asset Missing</span>
+                            <!-- Fallback Local -->
+                            <div id="photo-placeholder" class="absolute inset-0 flex-col items-center justify-center p-4 text-center z-0 bg-white/5 pointer-events-none hidden">
+                                <span class="text-xs text-gray-500 uppercase font-bold tracking-widest">Haz clic para probar el visor</span>
                             </div>
                         </div>
 
+                    </div>
+                </section>
+
+                <!-- SECCIÓN DE PREGUNTAS FRECUENTES (FAQ) ACTUALIZADA -->
+                <section class="hud-card p-6 rounded-sm">
+                    <div class="hud-corner hud-corner-tl"></div>
+                    <div class="hud-corner hud-corner-tr"></div>
+                    <div class="hud-corner hud-corner-bl"></div>
+                    <div class="hud-corner hud-corner-br"></div>
+
+                    <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
+                        <span class="text-base text-gray-400">▪</span> Soporte del Hub y Preguntas Frecuentes
+                    </div>
+                    <h2 class="text-xl font-bold text-white mb-4 uppercase tracking-wide">Preguntas Frecuentes (FAQ)</h2>
+
+                    <div class="space-y-3">
+                        <!-- FAQ Item 1 -->
+                        <div class="border border-white/5 bg-white/[0.01] rounded-sm transition-all">
+                            <button class="faq-toggle w-full p-4 flex justify-between items-center text-left font-bold text-white uppercase text-xs md:text-sm tracking-wider hover:bg-white/[0.03] transition-colors focus:outline-none">
+                                <span>¿Cómo comodifico la rareza de las auras?</span>
+                                <svg class="w-4 h-4 transform transition-transform duration-200 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                <p class="p-4 text-xs md:text-sm text-gray-400 border-t border-white/5 leading-relaxed font-medium">
+                                    1.- para modificar la rareza de las auras deben de ir a replicated storage y luego al folder modules ahí dentro debe de estar el module de auras donde están las rarezas.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 2 -->
+                        <div class="border border-white/5 bg-white/[0.01] rounded-sm transition-all">
+                            <button class="faq-toggle w-full p-4 flex justify-between items-center text-left font-bold text-white uppercase text-xs md:text-sm tracking-wider hover:bg-white/[0.03] transition-colors focus:outline-none">
+                                <span>¿Cada cuánto tardará en haber una actualización?</span>
+                                <svg class="w-4 h-4 transform transition-transform duration-200 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                <p class="p-4 text-xs md:text-sm text-gray-400 border-t border-white/5 leading-relaxed font-medium">
+                                    2.- mi asset probablemente tarde entre 1 y 2 semanas para que lo actualice depende mi tiempo.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- FAQ Item 3 -->
+                        <div class="border border-white/5 bg-white/[0.01] rounded-sm transition-all">
+                            <button class="faq-toggle w-full p-4 flex justify-between items-center text-left font-bold text-white uppercase text-xs md:text-sm tracking-wider hover:bg-white/[0.03] transition-colors focus:outline-none">
+                                <span>¿Cómo puedo contactarte?</span>
+                                <svg class="w-4 h-4 transform transition-transform duration-200 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                                </svg>
+                            </button>
+                            <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                                <p class="p-4 text-xs md:text-sm text-gray-400 border-t border-white/5 leading-relaxed font-medium">
+                                    3.-De momento no habrá forma más que por discord.
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </section>
                 
@@ -254,59 +306,8 @@
                     <div class="hud-corner hud-corner-br"></div>
                     
                     <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-base text-gray-400">▪</span> Resource Download
+                        <span class="text-base text-gray-400">▪</span> Descarga de Recursos
                     </div>
                     
                     <h2 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">System Build</h2>
-                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-6 font-medium">
-                        Download the full Roblox Place file mapping all current interfaces, scripting nodes, and functional components.
-                    </p>
-                    
-                    <!-- Enlace de descarga -->
-                    <a href="Sols%20RNG%20SYSTEM%20V0.1.rbxl" download="Sols RNG SYSTEM V0.1.rbxl" class="group w-full py-3 px-4 bg-white hover:bg-gray-300 text-black font-extrabold uppercase tracking-widest text-xs flex items-center justify-center gap-2 rounded-sm border border-transparent transition-all duration-150">
-                        <svg class="w-4 h-4 fill-current transform group-hover:translate-y-0.5 transition-transform" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
-                        </svg>
-                        Download Files (.RBXL)
-                    </a>
-                    
-                    <!-- Formato de archivo y etiqueta de tamaño calculada dinámicamente -->
-                    <div class="mt-4 flex justify-between items-center text-[10px] text-gray-500 uppercase tracking-widest font-bold">
-                        <span>Format: Roblox Studio</span>
-                        <span id="file-size">Size: Calculating...</span>
-                    </div>
-                </section>
-
-                <!-- Panel de Descargo de Responsabilidad -->
-                <section class="hud-card p-5 rounded-sm">
-                    <div class="hud-corner hud-corner-tl"></div>
-                    <div class="hud-corner hud-corner-tr"></div>
-                    <div class="hud-corner hud-corner-bl"></div>
-                    <div class="hud-corner hud-corner-br"></div>
-                    
-                    <div class="flex items-center gap-2 mb-2 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-sm text-gray-400">▪</span> Original Content
-                    </div>
-                    <h3 class="text-md font-bold text-white mb-2 uppercase tracking-wide">Developer Disclaimer</h3>
-                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed font-medium">
-                        Everything included inside this workspace is custom-developed, including all associated interfaces and frameworks.
-                    </p>
-                </section>
-
-                <!-- Panel de Advertencia / Copyright -->
-                <section class="hud-card p-5 rounded-sm border-white/10">
-                    <div class="hud-corner hud-corner-tl"></div>
-                    <div class="hud-corner hud-corner-tr"></div>
-                    <div class="hud-corner hud-corner-bl"></div>
-                    <div class="hud-corner hud-corner-br"></div>
-                    
-                    <div class="flex items-center gap-2 mb-2 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-sm text-red-500">▪</span> Critical Warning
-                    </div>
-                    <h3 class="text-md font-bold text-white mb-2 uppercase tracking-wide">Usage Recommendation</h3>
-                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed font-medium">
-                        If you planning to publish a public game, utilizing original sounds, UI layouts, or replication files directly from Sol's RNG is highly discouraged. Creators who reuse these assets often risk copyright takedowns directly from the Sol's RNG development team.
-                    </p>
-                </section>
-                
-            </div
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-6 font-medium
