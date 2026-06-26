@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sol's RNG Assets - Release Hub</title>
+    <!-- Tailwind CSS for modern layout structure -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Official Rajdhani font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            background-color: #07080a;
+            color: #f1f5f9;
+            font-family: 'Rajdhani', sans-serif;
+            letter-spacing: 0.04em;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Pure Roblox HUD style flat panels with light translucent backing */
+        .hud-card {
+            background-color: rgba(13, 14, 18, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        /* Seamless flat corner brackets (0px inside alignment) */
+        .hud-corner {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-color: #ffffff;
+            border-style: solid;
+            pointer-events: none;
+        }
+        .hud-corner-tl { top: 0px; left: 0px; border-width: 3px 0 0 3px; }
+        .hud-corner-tr { top: 0px; right: 0px; border-width: 3px 3px 0 0; }
+        .hud-corner-bl { bottom: 0px; left: 0px; border-width: 0 0 3px 3px; }
+        .hud-corner-br { bottom: 0px; right: 0px; border-width: 0 3px 3px 0; }
+
+        /* Custom scrollbar matching Roblox UI skin */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #07080a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27282f;
+            border-radius: 1px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #474853;
+        }
+    </style>
+</head>
+<body class="py-6 px-4 md:px-8 lg:px-12 flex items-center justify-center min-h-screen">
+
+    <div class="max-w-6xl w-full mx-auto space-y-6">
+        
+        <!-- Header Panel -->
+        <header class="hud-card p-6 rounded-sm">
+            <div class="hud-corner hud-corner-tl"></div>
+            <div class="hud-corner hud-corner-tr"></div>
+            <div class="hud-corner hud-corner-bl"></div>
+            <div class="hud-corner hud-corner-br"></div>
+            
+            <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                <div class="text-center md:text-left">
+                    <p class="text-xs uppercase tracking-[0.4em] text-gray-500 font-bold mb-1">Asset Distribution Protocol</p>
+                    <h1 class="text-3xl md:text-4xl font-black tracking-widest text-white uppercase">
+                        SOL'S RNG ASSETS
+                    </h1>
+                </div>
+                <div class="px-4 py-2 bg-white/5 border border-white/10 text-center rounded-sm">
+                    <span class="block text-xs uppercase tracking-widest text-gray-400 font-bold">Release Stage</span>
+                    <span class="text-lg font-bold text-white tracking-widest uppercase">Version 0.1</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+            
+            <!-- Left Side: Core Updates & Documentation -->
+            <div class="lg:col-span-2 space-y-6">
+                
+                <!-- Features & Release Summary -->
+                <section class="hud-card p-6 rounded-sm">
+                    <div class="hud-corner hud-corner-tl"></div>
+                    <div class="hud-corner hud-corner-tr"></div>
+                    <div class="hud-corner hud-corner-bl"></div>
+                    <div class="hud-corner hud-corner-br"></div>
+                    
+                    <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
+                        <span class="text-base">▪</span> Release Documentation
+                    </div>
+                    
+                    <h2 class="text-2xl font-bold text-white mb-3 uppercase tracking-wider">Update V0.1</h2>
+                    <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6 font-medium">
+                        This update includes the core loop handlers for the equip and skip mechanics, integrated along with the classic RNG automation workflows detailed in the registry list below.
+                    </p>
+
+                    <div class="overflow-x-auto border border-white/10 rounded-sm">
+                        <table class="w-full text-left border-collapse text-xs md:text-sm">
+                            <thead>
+                                <tr class="bg-white/[0.03] border-b border-white/10 text-gray-400 uppercase tracking-widest text-xxs font-bold">
+                                    <th class="p-4 border-r border-white/10 w-1/3">System Interface</th>
+                                    <th class="p-4">Technical Execution & Features</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/10">
+                                <tr class="hover:bg-white/[0.01] transition-colors">
+                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide">Roll System</td>
+                                    <td class="p-4 text-gray-400 leading-relaxed font-medium">
+                                        Triggers an RNG rolling cycle sequence lasting roughly 2.5s to 3.2s. Displays the resulting aura viewport alongside modal selectors to instantly EQUIP or SKIP the rolled asset.
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/[0.01] transition-colors">
+                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide">Autoroll System</td>
+                                    <td class="p-4 text-gray-400 leading-relaxed font-medium">
+                                        Initiates an infinite automated rolling process, feeding sequential results straight to your character loop without manual action.
+                                    </td>
+                                </tr>
+                                <tr class="hover:bg-white/[0.01] transition-colors">
+                                    <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide">Quick Roll System</td>
+                                    <td class="p-4 text-gray-400 leading-relaxed font-medium">
+                                        Safely bypasses all timeline animations and camera frame delays to return computed auras instantly.
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                
+            </div>
+
+            <!-- Right Side: Download & Rules Sidebar -->
+            <div class="space-y-6">
+                
+                <!-- Download Box -->
+                <section class="hud-card p-6 rounded-sm border-white/20">
+                    <div class="hud-corner hud-corner-tl"></div>
+                    <div class="hud-corner hud-corner-tr"></div>
+                    <div class="hud-corner hud-corner-bl"></div>
+                    <div class="hud-corner hud-corner-br"></div>
+                    
+                    <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
+                        <span class="text-base text-white">▪</span> Resource Download
+                    </div>
+                    
+                    <h2 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">System Build</h2>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-6 font-medium">
+                        Download the full Roblox Place file mapping all current interfaces, scripting nodes, and functional components.
+                    </p>
+                    
+                    <a href="Sols%20RNG%20SYSTEM%20V0.1.rbxl" download="Sols RNG SYSTEM V0.1.rbxl" class="group w-full py-3 px-4 bg-white hover:bg-gray-200 text-black font-extrabold uppercase tracking-widest text-xs flex items-center justify-center gap-2 rounded-sm border border-white transition-all duration-150">
+                        <!-- Custom Inline Download Icon -->
+                        <svg class="w-4 h-4 fill-current transform group-hover:translate-y-0.5 transition-transform" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
+                        </svg>
+                        Download Files (.RBXL)
+                    </a>
+                    
+                    <div class="mt-4 flex justify-between items-center text-xxs text-gray-500 uppercase tracking-widest font-bold">
+                        <span>Format: Studio Place</span>
+                        <span>Size: ~1.2 MB</span>
+                    </div>
+                </section>
+
+                <!-- Disclaimer Box -->
+                <section class="hud-card p-5 rounded-sm">
+                    <div class="hud-corner hud-corner-tl"></div>
+                    <div class="hud-corner hud-corner-tr"></div>
+                    <div class="hud-corner hud-corner-bl"></div>
+                    <div class="hud-corner hud-corner-br"></div>
+                    
+                    <div class="flex items-center gap-2 mb-2 text-white font-bold uppercase text-xs tracking-widest">
+                        <span class="text-sm">▪</span> Original Content
+                    </div>
+                    <h3 class="text-md font-bold text-white mb-2 uppercase tracking-wide">Developer Disclaimer</h3>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed font-medium">
+                        Everything included inside this workspace is custom-developed, including all associated interfaces and frameworks.
+                    </p>
+                </section>
+
+                <!-- Recommendation / Copyright Warning Box -->
+                <section class="hud-card p-5 rounded-sm border-white/10">
+                    <div class="hud-corner hud-corner-tl"></div>
+                    <div class="hud-corner hud-corner-tr"></div>
+                    <div class="hud-corner hud-corner-bl"></div>
+                    <div class="hud-corner hud-corner-br"></div>
+                    
+                    <div class="flex items-center gap-2 mb-2 text-white font-bold uppercase text-xs tracking-widest">
+                        <span class="text-sm">▪</span> Critical Warning
+                    </div>
+                    <h3 class="text-md font-bold text-white mb-2 uppercase tracking-wide">Usage Recommendation</h3>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed font-medium">
+                        If you planning to publish a public game, utilizing original sounds, UI layouts, or replication files directly from Sol's RNG is highly discouraged. Creators who reuse these assets often risk copyright takedowns directly from the Sol's RNG development team.
+                    </p>
+                </section>
+                
+            </div>
+            
+        </div>
+
+        <!-- Footer Info -->
+        <footer class="text-center text-xxs text-gray-600 tracking-[0.3em] uppercase pt-6 font-bold">
+            Data verified // Sol's RNG Assets Distributable
+        </footer>
+
+    </div>
+
+</body>
+</html>
