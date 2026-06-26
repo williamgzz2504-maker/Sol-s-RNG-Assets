@@ -154,16 +154,17 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                         
-                        <!-- Video Slot (With clean fallback handled dynamically by JS) -->
+                        <!-- Video Slot -->
                         <div class="aspect-video bg-black border border-white/10 rounded-sm relative overflow-hidden flex items-center justify-center group">
-                            <!-- Video loaded dynamically via JS -->
+                            <!-- Video element. Notice there's no complex fallback logic anymore. -->
                             <video 
                                 id="main-preview-video"
                                 class="w-full h-full object-cover absolute inset-0 opacity-80 group-hover:opacity-100 transition-opacity" 
                                 autoplay 
                                 loop 
                                 muted 
-                                playsinline>
+                                playsinline
+                                src="Sol%27s%20RNG%20Video%20V0.1.mp4">
                             </video>
                             
                             <!-- Visual fallback placeholder if video fails to load/decode -->
@@ -172,17 +173,18 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
                                 </svg>
                                 <span class="text-xs text-gray-400 uppercase font-bold tracking-widest">System Video Preview</span>
-                                <span class="text-xxs text-gray-600 uppercase mt-1">Check file name or extension formats</span>
+                                <span class="text-xxs text-gray-600 uppercase mt-1">Video failed to load</span>
                             </div>
                         </div>
 
-                        <!-- Image Slot (With clean fallback handled dynamically by JS) -->
+                        <!-- Image Slot -->
                         <div class="aspect-video bg-black border border-white/10 flex flex-col items-center justify-center rounded-sm relative group overflow-hidden">
-                            <!-- Image loaded dynamically via JS -->
+                            <!-- Image element. -->
                             <img 
                                 id="main-preview-photo"
                                 alt="Sol's RNG Interface Preview"
-                                class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
+                                class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                                src="Sol%27s%20RNG%20Photo%20V0.1.png">
                             
                             <!-- Visual fallback placeholder if image fails to load -->
                             <div id="photo-placeholder" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10 bg-white/5" style="display: none;">
@@ -283,23 +285,20 @@
             const videoPlaceholder = document.getElementById("video-placeholder");
             const photoPlaceholder = document.getElementById("photo-placeholder");
 
-            // Ordered sequence of fallback video sources
-            const videoSources = [
-                "Sol%27s%20RNG%20Video%20V0.1.mp4",  // Attempt 1: Standard URL-safe MP4
-                "Sol%27s%20RNG%20Video%20V0.1",      // Attempt 2: Extensionless as seen in early uploads
-                "Sol%27s%20RNG%20Video%20V0.1.mov",  // Attempt 3: MOV format fallback
-                "Sol%27s%20RNG%20Video%20V0.1.webm"  // Attempt 4: WebM format fallback
-            ];
-            let currentVideoIndex = 0;
+            // Simple error handling: just show the placeholder if it fails once.
+            if (videoElement) {
+                videoElement.addEventListener("error", () => {
+                    videoElement.style.display = 'none';
+                    if (videoPlaceholder) videoPlaceholder.style.display = 'flex';
+                });
+            }
 
-            // Ordered sequence of fallback image sources
-            const imageSources = [
-                "Sol%27s%20RNG%20Photo%20V0.1.png",  // Attempt 1: Standard URL-safe PNG
-                "Sol%27s%20RNG%20Photo%20V0.1",      // Attempt 2: Extensionless as seen in early uploads
-                "Sol%27s%20RNG%20Photo%20V0.1.jpg",  // Attempt 3: JPG format fallback
-                "Sol%27s%20RNG%20Photo%20V0.1.jpeg"  // Attempt 4: JPEG format fallback
-            ];
-            let currentImageIndex = 0;
+            if (imgElement) {
+                imgElement.addEventListener("error", () => {
+                    imgElement.style.display = 'none';
+                    if (photoPlaceholder) photoPlaceholder.style.display = 'flex';
+                });
+            }
 
             // Dynamic file size detector using HEAD headers request
             const fileName = "Sols%20RNG%20SYSTEM%20V0.1.rbxl";
@@ -326,42 +325,6 @@
                 .catch(() => {
                     sizeLabel.textContent = "Size: Dynamic (Pending Deploy)";
                 });
-
-            // Set up dynamic error handling for video
-            if (videoElement) {
-                videoElement.addEventListener("error", () => {
-                    currentVideoIndex++;
-                    if (currentVideoIndex < videoSources.length) {
-                        // Attempt to load the next potential source in list
-                        videoElement.src = videoSources[currentVideoIndex];
-                    } else {
-                        // All fallback items failed, show visual placeholder card
-                        videoElement.style.display = 'none';
-                        if (videoPlaceholder) videoPlaceholder.style.display = 'flex';
-                    }
-                });
-                
-                // Initialize video source safely after the listener is attached
-                videoElement.src = videoSources[0];
-            }
-
-            // Set up dynamic error handling for image preview
-            if (imgElement) {
-                imgElement.addEventListener("error", () => {
-                    currentImageIndex++;
-                    if (currentImageIndex < imageSources.length) {
-                        // Attempt to load the next potential source in list
-                        imgElement.src = imageSources[currentImageIndex];
-                    } else {
-                        // All fallback items failed, show visual placeholder card
-                        imgElement.style.display = 'none';
-                        if (photoPlaceholder) photoPlaceholder.style.display = 'flex';
-                    }
-                });
-
-                // Initialize image source safely after the listener is attached
-                imgElement.src = imageSources[0];
-            }
         });
     </script>
 </body>
