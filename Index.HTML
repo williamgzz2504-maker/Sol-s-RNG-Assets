@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sol's RNG Assets</title>
+    <!-- Tailwind CSS para el diseño responsivo -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fuente oficial Rajdhani de Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -17,14 +19,14 @@
             min-height: 100vh;
         }
 
-        /* Clean, high-fidelity HUD style using classic Sol's RNG dark interface colors */
+        /* Estilo fiel a la interfaz oscura de Sol's RNG con transparencia */
         .hud-card {
-            background-color: #0f1015;
-            border: 1px solid #20222b;
+            background-color: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(4px);
             position: relative;
         }
 
-        /* High-contrast solid corner brackets inspired by image_bbb5a3.png (completely flat, no glow) */
+        /* Esquinas de alto contraste sin brillo alineadas perfectamente por dentro (0px) */
         .hud-corner {
             position: absolute;
             width: 12px;
@@ -33,12 +35,12 @@
             border-style: solid;
             pointer-events: none;
         }
-        .hud-corner-tl { top: -2px; left: -2px; border-width: 3px 0 0 3px; }
-        .hud-corner-tr { top: -2px; right: -2px; border-width: 3px 3px 0 0; }
-        .hud-corner-bl { bottom: -2px; left: -2px; border-width: 0 0 3px 3px; }
-        .hud-corner-br { bottom: -2px; right: -2px; border-width: 0 3px 3px 0; }
+        .hud-corner-tl { top: 0px; left: 0px; border-width: 3px 0 0 3px; }
+        .hud-corner-tr { top: 0px; right: 0px; border-width: 3px 3px 0 0; }
+        .hud-corner-bl { bottom: 0px; left: 0px; border-width: 0 0 3px 3px; }
+        .hud-corner-br { bottom: 0px; right: 0px; border-width: 0 3px 3px 0; }
 
-        /* Custom scrollbar to match the high-contrast HUD */
+        /* Barra de desplazamiento personalizada estilo Roblox HUD */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -66,23 +68,19 @@
             <div class="hud-corner hud-corner-bl"></div>
             <div class="hud-corner hud-corner-br"></div>
             
-            <p class="text-sm uppercase tracking-[0.3em] text-[#ffbf00] font-bold mb-1">Asset Repository</p>
+            <p class="text-sm uppercase tracking-[0.3em] text-gray-400 font-bold mb-1">Asset Repository</p>
             <h1 class="text-4xl md:text-5xl font-extrabold tracking-wider text-white">
                 SOL'S RNG ASSETS
             </h1>
-            <div class="mt-3 flex items-center justify-center gap-4 text-xs font-semibold text-slate-400">
-                <span class="flex items-center gap-1.5 uppercase">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#10b981]"></span>
-                    Status: Verified
-                </span>
-                <span class="text-slate-700">|</span>
-                <span class="uppercase">Build: V0.1</span>
+            <div class="mt-3 flex items-center justify-center text-sm font-semibold text-white">
+                <span class="uppercase tracking-widest">Version 0.1</span>
             </div>
         </header>
 
         <!-- Main Info Grid -->
         <main class="grid grid-cols-1 md:grid-cols-2 gap-6">
             
+            <!-- Disclaimer Section -->
             <section class="hud-card p-6 flex flex-col justify-between rounded-sm">
                 <div class="hud-corner hud-corner-tl"></div>
                 <div class="hud-corner hud-corner-tr"></div>
@@ -90,19 +88,20 @@
                 <div class="hud-corner hud-corner-br"></div>
                 
                 <div>
-                    <div class="flex items-center gap-2 mb-3 text-cyan-400 font-bold uppercase text-sm tracking-wider">
+                    <div class="flex items-center gap-2 mb-3 text-white font-bold uppercase text-sm tracking-wider">
                         <span class="text-lg">▪</span> Disclaimer
                     </div>
                     <h2 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Original Assets</h2>
-                    <p class="text-slate-300 text-base leading-relaxed font-medium">
+                    <p class="text-gray-300 text-base leading-relaxed font-medium">
                         Everything I created is literally made by me, including all of the interfaces.
                     </p>
                 </div>
-                <div class="mt-6 pt-3 border-t border-slate-800 text-xs text-slate-500 uppercase tracking-wider">
+                <div class="mt-6 pt-3 border-t border-white/10 text-xs text-gray-400 uppercase tracking-wider">
                     Source Verified // 100% Custom Work
                 </div>
             </section>
 
+            <!-- Recommendation Section -->
             <section class="hud-card p-6 flex flex-col justify-between rounded-sm">
                 <div class="hud-corner hud-corner-tl"></div>
                 <div class="hud-corner hud-corner-tr"></div>
@@ -110,60 +109,62 @@
                 <div class="hud-corner hud-corner-br"></div>
                 
                 <div>
-                    <div class="flex items-center gap-2 mb-3 text-red-400 font-bold uppercase text-sm tracking-wider">
+                    <div class="flex items-center gap-2 mb-3 text-white font-bold uppercase text-sm tracking-wider">
                         <span class="text-lg">▪</span> Recommendation
                     </div>
                     <h2 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Copyright Notice</h2>
-                    <p class="text-slate-300 text-base leading-relaxed font-medium">
+                    <p class="text-gray-300 text-base leading-relaxed font-medium">
                         If you are going to make an RNG game, I would not recommend using these Interfaces, Sounds, and Auras. If a Sol's RNG DEV sees your game, they might take it down due to copyright infringement (it is not the first time this has happened).
                     </p>
                 </div>
-                <div class="mt-6 pt-3 border-t border-slate-800 text-xs text-red-400/80 font-semibold uppercase tracking-wider">
+                <div class="mt-6 pt-3 border-t border-white/10 text-xs text-gray-400 font-semibold uppercase tracking-wider">
                     Alert for External Creators
                 </div>
             </section>
 
         </main>
 
+        <!-- Features & Update Highlights -->
         <section class="hud-card p-6 rounded-sm">
             <div class="hud-corner hud-corner-tl"></div>
             <div class="hud-corner hud-corner-tr"></div>
             <div class="hud-corner hud-corner-bl"></div>
             <div class="hud-corner hud-corner-br"></div>
             
-            <div class="flex items-center gap-2 mb-4 text-[#bf7afb] font-bold uppercase text-sm tracking-wider">
+            <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-sm tracking-wider">
                 <span class="text-lg">▪</span> Current Release Highlights
             </div>
             
             <h2 class="text-2xl font-bold text-white mb-3 uppercase tracking-wide">Update V0.1</h2>
-            <p class="text-slate-300 text-base leading-relaxed mb-6 font-medium">
+            <p class="text-gray-300 text-base leading-relaxed mb-6 font-medium">
                 This release features a fully functional equip/skip aura loop alongside the following standard deployment systems: Roll, Autoroll, and Quick roll.
             </p>
             
-            <div class="overflow-x-auto border border-slate-800 rounded-sm">
+            <!-- Table of Systems -->
+            <div class="overflow-x-auto border border-white/10 rounded-sm">
                 <table class="w-full text-left border-collapse text-sm">
                     <thead>
-                        <tr class="bg-white/[0.03] border-b border-slate-800 text-slate-300 uppercase tracking-widest text-xs font-bold">
-                            <th class="p-3.5 border-r border-slate-800">System Name</th>
+                        <tr class="bg-white/5 border-b border-white/10 text-gray-200 uppercase tracking-widest text-xs font-bold">
+                            <th class="p-3.5 border-r border-white/10">System Name</th>
                             <th class="p-3.5">Behavior & Description</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-800/80">
-                        <tr class="hover:bg-white/[0.01] transition-colors">
-                            <td class="p-3.5 font-bold text-cyan-400 whitespace-nowrap border-r border-slate-800 uppercase tracking-wide">Roll System</td>
-                            <td class="p-3.5 text-slate-300 leading-relaxed font-medium">
+                    <tbody class="divide-y divide-white/10">
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="p-3.5 font-bold text-white whitespace-nowrap border-r border-white/10 uppercase tracking-wide">Roll System</td>
+                            <td class="p-3.5 text-gray-300 leading-relaxed font-medium">
                                 Pressing the Roll button triggers a short animation of approximately 2.5s or 3.2s. Once the animation finishes, your rolled aura is displayed with clean options to either equip or skip the result.
                             </td>
                         </tr>
-                        <tr class="hover:bg-white/[0.01] transition-colors">
-                            <td class="p-3.5 font-bold text-cyan-400 whitespace-nowrap border-r border-slate-800 uppercase tracking-wide">Autoroll System</td>
-                            <td class="p-3.5 text-slate-300 leading-relaxed font-medium">
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="p-3.5 font-bold text-white whitespace-nowrap border-r border-white/10 uppercase tracking-wide">Autoroll System</td>
+                            <td class="p-3.5 text-gray-300 leading-relaxed font-medium">
                                 Keeps rolling continuously and automatically for your account without requiring manual input.
                             </td>
                         </tr>
-                        <tr class="hover:bg-white/[0.01] transition-colors">
-                            <td class="p-3.5 font-bold text-cyan-400 whitespace-nowrap border-r border-slate-800 uppercase tracking-wide">Quick Roll System</td>
-                            <td class="p-3.5 text-slate-300 leading-relaxed font-medium">
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="p-3.5 font-bold text-white whitespace-nowrap border-r border-white/10 uppercase tracking-wide">Quick Roll System</td>
+                            <td class="p-3.5 text-gray-300 leading-relaxed font-medium">
                                 Bypasses all visual effects and roll animations to render results instantly for accelerated testing.
                             </td>
                         </tr>
@@ -172,7 +173,8 @@
             </div>
         </section>
 
-        <footer class="text-center text-xs text-slate-500 tracking-widest uppercase pt-4 font-semibold">
+        <!-- Footer -->
+        <footer class="text-center text-xs text-gray-500 tracking-widest uppercase pt-4 font-semibold">
             System Authorized // Sol's RNG Unofficial News & Assets Feed
         </footer>
 
