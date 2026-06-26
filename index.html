@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sol's RNG Assets - Release Hub</title>
-    <!-- Tailwind CSS para la estructura del diseño moderno -->
+    <!-- Tailwind CSS for modern structure -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Fuente oficial Rajdhani desde Google Fonts -->
+    <!-- Official Rajdhani font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -19,14 +19,14 @@
             min-height: 100vh;
         }
 
-        /* Paneles planos estilo Roblox HUD con un fondo negro translúcido */
+        /* Flat Roblox HUD panels with a translucid black background */
         .hud-card {
             background-color: rgba(13, 14, 18, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
         }
 
-        /* Esquinas planas integradas (alineación interior de 0px) */
+        /* Flat inner HUD corners (0px alignment inside) */
         .hud-corner {
             position: absolute;
             width: 12px;
@@ -40,7 +40,7 @@
         .hud-corner-bl { bottom: 0px; left: 0px; border-width: 0 0 3px 3px; }
         .hud-corner-br { bottom: 0px; right: 0px; border-width: 0 3px 3px 0; }
 
-        /* Barra de desplazamiento personalizada estilo interfaz de Roblox */
+        /* Custom scrollbar matching Roblox client menus */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -61,7 +61,7 @@
 
     <div class="max-w-6xl w-full mx-auto space-y-6">
         
-        <!-- Panel del Encabezado -->
+        <!-- Header Panel -->
         <header class="hud-card p-6 rounded-sm">
             <div class="hud-corner hud-corner-tl"></div>
             <div class="hud-corner hud-corner-tr"></div>
@@ -84,10 +84,10 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             
-            <!-- Lado Izquierdo: Actualizaciones, Documentación y Media -->
+            <!-- Left Side: Updates, Documentation, and Media -->
             <div class="lg:col-span-2 space-y-6">
                 
-                <!-- Documentación de la versión -->
+                <!-- Release Documentation Section -->
                 <section class="hud-card p-6 rounded-sm">
                     <div class="hud-corner hud-corner-tl"></div>
                     <div class="hud-corner hud-corner-tr"></div>
@@ -103,6 +103,7 @@
                         This update includes the core loop handlers for the equip and skip mechanics, integrated along with the classic RNG automation workflows detailed in the registry list below.
                     </p>
 
+                    <!-- System Features Data Table -->
                     <div class="overflow-x-auto border border-white/10 rounded-sm">
                         <table class="w-full text-left border-collapse text-xs md:text-sm">
                             <thead>
@@ -135,7 +136,7 @@
                     </div>
                 </section>
 
-                <!-- Sección de Media (Imágenes / Videos) -->
+                <!-- Media Section (Images / Videos) -->
                 <section class="hud-card p-6 rounded-sm">
                     <div class="hud-corner hud-corner-tl"></div>
                     <div class="hud-corner hud-corner-tr"></div>
@@ -153,21 +154,19 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                         
-                        <!-- Slot de Video Real (Auto-reproducible y en bucle con control de errores) -->
+                        <!-- Video Slot (With clean fallback handled dynamically by JS) -->
                         <div class="aspect-video bg-black border border-white/10 rounded-sm relative overflow-hidden flex items-center justify-center group">
-                            <!-- Este tag reproducirá de fondo el video de tu proyecto en loop -->
+                            <!-- Video loaded dynamically via JS -->
                             <video 
                                 id="main-preview-video"
-                                src="Sol%27s%20RNG%20Video%20V0.1.mp4" 
                                 class="w-full h-full object-cover absolute inset-0 opacity-80 group-hover:opacity-100 transition-opacity" 
                                 autoplay 
                                 loop 
                                 muted 
-                                playsinline
-                                onerror="handleVideoError(this)">
+                                playsinline>
                             </video>
                             
-                            <!-- Placeholder visual si no encuentra el video -->
+                            <!-- Visual fallback placeholder if video fails to load/decode -->
                             <div id="video-placeholder" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10 bg-white/5" style="display: none;">
                                 <svg class="w-8 h-8 text-gray-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
@@ -177,16 +176,15 @@
                             </div>
                         </div>
 
-                        <!-- Ejemplo de Imagen Real cargada desde tu GitHub -->
+                        <!-- Image Slot (With clean fallback handled dynamically by JS) -->
                         <div class="aspect-video bg-black border border-white/10 flex flex-col items-center justify-center rounded-sm relative group overflow-hidden">
+                            <!-- Image loaded dynamically via JS -->
                             <img 
                                 id="main-preview-photo"
-                                src="Sol%27s%20RNG%20Photo%20V0.1.png" 
                                 alt="Sol's RNG Interface Preview"
-                                class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-                                onerror="handleImageError(this)">
+                                class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity">
                             
-                            <!-- Placeholder visual si no encuentra la imagen -->
+                            <!-- Visual fallback placeholder if image fails to load -->
                             <div id="photo-placeholder" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10 bg-white/5" style="display: none;">
                                 <svg class="w-8 h-8 text-gray-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
@@ -201,10 +199,10 @@
                 
             </div>
 
-            <!-- Lado Derecho: Descargas y Reglas -->
+            <!-- Right Side: Downloads and Disclaimers -->
             <div class="space-y-6">
                 
-                <!-- Panel de Descargas -->
+                <!-- Downloads Panel -->
                 <section class="hud-card p-6 rounded-sm border-white/20">
                     <div class="hud-corner hud-corner-tl"></div>
                     <div class="hud-corner hud-corner-tr"></div>
@@ -220,7 +218,7 @@
                         Download the full Roblox Place file mapping all current interfaces, scripting nodes, and functional components.
                     </p>
                     
-                    <!-- Botón apuntando al nombre de tu archivo exacto -->
+                    <!-- Exact file path download link -->
                     <a href="Sols%20RNG%20SYSTEM%20V0.1.rbxl" download="Sols RNG SYSTEM V0.1.rbxl" class="group w-full py-3 px-4 bg-white hover:bg-gray-200 text-black font-extrabold uppercase tracking-widest text-xs flex items-center justify-center gap-2 rounded-sm border border-white transition-all duration-150">
                         <svg class="w-4 h-4 fill-current transform group-hover:translate-y-0.5 transition-transform" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
@@ -228,14 +226,14 @@
                         Download Files (.RBXL)
                     </a>
                     
-                    <!-- Formato y tamaño detectado por JS -->
+                    <!-- File Format & Dynamically calculated size label -->
                     <div class="mt-4 flex justify-between items-center text-xxs text-gray-500 uppercase tracking-widest font-bold">
                         <span>Format: Roblox Studio</span>
                         <span id="file-size">Size: Calculating...</span>
                     </div>
                 </section>
 
-                <!-- Panel de Disclaimer -->
+                <!-- Disclaimer Panel -->
                 <section class="hud-card p-5 rounded-sm">
                     <div class="hud-corner hud-corner-tl"></div>
                     <div class="hud-corner hud-corner-tr"></div>
@@ -251,7 +249,7 @@
                     </p>
                 </section>
 
-                <!-- Panel de Advertencia / Derechos de autor -->
+                <!-- Warning / Copyright Panel -->
                 <section class="hud-card p-5 rounded-sm border-white/10">
                     <div class="hud-corner hud-corner-tl"></div>
                     <div class="hud-corner hud-corner-tr"></div>
@@ -271,7 +269,7 @@
             
         </div>
 
-        <!-- Pie de página -->
+        <!-- Footer -->
         <footer class="text-center text-xxs text-gray-600 tracking-[0.3em] uppercase pt-6 font-bold">
             Data verified // Sol's RNG Assets Distributable
         </footer>
@@ -279,54 +277,34 @@
     </div>
 
     <script>
-        // Array de intentos ordenados para el vídeo
-        const videoSources = [
-            "Sol%27s%20RNG%20Video%20V0.1.mp4",  // Intento 1: Con extensión MP4
-            "Sol%27s%20RNG%20Video%20V0.1",      // Intento 2: Sin extensión (Como está en tu GitHub actualmente)
-            "Sol%27s%20RNG%20Video%20V0.1.mov",  // Intento 3: Con extensión MOV
-            "Sol%27s%20RNG%20Video%20V0.1.webm"  // Intento 4: Con extensión WEBM
-        ];
-        let currentVideoIndex = 0;
-
-        function handleVideoError(videoElement) {
-            currentVideoIndex++;
-            if (currentVideoIndex < videoSources.length) {
-                // Probamos la siguiente fuente de la lista
-                videoElement.src = videoSources[currentVideoIndex];
-            } else {
-                // Si todas fallan, ocultamos el reproductor y enseñamos el placeholder
-                videoElement.style.display = 'none';
-                document.getElementById('video-placeholder').style.display = 'flex';
-            }
-        }
-
-        // Array de intentos ordenados para la imagen
-        const imageSources = [
-            "Sol%27s%20RNG%20Photo%20V0.1.png",  // Intento 1: Con extensión PNG
-            "Sol%27s%20RNG%20Photo%20V0.1",      // Intento 2: Sin extensión (Como está en tu GitHub actualmente)
-            "Sol%27s%20RNG%20Photo%20V0.1.jpg",  // Intento 3: Con extensión JPG
-            "Sol%27s%20RNG%20Photo%20V0.1.jpeg"  // Intento 4: Con extensión JPEG
-        ];
-        let currentImageIndex = 0;
-
-        function handleImageError(imgElement) {
-            currentImageIndex++;
-            if (currentImageIndex < imageSources.length) {
-                // Probamos la siguiente fuente de la lista
-                imgElement.src = imageSources[currentImageIndex];
-            } else {
-                // Si todas fallan, ocultamos la imagen y enseñamos el placeholder
-                imgElement.style.display = 'none';
-                document.getElementById('photo-placeholder').style.display = 'flex';
-            }
-        }
-
-        // Script para detectar el peso del archivo de Roblox Studio de manera dinámica
         document.addEventListener("DOMContentLoaded", () => {
+            const videoElement = document.getElementById("main-preview-video");
+            const imgElement = document.getElementById("main-preview-photo");
+            const videoPlaceholder = document.getElementById("video-placeholder");
+            const photoPlaceholder = document.getElementById("photo-placeholder");
+
+            // Ordered sequence of fallback video sources
+            const videoSources = [
+                "Sol%27s%20RNG%20Video%20V0.1.mp4",  // Attempt 1: Standard URL-safe MP4
+                "Sol%27s%20RNG%20Video%20V0.1",      // Attempt 2: Extensionless as seen in early uploads
+                "Sol%27s%20RNG%20Video%20V0.1.mov",  // Attempt 3: MOV format fallback
+                "Sol%27s%20RNG%20Video%20V0.1.webm"  // Attempt 4: WebM format fallback
+            ];
+            let currentVideoIndex = 0;
+
+            // Ordered sequence of fallback image sources
+            const imageSources = [
+                "Sol%27s%20RNG%20Photo%20V0.1.png",  // Attempt 1: Standard URL-safe PNG
+                "Sol%27s%20RNG%20Photo%20V0.1",      // Attempt 2: Extensionless as seen in early uploads
+                "Sol%27s%20RNG%20Photo%20V0.1.jpg",  // Attempt 3: JPG format fallback
+                "Sol%27s%20RNG%20Photo%20V0.1.jpeg"  // Attempt 4: JPEG format fallback
+            ];
+            let currentImageIndex = 0;
+
+            // Dynamic file size detector using HEAD headers request
             const fileName = "Sols%20RNG%20SYSTEM%20V0.1.rbxl";
             const sizeLabel = document.getElementById("file-size");
 
-            // Realizamos una petición HEAD rápida para verificar el peso real
             fetch(fileName, { method: "HEAD" })
                 .then(response => {
                     if (response.ok) {
@@ -348,6 +326,42 @@
                 .catch(() => {
                     sizeLabel.textContent = "Size: Dynamic (Pending Deploy)";
                 });
+
+            // Set up dynamic error handling for video
+            if (videoElement) {
+                videoElement.addEventListener("error", () => {
+                    currentVideoIndex++;
+                    if (currentVideoIndex < videoSources.length) {
+                        // Attempt to load the next potential source in list
+                        videoElement.src = videoSources[currentVideoIndex];
+                    } else {
+                        // All fallback items failed, show visual placeholder card
+                        videoElement.style.display = 'none';
+                        if (videoPlaceholder) videoPlaceholder.style.display = 'flex';
+                    }
+                });
+                
+                // Initialize video source safely after the listener is attached
+                videoElement.src = videoSources[0];
+            }
+
+            // Set up dynamic error handling for image preview
+            if (imgElement) {
+                imgElement.addEventListener("error", () => {
+                    currentImageIndex++;
+                    if (currentImageIndex < imageSources.length) {
+                        // Attempt to load the next potential source in list
+                        imgElement.src = imageSources[currentImageIndex];
+                    } else {
+                        // All fallback items failed, show visual placeholder card
+                        imgElement.style.display = 'none';
+                        if (photoPlaceholder) photoPlaceholder.style.display = 'flex';
+                    }
+                });
+
+                // Initialize image source safely after the listener is attached
+                imgElement.src = imageSources[0];
+            }
         });
     </script>
 </body>
