@@ -19,7 +19,7 @@
             min-height: 100vh;
         }
 
-        /* Flat Roblox HUD panels with a translucid black background */
+        /* Flat Roblox HUD panels with a translucent black background */
         .hud-card {
             background-color: rgba(13, 14, 18, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -34,6 +34,7 @@
             border-color: #ffffff;
             border-style: solid;
             pointer-events: none;
+            z-index: 20;
         }
         .hud-corner-tl { top: 0px; left: 0px; border-width: 3px 0 0 3px; }
         .hud-corner-tr { top: 0px; right: 0px; border-width: 3px 3px 0 0; }
@@ -54,6 +55,18 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #474853;
+        }
+
+        /* Neo-slider reset */
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 10px;
+            height: 10px;
+            border-radius: 0%;
+            background: #ffffff;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
         }
     </style>
 </head>
@@ -95,7 +108,7 @@
                     <div class="hud-corner hud-corner-br"></div>
                     
                     <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-base">▪</span> Release Documentation
+                        <span class="text-base text-gray-400">▪</span> Release Documentation
                     </div>
                     
                     <h2 class="text-2xl font-bold text-white mb-3 uppercase tracking-wider">Update V0.1</h2>
@@ -144,28 +157,43 @@
                     <div class="hud-corner hud-corner-br"></div>
                     
                     <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-base">▪</span> System Media & Preview
+                        <span class="text-base text-gray-400">▪</span> System Media & Preview
                     </div>
                     
                     <h2 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Visual Demonstration</h2>
                     <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-4 font-medium">
-                        Preview media showcasing the actual HUD system structure and user interface in action inside Roblox Studio.
+                        Preview media showcasing the actual HUD system structure and user interface in action inside Roblox Studio. Click on any media to expand and experience with audio.
                     </p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
                         
-                        <!-- Video Slot -->
-                        <div class="aspect-video bg-black border border-white/10 rounded-sm relative overflow-hidden flex items-center justify-center group">
-                            <!-- Video element. Notice there's no complex fallback logic anymore. -->
+                        <!-- Video Slot Container -->
+                        <div id="video-card" class="aspect-video bg-black border border-white/10 rounded-sm relative overflow-hidden flex items-center justify-center group cursor-pointer transition-all duration-300 hover:border-white/40 hover:scale-[1.01] hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                            <!-- Esquinas HUD exclusivas para el Video -->
+                            <div class="hud-corner hud-corner-tl"></div>
+                            <div class="hud-corner hud-corner-tr"></div>
+                            <div class="hud-corner hud-corner-bl"></div>
+                            <div class="hud-corner hud-corner-br"></div>
+
                             <video 
                                 id="main-preview-video"
-                                class="w-full h-full object-cover absolute inset-0 opacity-80 group-hover:opacity-100 transition-opacity" 
+                                class="w-full h-full object-cover absolute inset-0 opacity-80 group-hover:opacity-100 transition-all duration-300" 
                                 autoplay 
                                 loop 
                                 muted 
                                 playsinline
                                 src="Sol%27s%20RNG%20Video%20V0.1.mp4">
                             </video>
+                            
+                            <!-- Hover Overlay: Click to expand -->
+                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all duration-300 z-10">
+                                <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637zM12 9.75v4.5m2.25-2.25h-4.5"></path>
+                                </svg>
+                                <span class="text-xs uppercase font-extrabold tracking-[0.2em] text-white border border-white/30 px-3 py-1.5 bg-black/90 rounded-sm shadow-xl">
+                                    Expand with Sound
+                                </span>
+                            </div>
                             
                             <!-- Visual fallback placeholder if video fails to load/decode -->
                             <div id="video-placeholder" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10 bg-white/5" style="display: none;">
@@ -177,14 +205,29 @@
                             </div>
                         </div>
 
-                        <!-- Image Slot -->
-                        <div class="aspect-video bg-black border border-white/10 flex flex-col items-center justify-center rounded-sm relative group overflow-hidden">
-                            <!-- Image element. -->
+                        <!-- Image Slot Container -->
+                        <div id="photo-card" class="aspect-video bg-black border border-white/10 flex flex-col items-center justify-center rounded-sm relative group overflow-hidden cursor-pointer transition-all duration-300 hover:border-white/40 hover:scale-[1.01] hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                            <!-- Esquinas HUD exclusivas para la Foto -->
+                            <div class="hud-corner hud-corner-tl"></div>
+                            <div class="hud-corner hud-corner-tr"></div>
+                            <div class="hud-corner hud-corner-bl"></div>
+                            <div class="hud-corner hud-corner-br"></div>
+
                             <img 
                                 id="main-preview-photo"
                                 alt="Sol's RNG Interface Preview"
-                                class="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                                class="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-all duration-300"
                                 src="Sol%27s%20RNG%20Photo%20V0.1.png">
+
+                            <!-- Hover Overlay: Click to expand -->
+                            <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all duration-300 z-10">
+                                <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637zM12 9.75v4.5m2.25-2.25h-4.5"></path>
+                                </svg>
+                                <span class="text-xs uppercase font-extrabold tracking-[0.2em] text-white border border-white/30 px-3 py-1.5 bg-black/90 rounded-sm shadow-xl">
+                                    Click to Expand
+                                </span>
+                            </div>
                             
                             <!-- Visual fallback placeholder if image fails to load -->
                             <div id="photo-placeholder" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10 bg-white/5" style="display: none;">
@@ -212,7 +255,7 @@
                     <div class="hud-corner hud-corner-br"></div>
                     
                     <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-base text-white">▪</span> Resource Download
+                        <span class="text-base text-gray-400">▪</span> Resource Download
                     </div>
                     
                     <h2 class="text-lg font-bold text-white mb-2 uppercase tracking-wide">System Build</h2>
@@ -221,7 +264,7 @@
                     </p>
                     
                     <!-- Exact file path download link -->
-                    <a href="Sols%20RNG%20SYSTEM%20V0.1.rbxl" download="Sols RNG SYSTEM V0.1.rbxl" class="group w-full py-3 px-4 bg-white hover:bg-gray-200 text-black font-extrabold uppercase tracking-widest text-xs flex items-center justify-center gap-2 rounded-sm border border-white transition-all duration-150">
+                    <a href="Sols%20RNG%20SYSTEM%20V0.1.rbxl" download="Sols RNG SYSTEM V0.1.rbxl" class="group w-full py-3 px-4 bg-white hover:bg-gray-300 text-black font-extrabold uppercase tracking-widest text-xs flex items-center justify-center gap-2 rounded-sm border border-transparent transition-all duration-150">
                         <svg class="w-4 h-4 fill-current transform group-hover:translate-y-0.5 transition-transform" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
                         </svg>
@@ -243,7 +286,7 @@
                     <div class="hud-corner hud-corner-br"></div>
                     
                     <div class="flex items-center gap-2 mb-2 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-sm">▪</span> Original Content
+                        <span class="text-sm text-gray-400">▪</span> Original Content
                     </div>
                     <h3 class="text-md font-bold text-white mb-2 uppercase tracking-wide">Developer Disclaimer</h3>
                     <p class="text-gray-400 text-xs md:text-sm leading-relaxed font-medium">
@@ -259,7 +302,7 @@
                     <div class="hud-corner hud-corner-br"></div>
                     
                     <div class="flex items-center gap-2 mb-2 text-white font-bold uppercase text-xs tracking-widest">
-                        <span class="text-sm">▪</span> Critical Warning
+                        <span class="text-sm text-red-500">▪</span> Critical Warning
                     </div>
                     <h3 class="text-md font-bold text-white mb-2 uppercase tracking-wide">Usage Recommendation</h3>
                     <p class="text-gray-400 text-xs md:text-sm leading-relaxed font-medium">
@@ -278,6 +321,88 @@
 
     </div>
 
+    <!-- Lightbox / Modal Centrado interactivo estilo Sol's RNG con Reproductor Custom -->
+    <div id="media-modal" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-2 md:p-8 hidden opacity-0 transition-opacity duration-300">
+        <!-- Contenedor del Modal principal estilo HUD -->
+        <div class="hud-card max-w-5xl w-full aspect-video rounded-sm flex flex-col justify-between overflow-hidden shadow-[0_0_20px_rgba(255,255,255,0.05)] relative border-white/20">
+            <!-- Esquinas HUD del Modal -->
+            <div class="hud-corner hud-corner-tl"></div>
+            <div class="hud-corner hud-corner-tr"></div>
+            <div class="hud-corner hud-corner-bl"></div>
+            <div class="hud-corner hud-corner-br"></div>
+
+            <!-- Contenedor dinámico de Media del modal -->
+            <div id="modal-media-container" class="w-full h-full flex items-center justify-center bg-black relative group/player">
+                
+                <!-- Video Element inside modal -->
+                <video id="modal-video" class="w-full h-full object-contain hidden" loop playsinline></video>
+                
+                <!-- Image Element inside modal -->
+                <img id="modal-image" class="w-full h-full object-contain hidden" alt="Expanded Asset Preview">
+
+                <!-- CONTROLES PERSONALIZADOS DE VIDEO (Estilo HUD Sol's RNG en Blanco) -->
+                <div id="custom-video-controls" class="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/95 via-black/80 to-transparent transition-opacity duration-300 opacity-0 group-hover/player:opacity-100 flex flex-col gap-3 z-40 select-none border-t border-white/5">
+                    
+                    <!-- Barra de Progreso Personalizada (Interactiva) -->
+                    <div id="progress-container" class="relative w-full h-1.5 bg-white/10 rounded-none cursor-pointer group/seek transition-all duration-150 hover:h-2.5">
+                        <div id="buffered-bar" class="absolute top-0 left-0 h-full bg-white/5 transition-all duration-200" style="width: 0%"></div>
+                        <div id="progress-bar" class="absolute top-0 left-0 h-full bg-white transition-all duration-75" style="width: 0%"></div>
+                        <!-- Scrub handle -->
+                        <div id="progress-handle" class="absolute top-1/2 -translate-y-1/2 w-3 h-3 bg-white shadow-[0_0_8px_rgba(255,255,255,0.8)] opacity-0 group-hover/seek:opacity-100 transition-opacity" style="left: 0%"></div>
+                    </div>
+
+                    <!-- Fila de Botones y Ajustes -->
+                    <div class="flex items-center justify-between gap-4 text-xs md:text-sm">
+                        <!-- Lado Izquierdo: Play, Mute, Volumen, Tiempos -->
+                        <div class="flex items-center gap-4">
+                            <!-- Play / Pause -->
+                            <button id="ctrl-play-pause" class="text-gray-400 hover:text-white transition-colors focus:outline-none">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" id="play-icon">
+                                    <path d="M8 5v14l11-7z"/>
+                                </svg>
+                                <svg class="w-5 h-5 fill-current hidden" viewBox="0 0 24 24" id="pause-icon">
+                                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                </svg>
+                            </button>
+
+                            <!-- Mute / Unmute -->
+                            <button id="ctrl-mute" class="text-gray-400 hover:text-white transition-colors focus:outline-none">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" id="sound-on-icon">
+                                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                                </svg>
+                                <svg class="w-5 h-5 fill-current hidden" viewBox="0 0 24 24" id="sound-off-icon">
+                                    <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.21.05-.42.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                                </svg>
+                            </button>
+
+                            <!-- Control Deslizante de Volumen -->
+                            <input type="range" id="ctrl-volume" min="0" max="1" step="0.05" value="0.8" class="w-14 md:w-20 h-1 bg-white/15 rounded-none appearance-none cursor-pointer accent-white">
+
+                            <!-- Visualización de Tiempo de Video -->
+                            <span id="video-time" class="font-mono text-gray-400 text-xs tracking-wider">0:00 / 0:00</span>
+                        </div>
+
+                        <!-- Lado Derecho: Pantalla Completa -->
+                        <div class="flex items-center gap-3">
+                            <!-- Fullscreen Toggle -->
+                            <button id="ctrl-fullscreen" class="text-gray-400 hover:text-white transition-colors focus:outline-none">
+                                <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                    <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Botón de Cerrar estilo HUD -->
+            <button onclick="closeModal()" class="absolute bottom-4 right-4 z-50 px-6 py-2 bg-black/90 hover:bg-white/15 text-white font-extrabold uppercase tracking-widest text-xs border border-white/20 rounded-sm shadow-lg transition-all duration-150">
+                Close View
+            </button>
+        </div>
+    </div>
+
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const videoElement = document.getElementById("main-preview-video");
@@ -285,7 +410,111 @@
             const videoPlaceholder = document.getElementById("video-placeholder");
             const photoPlaceholder = document.getElementById("photo-placeholder");
 
-            // Simple error handling: just show the placeholder if it fails once.
+            // Configuración del Lightbox Modal
+            const modal = document.getElementById("media-modal");
+            const modalVideo = document.getElementById("modal-video");
+            const modalImage = document.getElementById("modal-image");
+            const videoCard = document.getElementById("video-card");
+            const photoCard = document.getElementById("photo-card");
+
+            // Custom Controls DOM
+            const customControls = document.getElementById("custom-video-controls");
+            const playPauseBtn = document.getElementById("ctrl-play-pause");
+            const playIcon = document.getElementById("play-icon");
+            const pauseIcon = document.getElementById("pause-icon");
+            const muteBtn = document.getElementById("ctrl-mute");
+            const soundOnIcon = document.getElementById("sound-on-icon");
+            const soundOffIcon = document.getElementById("sound-off-icon");
+            const volumeSlider = document.getElementById("ctrl-volume");
+            const progressBar = document.getElementById("progress-bar");
+            const progressContainer = document.getElementById("progress-container");
+            const progressHandle = document.getElementById("progress-handle");
+            const bufferedBar = document.getElementById("buffered-bar");
+            const videoTimeLabel = document.getElementById("video-time");
+            const fullscreenBtn = document.getElementById("ctrl-fullscreen");
+            const modalContainer = document.getElementById("modal-media-container");
+
+            let isDragging = false;
+            let controlsTimeout;
+
+            // Función para abrir el modal
+            function openModal(type, source) {
+                if (!modal) return;
+                
+                if (type === 'video') {
+                    modalImage.classList.add('hidden');
+                    modalVideo.classList.remove('hidden');
+                    customControls.classList.remove('hidden');
+                    modalVideo.src = source;
+                    
+                    // Asegurarse de que empiece desmutado y con volumen
+                    modalVideo.muted = false;
+                    modalVideo.volume = volumeSlider.value;
+                    
+                    modalVideo.play().then(() => {
+                        updatePlayPauseUI(true);
+                        updateMuteUI(false);
+                    }).catch(err => {
+                        // Resguardo si el navegador bloquea autoplay con sonido
+                        modalVideo.muted = true;
+                        updateMuteUI(true);
+                        modalVideo.play();
+                        updatePlayPauseUI(true);
+                    });
+
+                    // Activar el HUD autohide
+                    resetControlsTimer();
+                } else {
+                    modalVideo.classList.add('hidden');
+                    modalVideo.pause();
+                    customControls.classList.add('hidden');
+                    modalImage.classList.remove('hidden');
+                    modalImage.src = source;
+                }
+
+                modal.classList.remove('hidden');
+                setTimeout(() => modal.classList.remove('opacity-0'), 10);
+            }
+
+            // Función para cerrar el modal
+            window.closeModal = function() {
+                if (!modal) return;
+                modalVideo.pause();
+                modal.classList.add('opacity-0');
+                setTimeout(() => {
+                    modal.classList.add('hidden');
+                    modalVideo.src = "";
+                    modalImage.src = "";
+                }, 300);
+                clearTimeout(controlsTimeout);
+            };
+
+            // Cerrar el modal al hacer clic fuera del contenedor (en el fondo oscuro)
+            modal.addEventListener("click", (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            // Asignación de clics en las tarjetas
+            if (videoCard) {
+                videoCard.addEventListener("click", () => {
+                    if (videoElement && videoElement.style.display !== 'none') {
+                        // El video principal corre mutado, pero en el Lightbox se abre con sonido.
+                        openModal('video', videoElement.src);
+                    }
+                });
+            }
+
+            if (photoCard) {
+                photoCard.addEventListener("click", () => {
+                    if (imgElement && imgElement.style.display !== 'none') {
+                        openModal('image', imgElement.src);
+                    }
+                });
+            }
+
+            // Control de Errores para Video e Imagen originales
             if (videoElement) {
                 videoElement.addEventListener("error", () => {
                     videoElement.style.display = 'none';
@@ -300,7 +529,209 @@
                 });
             }
 
-            // Dynamic file size detector using HEAD headers request
+            // -----------------------------------------------------
+            // SISTEMA DE CONTROLES REPRODUCTOR PERSONALIZADO (HUD)
+            // -----------------------------------------------------
+
+            // 1. Play / Pause
+            function togglePlay() {
+                if (modalVideo.paused) {
+                    modalVideo.play();
+                    updatePlayPauseUI(true);
+                } else {
+                    modalVideo.pause();
+                    updatePlayPauseUI(false);
+                }
+                resetControlsTimer();
+            }
+
+            function updatePlayPauseUI(isPlaying) {
+                if (isPlaying) {
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                } else {
+                    playIcon.classList.remove('hidden');
+                    pauseIcon.classList.add('hidden');
+                }
+            }
+
+            playPauseBtn.addEventListener("click", togglePlay);
+            modalVideo.addEventListener("click", togglePlay);
+
+            // 2. Mute / Unmute
+            function toggleMute() {
+                modalVideo.muted = !modalVideo.muted;
+                updateMuteUI(modalVideo.muted);
+                resetControlsTimer();
+            }
+
+            function updateMuteUI(isMuted) {
+                if (isMuted) {
+                    soundOnIcon.classList.add('hidden');
+                    soundOffIcon.classList.remove('hidden');
+                } else {
+                    soundOnIcon.classList.remove('hidden');
+                    soundOffIcon.classList.add('hidden');
+                }
+            }
+
+            muteBtn.addEventListener("click", toggleMute);
+
+            // 3. Control de volumen manual
+            volumeSlider.addEventListener("input", (e) => {
+                const vol = parseFloat(e.target.value);
+                modalVideo.volume = vol;
+                if (vol === 0) {
+                    modalVideo.muted = true;
+                    updateMuteUI(true);
+                } else {
+                    modalVideo.muted = false;
+                    updateMuteUI(false);
+                }
+                resetControlsTimer();
+            });
+
+            // 4. Actualización del Tiempo y Barra de Progreso
+            modalVideo.addEventListener("timeupdate", () => {
+                if (!isDragging) {
+                    const percentage = (modalVideo.currentTime / modalVideo.duration) * 100;
+                    progressBar.style.width = `${percentage}%`;
+                    progressHandle.style.left = `${percentage}%`;
+                }
+
+                // Actualizar marcador de texto
+                const currentFormatted = formatTime(modalVideo.currentTime);
+                const totalFormatted = formatTime(modalVideo.duration || 0);
+                videoTimeLabel.textContent = `${currentFormatted} / ${totalFormatted}`;
+            });
+
+            // Actualizar barra de buffer (precarga)
+            modalVideo.addEventListener("progress", () => {
+                if (modalVideo.buffered.length > 0) {
+                    const bufferedEnd = modalVideo.buffered.end(modalVideo.buffered.length - 1);
+                    const duration = modalVideo.duration;
+                    if (duration > 0) {
+                        bufferedBar.style.width = `${(bufferedEnd / duration) * 100}%`;
+                    }
+                }
+            });
+
+            // Formatear Segundos a mm:ss
+            function formatTime(seconds) {
+                if (isNaN(seconds)) return "0:00";
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            }
+
+            // 5. Interacción con Barra de Progreso (Slick Seek)
+            function setProgress(e) {
+                const rect = progressContainer.getBoundingClientRect();
+                const clickX = e.clientX - rect.left;
+                const width = rect.width;
+                const percentage = Math.max(0, Math.min(1, clickX / width));
+                
+                progressBar.style.width = `${percentage * 100}%`;
+                progressHandle.style.left = `${percentage * 100}%`;
+                
+                if (!isDragging) {
+                    modalVideo.currentTime = percentage * modalVideo.duration;
+                }
+                return percentage;
+            }
+
+            progressContainer.addEventListener("mousedown", (e) => {
+                isDragging = true;
+                setProgress(e);
+                resetControlsTimer();
+            });
+
+            document.addEventListener("mousemove", (e) => {
+                if (isDragging) {
+                    const pct = setProgress(e);
+                    if (modalVideo.duration) {
+                        modalVideo.currentTime = pct * modalVideo.duration;
+                    }
+                }
+            });
+
+            document.addEventListener("mouseup", () => {
+                if (isDragging) {
+                    isDragging = false;
+                }
+            });
+
+            // Soporte para pantallas táctiles (Móviles / Tablets)
+            progressContainer.addEventListener("touchstart", (e) => {
+                isDragging = true;
+                const touch = e.touches[0];
+                setProgress(touch);
+            });
+
+            document.addEventListener("touchmove", (e) => {
+                if (isDragging) {
+                    const touch = e.touches[0];
+                    const pct = setProgress(touch);
+                    if (modalVideo.duration) {
+                        modalVideo.currentTime = pct * modalVideo.duration;
+                    }
+                }
+            });
+
+            document.addEventListener("touchend", () => {
+                isDragging = false;
+            });
+
+            // 6. Pantalla Completa
+            fullscreenBtn.addEventListener("click", () => {
+                if (!document.fullscreenElement) {
+                    modalContainer.requestFullscreen().catch(err => {
+                        console.log("Error al activar pantalla completa: ", err);
+                    });
+                } else {
+                    document.exitFullscreen();
+                }
+                resetControlsTimer();
+            });
+
+            // 7. Ocultamiento inteligente de controles al no mover el mouse (Estilo Cinemático)
+            function resetControlsTimer() {
+                customControls.style.opacity = "1";
+                document.body.style.cursor = "default";
+                clearTimeout(controlsTimeout);
+                
+                if (!modalVideo.paused && !isDragging) {
+                    controlsTimeout = setTimeout(() => {
+                        customControls.style.opacity = "0";
+                        document.body.style.cursor = "none";
+                    }, 2000);
+                }
+            }
+
+            modalContainer.addEventListener("mousemove", resetControlsTimer);
+            modalContainer.addEventListener("mouseleave", () => {
+                if (!modalVideo.paused) {
+                    customControls.style.opacity = "0";
+                }
+            });
+
+            // Atajos de teclado útiles para el reproductor
+            document.addEventListener("keydown", (e) => {
+                if (modal.classList.contains("hidden")) return;
+                
+                if (e.code === "Space") {
+                    e.preventDefault();
+                    togglePlay();
+                } else if (e.code === "KeyM") {
+                    toggleMute();
+                } else if (e.code === "Escape") {
+                    closeModal();
+                }
+            });
+
+            // -----------------------------------------------------
+            // DETECTOR DE TAMAÑO DE ARCHIVO DINÁMICO
+            // -----------------------------------------------------
             const fileName = "Sols%20RNG%20SYSTEM%20V0.1.rbxl";
             const sizeLabel = document.getElementById("file-size");
 
@@ -316,7 +747,7 @@
                                 sizeLabel.textContent = `Size: ${kb} KB`;
                             }
                         } else {
-                            sizeLabel.textContent = "Size: Live Detection Active";
+                            sizeLabel.textContent = `Size: Live Detection Active`;
                         }
                     } else {
                         sizeLabel.textContent = "Size: Local File Mode";
