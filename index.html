@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sol's RNG Assets - Release Hub</title>
-    <!-- Tailwind CSS for modern layout structure -->
+    <!-- Tailwind CSS para la estructura del diseño moderno -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Official Rajdhani font from Google Fonts -->
+    <!-- Fuente oficial Rajdhani desde Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -19,14 +19,14 @@
             min-height: 100vh;
         }
 
-        /* Pure Roblox HUD style flat panels with light translucent backing */
+        /* Paneles planos estilo Roblox HUD con un fondo negro translúcido */
         .hud-card {
             background-color: rgba(13, 14, 18, 0.95);
             border: 1px solid rgba(255, 255, 255, 0.05);
             position: relative;
         }
 
-        /* Seamless flat corner brackets (0px inside alignment) */
+        /* Esquinas planas integradas (alineación interior de 0px) */
         .hud-corner {
             position: absolute;
             width: 12px;
@@ -40,7 +40,7 @@
         .hud-corner-bl { bottom: 0px; left: 0px; border-width: 0 0 3px 3px; }
         .hud-corner-br { bottom: 0px; right: 0px; border-width: 0 3px 3px 0; }
 
-        /* Custom scrollbar matching Roblox UI skin */
+        /* Barra de desplazamiento personalizada estilo interfaz de Roblox */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -61,7 +61,7 @@
 
     <div class="max-w-6xl w-full mx-auto space-y-6">
         
-        <!-- Header Panel -->
+        <!-- Panel del Encabezado -->
         <header class="hud-card p-6 rounded-sm">
             <div class="hud-corner hud-corner-tl"></div>
             <div class="hud-corner hud-corner-tr"></div>
@@ -84,10 +84,10 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
             
-            <!-- Left Side: Core Updates & Documentation -->
+            <!-- Lado Izquierdo: Actualizaciones, Documentación y Media -->
             <div class="lg:col-span-2 space-y-6">
                 
-                <!-- Features & Release Summary -->
+                <!-- Documentación de la versión -->
                 <section class="hud-card p-6 rounded-sm">
                     <div class="hud-corner hud-corner-tl"></div>
                     <div class="hud-corner hud-corner-tr"></div>
@@ -134,13 +134,69 @@
                         </table>
                     </div>
                 </section>
+
+                <!-- Sección de Media (Imágenes / Videos) -->
+                <section class="hud-card p-6 rounded-sm">
+                    <div class="hud-corner hud-corner-tl"></div>
+                    <div class="hud-corner hud-corner-tr"></div>
+                    <div class="hud-corner hud-corner-bl"></div>
+                    <div class="hud-corner hud-corner-br"></div>
+                    
+                    <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
+                        <span class="text-base">▪</span> System Media & Preview
+                    </div>
+                    
+                    <h2 class="text-xl font-bold text-white mb-2 uppercase tracking-wide">Visual Demonstration</h2>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-4 font-medium">
+                        Preview media showcasing the actual HUD system structure and user interface in action inside Roblox Studio.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2">
+                        
+                        <!-- Slot de Video Real (Auto-reproducible y en bucle) -->
+                        <div class="aspect-video bg-black border border-white/10 rounded-sm relative overflow-hidden flex items-center justify-center group">
+                            <!-- Este tag reproducirá de fondo el video de tu proyecto en loop -->
+                            <video 
+                                src="preview.mp4" 
+                                class="w-full h-full object-cover absolute inset-0 opacity-80 group-hover:opacity-100 transition-opacity" 
+                                autoplay 
+                                loop 
+                                muted 
+                                playsinline
+                                onerror="this.style.display='none'; document.getElementById('video-placeholder').style.display='flex';">
+                            </video>
+                            
+                            <!-- Placeholder visual si no encuentra el video "preview.mp4" aún -->
+                            <div id="video-placeholder" class="absolute inset-0 flex flex-col items-center justify-center p-4 text-center z-10 bg-white/5">
+                                <svg class="w-8 h-8 text-gray-500 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                </svg>
+                                <span class="text-xs text-gray-400 uppercase font-bold tracking-widest">System Video Preview</span>
+                                <span class="text-xxs text-gray-600 uppercase mt-1">Upload a 'preview.mp4' to show a live demo</span>
+                            </div>
+                        </div>
+
+                        <!-- Ejemplo de Imagen Placeholder -->
+                        <div class="aspect-video bg-white/5 border border-white/10 flex flex-col items-center justify-center p-4 rounded-sm relative group overflow-hidden">
+                            <!-- Una vez que subas tu captura de pantalla, puedes descomentar la línea de abajo y eliminar el SVG:
+                            <img src="interface_preview.png" class="absolute inset-0 w-full h-full object-cover">
+                            -->
+                            <svg class="w-8 h-8 text-gray-600 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            <span class="text-xs text-gray-500 uppercase font-bold tracking-widest">Interface Screen</span>
+                            <span class="text-xxs text-gray-600 uppercase mt-1">Ready for interface screenshot</span>
+                        </div>
+
+                    </div>
+                </section>
                 
             </div>
 
-            <!-- Right Side: Download & Rules Sidebar -->
+            <!-- Lado Derecho: Descargas y Reglas -->
             <div class="space-y-6">
                 
-                <!-- Download Box -->
+                <!-- Panel de Descargas -->
                 <section class="hud-card p-6 rounded-sm border-white/20">
                     <div class="hud-corner hud-corner-tl"></div>
                     <div class="hud-corner hud-corner-tr"></div>
@@ -156,21 +212,22 @@
                         Download the full Roblox Place file mapping all current interfaces, scripting nodes, and functional components.
                     </p>
                     
+                    <!-- Botón apuntando al nombre de tu archivo exacto -->
                     <a href="Sols%20RNG%20SYSTEM%20V0.1.rbxl" download="Sols RNG SYSTEM V0.1.rbxl" class="group w-full py-3 px-4 bg-white hover:bg-gray-200 text-black font-extrabold uppercase tracking-widest text-xs flex items-center justify-center gap-2 rounded-sm border border-white transition-all duration-150">
-                        <!-- Custom Inline Download Icon -->
                         <svg class="w-4 h-4 fill-current transform group-hover:translate-y-0.5 transition-transform" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/>
                         </svg>
                         Download Files (.RBXL)
                     </a>
                     
+                    <!-- Formato y tamaño detectado por JS -->
                     <div class="mt-4 flex justify-between items-center text-xxs text-gray-500 uppercase tracking-widest font-bold">
-                        <span>Format: Studio Place</span>
-                        <span>Size: ~1.2 MB</span>
+                        <span>Format: Roblox Studio</span>
+                        <span id="file-size">Size: Calculating...</span>
                     </div>
                 </section>
 
-                <!-- Disclaimer Box -->
+                <!-- Panel de Disclaimer -->
                 <section class="hud-card p-5 rounded-sm">
                     <div class="hud-corner hud-corner-tl"></div>
                     <div class="hud-corner hud-corner-tr"></div>
@@ -186,7 +243,7 @@
                     </p>
                 </section>
 
-                <!-- Recommendation / Copyright Warning Box -->
+                <!-- Panel de Advertencia / Derechos de autor -->
                 <section class="hud-card p-5 rounded-sm border-white/10">
                     <div class="hud-corner hud-corner-tl"></div>
                     <div class="hud-corner hud-corner-tr"></div>
@@ -206,12 +263,43 @@
             
         </div>
 
-        <!-- Footer Info -->
+        <!-- Pie de página -->
         <footer class="text-center text-xxs text-gray-600 tracking-[0.3em] uppercase pt-6 font-bold">
             Data verified // Sol's RNG Assets Distributable
         </footer>
 
     </div>
 
+    <script>
+        // Script inteligente que obtiene el tamaño exacto del archivo directamente del servidor
+        document.addEventListener("DOMContentLoaded", () => {
+            const fileName = "Sols RNG SYSTEM V0.1.rbxl";
+            const sizeLabel = document.getElementById("file-size");
+
+            // Realizamos una petición rápida HEAD (solo para ver peso y cabeceras sin descargar el archivo de nuevo)
+            fetch(fileName, { method: "HEAD" })
+                .then(response => {
+                    if (response.ok) {
+                        const bytes = response.headers.get("Content-Length");
+                        if (bytes) {
+                            const kb = (bytes / 1024).toFixed(1);
+                            if (kb >= 1024) {
+                                sizeLabel.textContent = `Size: ${(kb / 1024).toFixed(2)} MB`;
+                            } else {
+                                sizeLabel.textContent = `Size: ${kb} KB`;
+                            }
+                        } else {
+                            sizeLabel.textContent = "Size: Live Detection Active";
+                        }
+                    } else {
+                        // Caída elegante si se está probando de forma puramente local en PC
+                        sizeLabel.textContent = "Size: Local File Mode";
+                    }
+                })
+                .catch(() => {
+                    sizeLabel.textContent = "Size: Dynamic (Pending Deploy)";
+                });
+        });
+    </script>
 </body>
 </html>
