@@ -584,6 +584,7 @@
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                         <span data-i18n="sols_dl_btn">Download .RBXL</span>
                     </a>
+                    <p id="rbxl-filesize" class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mt-3"></p>
                 </section>
             </div>
         </div>
@@ -907,8 +908,33 @@
             }, 300);
         }
 
+        // --- 3b. AUTOMATIC FILE SIZE DETECTION ---
+        function formatBytes(bytes) {
+            if (bytes < 1024) return bytes + ' B';
+            if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+            return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+        }
+
+        async function loadRbxlFileSize() {
+            const el = document.getElementById('rbxl-filesize');
+            if (!el) return;
+            const fileUrl = 'Sols%20RNG%20SYSTEM%20V0.1.rbxl';
+            try {
+                const res = await fetch(fileUrl, { method: 'HEAD', cache: 'no-store' });
+                const len = res.headers.get('content-length');
+                if (res.ok && len) {
+                    el.textContent = formatBytes(parseInt(len, 10));
+                } else {
+                    el.textContent = '';
+                }
+            } catch (e) {
+                el.textContent = '';
+            }
+        }
+
         // --- 4. Event Listeners ---
         document.addEventListener('DOMContentLoaded', () => {
+            loadRbxlFileSize();
             document.getElementById('video-card').addEventListener('click', function() {
                 const src = this.querySelector('video').src;
                 openModal('video', src);
