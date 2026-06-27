@@ -84,35 +84,116 @@
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
         }
+
+        /* Typing caret */
+        .typing-caret::after {
+            content: '|';
+            display: inline-block;
+            margin-left: 4px;
+            color: #3b82f6;
+            animation: caretBlink 0.9s steps(1) infinite;
+        }
+        @keyframes caretBlink {
+            0%, 50% { opacity: 1; }
+            50.01%, 100% { opacity: 0; }
+        }
+
+        /* Loading bar */
+        .loading-track {
+            height: 6px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            overflow: hidden;
+        }
+        .loading-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #1d4ed8, #3b82f6);
+            transition: width 0.05s linear;
+        }
+
+        /* Subtle background art on intro */
+        .intro-bg-art {
+            position: absolute;
+            inset: 0;
+            background-image: url('BackgroundAssetsHub.png');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.08;
+            filter: grayscale(40%);
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="py-6 px-4 md:px-8 lg:px-12 min-h-screen flex flex-col relative">
 
+    <!-- VIEW -1: NAME CAPTURE -->
+    <div id="view-name" class="view-section view-section-flex flex-col items-center justify-center min-h-[85vh] w-full max-w-4xl mx-auto text-center space-y-8">
+        <div class="relative w-full max-w-xl">
+            <div class="absolute inset-0 bg-blue-500/10 blur-[50px] rounded-full animate-[pulse-slow_3s_ease-in-out_infinite]"></div>
+            <div class="hud-card p-10 md:p-12 rounded-sm relative z-10 border-white/10 border-dashed">
+                <div class="hud-corner hud-corner-tl"></div>
+                <div class="hud-corner hud-corner-tr"></div>
+                <div class="hud-corner hud-corner-bl"></div>
+                <div class="hud-corner hud-corner-br"></div>
+
+                <p class="text-sm md:text-base uppercase tracking-[0.5em] text-blue-500 font-bold mb-4" data-i18n="name_sys">Identity Verification</p>
+                <h1 class="text-3xl md:text-4xl font-black tracking-widest text-white uppercase mb-8" data-i18n="name_title">
+                    STATE YOUR NAME
+                </h1>
+
+                <div class="flex flex-col items-center gap-4">
+                    <input id="name-field" type="text" maxlength="24" data-i18n-placeholder="name_placeholder" placeholder="Enter your name" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-lg font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-4">
+                    <button onclick="submitName()" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 rounded-sm overflow-hidden w-full max-w-sm">
+                        <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                        <span class="relative text-base font-bold uppercase tracking-[0.2em] text-white flex items-center gap-3">
+                            <span data-i18n="name_btn">CONFIRM IDENTITY</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- VIEW 0: INTRO SCREEN -->
-    <div id="view-intro" class="view-section view-section-flex active flex-col items-center justify-center min-h-[85vh] w-full max-w-4xl mx-auto text-center space-y-8">
+    <div id="view-intro" class="view-section view-section-flex flex-col items-center justify-center min-h-[85vh] w-full max-w-4xl mx-auto text-center space-y-8">
         
-        <div class="relative">
+        <div class="relative w-full">
             <!-- Decorative Background Element -->
             <div class="absolute inset-0 bg-blue-500/10 blur-[50px] rounded-full animate-[pulse-slow_3s_ease-in-out_infinite]"></div>
             
-            <div class="hud-card p-12 rounded-sm relative z-10 border-white/10 border-dashed">
+            <div class="hud-card p-12 rounded-sm relative z-10 border-white/10 border-dashed overflow-hidden">
+                <div class="intro-bg-art"></div>
                 <div class="hud-corner hud-corner-tl"></div>
                 <div class="hud-corner hud-corner-tr"></div>
                 <div class="hud-corner hud-corner-bl"></div>
                 <div class="hud-corner hud-corner-br"></div>
                 
-                <p class="text-sm md:text-base uppercase tracking-[0.5em] text-blue-500 font-bold mb-4" data-i18n="intro_sys">Global Distribution Network</p>
-                <h1 class="text-5xl md:text-7xl font-black tracking-widest text-white uppercase mb-8" data-i18n="intro_init">
-                    SYSTEM INITIALIZATION
-                </h1>
-                
-                <button onclick="switchView('view-home')" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 rounded-sm overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                    <span class="relative text-lg font-bold uppercase tracking-[0.2em] text-white flex items-center gap-3">
-                        <span data-i18n="intro_btn">ACCESS HUB</span>
-                        <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    </span>
-                </button>
+                <div class="relative z-10">
+                    <p class="text-sm md:text-base uppercase tracking-[0.5em] text-blue-500 font-bold mb-4" data-i18n="intro_sys">Global Distribution Network</p>
+                    <h1 id="intro-typing-title" class="text-3xl md:text-5xl font-black tracking-widest text-white uppercase mb-8 min-h-[3em] flex items-center justify-center">
+                        <span id="intro-typing-text"></span>
+                    </h1>
+
+                    <!-- Loading bar (shown while typing/loading sequence runs) -->
+                    <div id="intro-loading-wrap" class="w-full max-w-md mx-auto mb-8 space-y-2">
+                        <div class="loading-track rounded-sm">
+                            <div id="intro-loading-fill" class="loading-fill"></div>
+                        </div>
+                        <p class="text-xs uppercase tracking-[0.3em] text-gray-500 font-bold">
+                            <span id="intro-loading-pct">0%</span> <span data-i18n="intro_loading_label">SYNCING ASSETS</span>
+                        </p>
+                    </div>
+
+                    <button id="intro-access-btn" onclick="switchView('view-home')" class="hidden group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 rounded-sm overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                        <span class="relative text-lg font-bold uppercase tracking-[0.2em] text-white flex items-center gap-3">
+                            <span data-i18n="intro_btn">ACCESS HUB</span>
+                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
@@ -153,6 +234,17 @@
                     </select>
                 </div>
             </div>
+
+            <!-- Reset identity -->
+            <div class="flex flex-col md:flex-row items-start md:items-center justify-between p-4 bg-white/5 border border-white/10 rounded-sm mt-4">
+                <div>
+                    <h3 class="text-lg font-bold text-white uppercase tracking-wider mb-1" data-i18n="settings_identity_title">Stored Identity</h3>
+                    <p class="text-gray-400 text-sm font-medium" data-i18n="settings_identity_desc">Forget your saved name and verify again next visit.</p>
+                </div>
+                <div class="mt-4 md:mt-0 w-full md:w-auto">
+                    <button onclick="forgetName()" class="w-full md:w-auto px-4 py-3 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 text-red-300 text-sm font-bold uppercase tracking-wider rounded-sm transition-colors" data-i18n="settings_identity_btn">Forget Me</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -179,6 +271,7 @@
                 <h1 class="text-4xl md:text-5xl font-black tracking-widest text-white uppercase" data-i18n="hub_title">
                     ASSETS DIRECTORY
                 </h1>
+                <p id="hub-greeting" class="text-blue-400 text-sm mt-1 font-bold uppercase tracking-widest"></p>
                 <p class="text-gray-400 text-sm mt-2 font-medium" data-i18n="hub_desc">Select a module to view documentation, previews, and download links.</p>
             </div>
         </header>
@@ -512,10 +605,19 @@
                 'intro_sys': 'Global Distribution Network',
                 'intro_init': 'SYSTEM INITIALIZATION',
                 'intro_btn': 'ACCESS HUB',
+                'intro_loading_label': 'SYNCING ASSETS',
+                'name_sys': 'Identity Verification',
+                'name_title': 'STATE YOUR NAME',
+                'name_placeholder': 'Enter your name',
+                'name_btn': 'CONFIRM IDENTITY',
+                'hub_greeting': 'Welcome back, {name}',
                 'settings_title': 'SYSTEM SETTINGS',
                 'settings_back': 'Return to Directory',
                 'settings_lang_title': 'Language / Idioma',
                 'settings_lang_desc': 'Select your preferred interface language.',
+                'settings_identity_title': 'Stored Identity',
+                'settings_identity_desc': 'Forget your saved name and verify again next visit.',
+                'settings_identity_btn': 'Forget Me',
                 'btn_settings': 'SETTINGS',
                 'hub_subtitle': 'Global Distribution Network',
                 'hub_title': 'ASSETS DIRECTORY',
@@ -565,10 +667,19 @@
                 'intro_sys': 'Red Global de Distribución',
                 'intro_init': 'INICIALIZACIÓN DEL SISTEMA',
                 'intro_btn': 'ACCEDER AL HUB',
+                'intro_loading_label': 'SINCRONIZANDO ACTIVOS',
+                'name_sys': 'Verificación de Identidad',
+                'name_title': 'DI TU NOMBRE',
+                'name_placeholder': 'Escribe tu nombre',
+                'name_btn': 'CONFIRMAR IDENTIDAD',
+                'hub_greeting': 'Bienvenido de nuevo, {name}',
                 'settings_title': 'CONFIGURACIÓN DEL SISTEMA',
                 'settings_back': 'Volver al Directorio',
                 'settings_lang_title': 'Idioma / Language',
                 'settings_lang_desc': 'Seleccione su idioma de interfaz preferido.',
+                'settings_identity_title': 'Identidad Guardada',
+                'settings_identity_desc': 'Olvida tu nombre guardado y verifícalo de nuevo la próxima vez.',
+                'settings_identity_btn': 'Olvidarme',
                 'btn_settings': 'AJUSTES',
                 'hub_subtitle': 'Red Global de Distribución',
                 'hub_title': 'DIRECTORIO DE ACTIVOS',
@@ -630,6 +741,16 @@
                     el.innerText = translations[currentLang][key];
                 }
             });
+
+            // Update placeholders
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[currentLang][key]) {
+                    el.placeholder = translations[currentLang][key];
+                }
+            });
+
+            updateGreeting();
             
             // Save preference to LocalStorage (optional but good practice)
             try { localStorage.setItem('preferredLang', langCode); } catch(e){}
@@ -660,6 +781,83 @@
             if(target) {
                 target.classList.add('active');
                 window.scrollTo(0, 0); 
+            }
+        }
+
+        // --- 2b. IDENTITY (name capture) ---
+        function getSavedName() {
+            try { return localStorage.getItem('visitorName'); } catch(e) { return null; }
+        }
+
+        function submitName() {
+            const field = document.getElementById('name-field');
+            const val = (field.value || '').trim();
+            if (!val) {
+                field.focus();
+                field.classList.add('border-red-500');
+                setTimeout(() => field.classList.remove('border-red-500'), 600);
+                return;
+            }
+            try { localStorage.setItem('visitorName', val); } catch(e) {}
+            switchView('view-intro');
+            runIntroSequence(val);
+        }
+
+        function forgetName() {
+            try { localStorage.removeItem('visitorName'); } catch(e) {}
+            switchView('view-name');
+        }
+
+        function updateGreeting() {
+            const name = getSavedName();
+            const greetEl = document.getElementById('hub-greeting');
+            if (!greetEl) return;
+            if (name) {
+                const template = translations[currentLang]['hub_greeting'] || 'Welcome back, {name}';
+                greetEl.textContent = template.replace('{name}', name.toUpperCase());
+            } else {
+                greetEl.textContent = '';
+            }
+        }
+
+        // --- 2c. TYPING + LOADING SEQUENCE ---
+        function runIntroSequence(name) {
+            const titleEl = document.getElementById('intro-typing-text');
+            const accessBtn = document.getElementById('intro-access-btn');
+            const fill = document.getElementById('intro-loading-fill');
+            const pct = document.getElementById('intro-loading-pct');
+
+            accessBtn.classList.add('hidden');
+            fill.style.width = '0%';
+            pct.textContent = '0%';
+            titleEl.textContent = '';
+            titleEl.parentElement.classList.add('typing-caret');
+
+            const full = 'WELCOME ' + name.toUpperCase() + ' TO ASSETS HUB!';
+            let i = 0;
+
+            const typer = setInterval(() => {
+                titleEl.textContent = full.slice(0, i + 1);
+                i++;
+                if (i >= full.length) {
+                    clearInterval(typer);
+                    titleEl.parentElement.classList.remove('typing-caret');
+                    setTimeout(startLoadingBar, 400);
+                }
+            }, 45);
+
+            function startLoadingBar() {
+                let p = 0;
+                const loader = setInterval(() => {
+                    p += 2;
+                    if (p > 100) p = 100;
+                    fill.style.width = p + '%';
+                    pct.textContent = p + '%';
+                    if (p >= 100) {
+                        clearInterval(loader);
+                        accessBtn.classList.remove('hidden');
+                    }
+                }, 22);
             }
         }
 
@@ -732,6 +930,20 @@
             
             document.addEventListener('keydown', function(event){
                 if(event.key === "Escape"){ closeModal(); }
+            });
+
+            // Decide entry point: ask for name, or greet returning visitor
+            const savedName = getSavedName();
+            if (savedName) {
+                switchView('view-intro');
+                runIntroSequence(savedName);
+            } else {
+                switchView('view-name');
+            }
+            updateGreeting();
+
+            document.getElementById('name-field').addEventListener('keydown', function(e){
+                if (e.key === 'Enter') submitName();
             });
         });
     </script>
