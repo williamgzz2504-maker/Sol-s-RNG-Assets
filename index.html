@@ -586,6 +586,31 @@
                     </a>
                     <p id="rbxl-filesize" class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mt-3"></p>
                 </section>
+
+                <!-- Previous Versions Panel -->
+                <section class="hud-card p-6 rounded-sm">
+                    <div class="hud-corner hud-corner-tl"></div>
+                    <div class="hud-corner hud-corner-tr"></div>
+                    <div class="hud-corner hud-corner-bl"></div>
+                    <div class="hud-corner hud-corner-br"></div>
+
+                    <div class="flex items-center gap-2 mb-4 text-white font-bold uppercase text-xs tracking-widest">
+                        <span class="text-base text-gray-400">▪</span> <span data-i18n="sols_prev_title">Version Archive</span>
+                    </div>
+
+                    <h2 class="text-lg font-bold text-white mb-2 uppercase tracking-wide" data-i18n="sols_prev_h2">Previous Versions</h2>
+                    <p class="text-gray-400 text-xs md:text-sm leading-relaxed mb-4 font-medium" data-i18n="sols_prev_p">
+                        Older builds, kept available for compatibility or rollback.
+                    </p>
+
+                    <div id="previous-versions-list" class="space-y-2">
+                        <!-- Populated by JS from the PREVIOUS_VERSIONS array -->
+                    </div>
+
+                    <p id="previous-versions-empty" class="text-gray-500 text-xs font-medium italic hidden" data-i18n="sols_prev_empty">
+                        No previous versions archived yet.
+                    </p>
+                </section>
             </div>
         </div>
     </div>
@@ -671,7 +696,11 @@
                 'sols_dl_title': 'Asset Download',
                 'sols_dl_h2': 'System Build',
                 'sols_dl_p': 'Download the main file to import into Roblox Studio.',
-                'sols_dl_btn': 'Download .RBXL'
+                'sols_dl_btn': 'Download .RBXL',
+                'sols_prev_title': 'Version Archive',
+                'sols_prev_h2': 'Previous Versions',
+                'sols_prev_p': 'Older builds, kept available for compatibility or rollback.',
+                'sols_prev_empty': 'No previous versions archived yet.'
             },
             'es-LA': {
                 'intro_sys': 'Distribución Independiente de Assets',
@@ -733,7 +762,11 @@
                 'sols_dl_title': 'Descarga de Activos',
                 'sols_dl_h2': 'Construcción del Sistema',
                 'sols_dl_p': 'Descarga el archivo principal para importarlo en Roblox Studio.',
-                'sols_dl_btn': 'Descargar .RBXL'
+                'sols_dl_btn': 'Descargar .RBXL',
+                'sols_prev_title': 'Archivo de Versiones',
+                'sols_prev_h2': 'Versiones Anteriores',
+                'sols_prev_p': 'Construcciones anteriores, disponibles por compatibilidad o si necesitas regresar a una versión previa.',
+                'sols_prev_empty': 'Aún no hay versiones anteriores archivadas.'
             }
         };
 
@@ -915,26 +948,68 @@
             return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
         }
 
-        async function loadRbxlFileSize() {
-            const el = document.getElementById('rbxl-filesize');
-            if (!el) return;
-            const fileUrl = 'Sols%20RNG%20SYSTEM%20V0.1.rbxl';
+        async function getRemoteFileSize(fileUrl) {
             try {
                 const res = await fetch(fileUrl, { method: 'HEAD', cache: 'no-store' });
                 const len = res.headers.get('content-length');
-                if (res.ok && len) {
-                    el.textContent = formatBytes(parseInt(len, 10));
-                } else {
-                    el.textContent = '';
-                }
-            } catch (e) {
-                el.textContent = '';
+                if (res.ok && len) return formatBytes(parseInt(len, 10));
+            } catch (e) {}
+            return '';
+        }
+
+        async function loadRbxlFileSize() {
+            const el = document.getElementById('rbxl-filesize');
+            if (!el) return;
+            el.textContent = await getRemoteFileSize('Sols%20RNG%20SYSTEM%20V0.1.rbxl');
+        }
+
+        // --- 3c. PREVIOUS VERSIONS ARCHIVE ---
+        // To add an older build later, just add a new entry here:
+        // { label: 'V0.0', filename: 'Sols RNG SYSTEM V0.0.rbxl', date: '2026-06-01' }
+        const PREVIOUS_VERSIONS = [
+            // currently empty - add past builds above as they get superseded
+        ];
+
+        async function renderPreviousVersions() {
+            const list = document.getElementById('previous-versions-list');
+            const emptyMsg = document.getElementById('previous-versions-empty');
+            if (!list) return;
+
+            if (!PREVIOUS_VERSIONS.length) {
+                emptyMsg.classList.remove('hidden');
+                return;
+            }
+            emptyMsg.classList.add('hidden');
+
+            for (const v of PREVIOUS_VERSIONS) {
+                const encoded = encodeURIComponent(v.filename);
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between gap-3 p-3 bg-white/5 border border-white/10 rounded-sm';
+                row.innerHTML = `
+                    <div class="min-w-0">
+                        <p class="text-white text-xs font-bold uppercase tracking-wider truncate">${v.label}</p>
+                        <p class="text-gray-500 text-[10px] font-medium uppercase tracking-wider" data-size-for="${encoded}">${v.date || ''}</p>
+                    </div>
+                    <a href="${encoded}" download class="flex-shrink-0 flex items-center justify-center w-9 h-9 bg-white/10 hover:bg-white/20 border border-white/20 rounded-sm text-white transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    </a>
+                `;
+                list.appendChild(row);
+
+                getRemoteFileSize(encoded).then(size => {
+                    if (!size) return;
+                    const sizeEl = row.querySelector(`[data-size-for="${encoded}"]`);
+                    if (sizeEl) {
+                        sizeEl.textContent = (v.date ? v.date + ' · ' : '') + size;
+                    }
+                });
             }
         }
 
         // --- 4. Event Listeners ---
         document.addEventListener('DOMContentLoaded', () => {
             loadRbxlFileSize();
+            renderPreviousVersions();
             document.getElementById('video-card').addEventListener('click', function() {
                 const src = this.querySelector('video').src;
                 openModal('video', src);
