@@ -112,15 +112,27 @@
             transition: width 0.05s linear;
         }
 
-        /* Subtle background art on intro */
-        .intro-bg-art {
-            position: absolute;
+        /* Site-wide subtle background art, fixed behind everything */
+        body::before {
+            content: '';
+            position: fixed;
             inset: 0;
+            z-index: -1;
             background-image: url('BackgroundAssetsHub.png');
             background-size: cover;
             background-position: center;
-            opacity: 0.08;
-            filter: grayscale(40%);
+            background-attachment: fixed;
+            opacity: 0.10;
+            filter: grayscale(35%);
+            pointer-events: none;
+        }
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background: #07080a;
+            opacity: 0.6;
             pointer-events: none;
         }
     </style>
@@ -164,14 +176,13 @@
             <div class="absolute inset-0 bg-blue-500/10 blur-[50px] rounded-full animate-[pulse-slow_3s_ease-in-out_infinite]"></div>
             
             <div class="hud-card p-12 rounded-sm relative z-10 border-white/10 border-dashed overflow-hidden">
-                <div class="intro-bg-art"></div>
                 <div class="hud-corner hud-corner-tl"></div>
                 <div class="hud-corner hud-corner-tr"></div>
                 <div class="hud-corner hud-corner-bl"></div>
                 <div class="hud-corner hud-corner-br"></div>
                 
                 <div class="relative z-10">
-                    <p class="text-sm md:text-base uppercase tracking-[0.5em] text-blue-500 font-bold mb-4" data-i18n="intro_sys">Global Distribution Network</p>
+                    <p class="text-sm md:text-base uppercase tracking-[0.5em] text-blue-500 font-bold mb-4" data-i18n="intro_sys">Independent Asset Distribution</p>
                     <h1 id="intro-typing-title" class="text-3xl md:text-5xl font-black tracking-widest text-white uppercase mb-8 min-h-[3em] flex items-center justify-center">
                         <span id="intro-typing-text"></span>
                     </h1>
@@ -267,7 +278,7 @@
             <div class="hud-corner hud-corner-br"></div>
             
             <div class="flex flex-col items-center justify-center text-center gap-2">
-                <p class="text-xs uppercase tracking-[0.4em] text-gray-500 font-bold mb-1" data-i18n="hub_subtitle">Global Distribution Network</p>
+                <p class="text-xs uppercase tracking-[0.4em] text-gray-500 font-bold mb-1" data-i18n="hub_subtitle">Independent Asset Distribution</p>
                 <h1 class="text-4xl md:text-5xl font-black tracking-widest text-white uppercase" data-i18n="hub_title">
                     ASSETS DIRECTORY
                 </h1>
@@ -450,7 +461,6 @@
                             
                             <!-- Hover Overlay -->
                             <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all duration-300 z-10 pointer-events-none">
-                                <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637zM12 9.75v4.5m2.25-2.25h-4.5"></path></svg>
                                 <span class="text-xs uppercase font-extrabold tracking-[0.2em] text-white border border-white/30 px-3 py-1.5 bg-black/90 rounded-sm shadow-xl" data-i18n="sols_media_vid">
                                     Expand with Sound
                                 </span>
@@ -473,7 +483,6 @@
 
                             <!-- Hover Overlay -->
                             <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center gap-2 transition-all duration-300 z-10 pointer-events-none">
-                                <svg class="w-10 h-10 text-white animate-pulse" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.637 10.637zM12 9.75v4.5m2.25-2.25h-4.5"></path></svg>
                                 <span class="text-xs uppercase font-extrabold tracking-[0.2em] text-white border border-white/30 px-3 py-1.5 bg-black/90 rounded-sm shadow-xl" data-i18n="sols_media_img">
                                     Click to Expand
                                 </span>
@@ -571,10 +580,10 @@
                         Download the main file to import into Roblox Studio.
                     </p>
                     
-                    <button class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-4 rounded-sm border border-white/20 transition-colors uppercase tracking-widest text-sm flex items-center justify-center gap-2 shadow-lg">
+                    <a href="Sistema%20RNG%20Sols%20V0.1.rbxl" download class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-4 rounded-sm border border-white/20 transition-colors uppercase tracking-widest text-sm flex items-center justify-center gap-2 shadow-lg">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                        <span data-i18n="sols_dl_btn">Download .RBXM</span>
-                    </button>
+                        <span data-i18n="sols_dl_btn">Download .RBXL</span>
+                    </a>
                 </section>
             </div>
         </div>
@@ -602,7 +611,7 @@
         // --- 1. LOCALIZATION SYSTEM (i18n) ---
         const translations = {
             'en-US': {
-                'intro_sys': 'Global Distribution Network',
+                'intro_sys': 'Independent Asset Distribution',
                 'intro_init': 'SYSTEM INITIALIZATION',
                 'intro_btn': 'ACCESS HUB',
                 'intro_loading_label': 'SYNCING ASSETS',
@@ -619,7 +628,7 @@
                 'settings_identity_desc': 'Forget your saved name and verify again next visit.',
                 'settings_identity_btn': 'Forget Me',
                 'btn_settings': 'SETTINGS',
-                'hub_subtitle': 'Global Distribution Network',
+                'hub_subtitle': 'Independent Asset Distribution',
                 'hub_title': 'ASSETS DIRECTORY',
                 'hub_desc': 'Select a module to view documentation, previews, and download links.',
                 'card1_badge': 'V0.1 RELEASE',
@@ -661,10 +670,10 @@
                 'sols_dl_title': 'Asset Download',
                 'sols_dl_h2': 'System Build',
                 'sols_dl_p': 'Download the main file to import into Roblox Studio.',
-                'sols_dl_btn': 'Download .RBXM'
+                'sols_dl_btn': 'Download .RBXL'
             },
             'es-LA': {
-                'intro_sys': 'Red Global de Distribución',
+                'intro_sys': 'Distribución Independiente de Assets',
                 'intro_init': 'INICIALIZACIÓN DEL SISTEMA',
                 'intro_btn': 'ACCEDER AL HUB',
                 'intro_loading_label': 'SINCRONIZANDO ACTIVOS',
@@ -681,7 +690,7 @@
                 'settings_identity_desc': 'Olvida tu nombre guardado y verifícalo de nuevo la próxima vez.',
                 'settings_identity_btn': 'Olvidarme',
                 'btn_settings': 'AJUSTES',
-                'hub_subtitle': 'Red Global de Distribución',
+                'hub_subtitle': 'Distribución Independiente de Assets',
                 'hub_title': 'DIRECTORIO DE ACTIVOS',
                 'hub_desc': 'Seleccione un módulo para ver documentación, vistas previas y enlaces de descarga.',
                 'card1_badge': 'LANZAMIENTO V0.1',
@@ -723,7 +732,7 @@
                 'sols_dl_title': 'Descarga de Activos',
                 'sols_dl_h2': 'Construcción del Sistema',
                 'sols_dl_p': 'Descarga el archivo principal para importarlo en Roblox Studio.',
-                'sols_dl_btn': 'Descargar .RBXM'
+                'sols_dl_btn': 'Descargar .RBXL'
             }
         };
 
