@@ -6,7 +6,7 @@
     <title>Assets Hub & Sol's RNG Release</title>
 
     <!-- Favicon (inline SVG, diamond/aura icon matching HUD theme) -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%2307080a'/%3E%3Cpath d='M12 2 L20 9 L12 22 L4 9 Z' fill='none' stroke='%233b82f6' stroke-width='1.6'/%3E%3Cpath d='M12 2 L20 9 L4 9 Z' fill='%233b82f6' fill-opacity='0.35'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%2307080a'/%3E%3Ctext x='12' y='17' font-family='Arial,sans-serif' font-size='14' font-weight='900' fill='%23ffffff' text-anchor='middle'%3EA%3C/text%3E%3Crect x='1' y='1' width='22' height='22' fill='none' stroke='%233b82f6' stroke-width='1'/%3E%3C/svg%3E">
 
     <!-- Open Graph / Social Sharing Preview -->
     <meta property="og:title" content="Assets Hub — Sol's RNG System">
@@ -1009,28 +1009,30 @@
             el.textContent = size || '';
         }
 
-        // --- 3d. DOWNLOAD COUNTER (uses free CountAPI service, no backend needed) ---
-        const DOWNLOAD_COUNTER_NAMESPACE = 'sols-rng-assets-hub';
-        const DOWNLOAD_COUNTER_KEY = 'rbxl-v0-1-downloads';
+        // --- 3d. DOWNLOAD COUNTER (uses a free, no-signup counting API, no backend needed) ---
+        const DOWNLOAD_COUNTER_KEY = 'solsrng-assets-hub-rbxl-v01-downloads';
+        const DOWNLOAD_COUNTER_BASE = 'https://countapi.mileshilliard.com/api/v1';
 
         function renderDownloadCount(value) {
             const el = document.getElementById('rbxl-download-count');
-            if (!el || typeof value !== 'number') return;
+            if (!el || value === null || value === undefined) return;
+            const num = parseInt(value, 10);
+            if (isNaN(num)) return;
             const label = (currentLang === 'es-LA') ? 'descargas' : 'downloads';
-            el.textContent = value.toLocaleString() + ' ' + label;
+            el.textContent = num.toLocaleString() + ' ' + label;
         }
 
         async function loadDownloadCount() {
             try {
-                const res = await fetch(`https://api.countapi.xyz/get/${DOWNLOAD_COUNTER_NAMESPACE}/${DOWNLOAD_COUNTER_KEY}`);
+                const res = await fetch(`${DOWNLOAD_COUNTER_BASE}/get/${DOWNLOAD_COUNTER_KEY}`);
                 const data = await res.json();
-                renderDownloadCount(data.value || 0);
+                renderDownloadCount(data.value ?? 0);
             } catch (e) {}
         }
 
         async function incrementDownloadCount() {
             try {
-                const res = await fetch(`https://api.countapi.xyz/hit/${DOWNLOAD_COUNTER_NAMESPACE}/${DOWNLOAD_COUNTER_KEY}`);
+                const res = await fetch(`${DOWNLOAD_COUNTER_BASE}/hit/${DOWNLOAD_COUNTER_KEY}`);
                 const data = await res.json();
                 renderDownloadCount(data.value);
             } catch (e) {}
