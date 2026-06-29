@@ -421,19 +421,19 @@
                                 <tr class="hover:bg-white/[0.01] transition-colors">
                                     <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide" data-i18n="sols_tbl_r1_t">Roll System</td>
                                     <td class="p-4 text-gray-400 leading-relaxed font-medium" data-i18n="sols_tbl_r1_d">
-                                        Triggers a 2.5s to 3.2s RNG roll cycle sequence. Displays the resulting aura viewport alongside modal selectors to instantly EQUIP or SKIP the obtained asset.
+                                        Plays a 2.5s animation showing auras cycling through until landing on the final result, then lets you choose to EQUIP or SKIP it.
                                     </td>
                                 </tr>
                                 <tr class="hover:bg-white/[0.01] transition-colors">
                                     <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide" data-i18n="sols_tbl_r2_t">Auto-Roll System</td>
                                     <td class="p-4 text-gray-400 leading-relaxed font-medium" data-i18n="sols_tbl_r2_d">
-                                        Initiates an automated and infinite rolling process, sending sequential results directly to your character loop without manual action.
+                                        Once you press its button to turn it ON, it rolls automatically with the same 2.5s animation, but slightly faster between rolls after the cooldown, since from then on the system triggers each roll for you, no clicking needed per roll.
                                     </td>
                                 </tr>
                                 <tr class="hover:bg-white/[0.01] transition-colors">
                                     <td class="p-4 font-bold text-white border-r border-white/10 uppercase tracking-wide" data-i18n="sols_tbl_r3_t">Quick Roll System</td>
                                     <td class="p-4 text-gray-400 leading-relaxed font-medium" data-i18n="sols_tbl_r3_d">
-                                        Safely bypasses all chronological animations and camera delays to return the calculated auras instantly.
+                                        Completely skips the 2.5s animation and jumps straight to the result, giving you the EQUIP/SKIP choice instantly (does not affect the cooldown).
                                     </td>
                                 </tr>
                             </tbody>
@@ -452,8 +452,8 @@
                                     <p class="text-white text-sm font-bold uppercase tracking-wide">V0.1 <span class="text-gray-500 font-medium normal-case tracking-normal ml-2" data-i18n="sols_changelog_v01_date">— Jun 27, 2026</span></p>
                                     <ul class="mt-2 space-y-1 text-gray-400 text-xs md:text-sm font-medium list-none">
                                         <li data-i18n="sols_changelog_v01_1">+ Roll System with equip/skip selectors</li>
-                                        <li data-i18n="sols_changelog_v01_2">+ Auto-Roll System (infinite rolling)</li>
-                                        <li data-i18n="sols_changelog_v01_3">+ Quick Roll System (animation bypass)</li>
+                                        <li data-i18n="sols_changelog_v01_2">+ Auto-Roll System (press its button to toggle OFF/ON to activate it)</li>
+                                        <li data-i18n="sols_changelog_v01_3">+ Quick Roll System (press its button to toggle OFF/ON to activate it)</li>
                                     </ul>
                                 </div>
                             </div>
@@ -709,16 +709,16 @@
                 'sols_tbl_h1': 'System Interface',
                 'sols_tbl_h2': 'Technical Execution & Features',
                 'sols_tbl_r1_t': 'Roll System',
-                'sols_tbl_r1_d': 'Triggers a 2.5s to 3.2s RNG roll cycle sequence. Displays the resulting aura viewport alongside modal selectors to instantly EQUIP or SKIP the obtained asset.',
+                'sols_tbl_r1_d': 'Plays a 2.5s animation showing auras cycling through until landing on the final result, then lets you choose to EQUIP or SKIP it.',
                 'sols_tbl_r2_t': 'Auto-Roll System',
-                'sols_tbl_r2_d': 'Initiates an automated and infinite rolling process, sending sequential results directly to your character loop without manual action.',
+                'sols_tbl_r2_d': 'Once you press its button to turn it ON, it rolls automatically with the same 2.5s animation, but slightly faster between rolls after the cooldown, since from then on the system triggers each roll for you, no clicking needed per roll.',
                 'sols_tbl_r3_t': 'Quick Roll System',
-                'sols_tbl_r3_d': 'Safely bypasses all chronological animations and camera delays to return the calculated auras instantly.',
+                'sols_tbl_r3_d': 'Completely skips the 2.5s animation and jumps straight to the result, giving you the EQUIP/SKIP choice instantly (does not affect the cooldown).',
                 'sols_changelog_title': 'Changelog',
                 'sols_changelog_v01_date': '— Jun 27, 2026',
                 'sols_changelog_v01_1': '+ Roll System with equip/skip selectors',
-                'sols_changelog_v01_2': '+ Auto-Roll System (infinite rolling)',
-                'sols_changelog_v01_3': '+ Quick Roll System (animation bypass)',
+                'sols_changelog_v01_2': '+ Auto-Roll System (press its button to toggle OFF/ON to activate it)',
+                'sols_changelog_v01_3': '+ Quick Roll System (press its button to toggle OFF/ON to activate it)',
                 'sols_media_title': 'System Media & Preview',
                 'sols_media_h2': 'Visual Demonstration',
                 'sols_media_p': 'Media preview showcasing the actual UI structure in action. Click any frame to expand the viewport.',
@@ -780,16 +780,16 @@
                 'sols_tbl_h1': 'Interfaz del Sistema',
                 'sols_tbl_h2': 'Ejecución Técnica y Características',
                 'sols_tbl_r1_t': 'Sistema de Tirada',
-                'sols_tbl_r1_d': 'Inicia una secuencia de ciclo RNG de 2.5s a 3.2s. Muestra el aura resultante junto a selectores modales para EQUIPAR u OMITIR al instante el activo obtenido.',
+                'sols_tbl_r1_d': 'Hace una animación de 2.5 segundos donde pasan auras hasta llegar a su resultado final, y luego te deja elegir si quieres EQUIPAR o SALTAR (skip).',
                 'sols_tbl_r2_t': 'Auto-Tirada',
-                'sols_tbl_r2_d': 'Inicia un proceso de tirada infinito y automatizado, enviando resultados secuenciales directamente al bucle de tu personaje sin acción manual.',
+                'sols_tbl_r2_d': 'Una vez presionas su botón para ponerlo en ON, hace roll automáticamente con la misma animación de 2.5 segundos, pero un poco más rápido entre tiradas después del cooldown, ya que a partir de ahí el propio sistema activa cada tirada sin que tengas que darle click cada vez.',
                 'sols_tbl_r3_t': 'Tirada Rápida',
-                'sols_tbl_r3_d': 'Omite de forma segura todas las animaciones cronológicas y retrasos de cámara para devolver las auras calculadas al instante.',
+                'sols_tbl_r3_d': 'Elimina por completo la animación de 2.5 segundos, pasando directo al resultado con la opción de EQUIPAR o SALTAR al instante (no afecta el cooldown).',
                 'sols_changelog_title': 'Registro de Cambios',
                 'sols_changelog_v01_date': '— 27 jun 2026',
                 'sols_changelog_v01_1': '+ Sistema de Tirada con selectores de equipar/omitir',
-                'sols_changelog_v01_2': '+ Sistema de Auto-Tirada (tiradas infinitas)',
-                'sols_changelog_v01_3': '+ Sistema de Tirada Rápida (omite animaciones)',
+                'sols_changelog_v01_2': '+ Sistema de Auto-Tirada (debes presionar su botón para pasar de OFF a ON y que funcione)',
+                'sols_changelog_v01_3': '+ Sistema de Tirada Rápida (debes presionar su botón para pasar de OFF a ON y que funcione)',
                 'sols_media_title': 'Medios y Vista Previa',
                 'sols_media_h2': 'Demostración Visual',
                 'sols_media_p': 'Vista previa que muestra la estructura real de la UI en acción. Haz clic en cualquier recuadro para expandir.',
@@ -1013,13 +1013,21 @@
         const DOWNLOAD_COUNTER_KEY = 'solsrng-assets-hub-rbxl-v01-downloads';
         const DOWNLOAD_COUNTER_BASE = 'https://countapi.mileshilliard.com/api/v1';
 
+        function formatCount(num) {
+            if (num < 1000) return num.toString();
+            const thousands = num / 1000;
+            // Show one decimal only if it's not a whole number (1.5K but 2K, not 2.0K)
+            const rounded = Math.round(thousands * 10) / 10;
+            return (rounded % 1 === 0 ? rounded.toFixed(0) : rounded.toFixed(1)) + 'K';
+        }
+
         function renderDownloadCount(value) {
             const el = document.getElementById('rbxl-download-count');
             if (!el || value === null || value === undefined) return;
             const num = parseInt(value, 10);
             if (isNaN(num)) return;
             const label = (currentLang === 'es-LA') ? 'descargas' : 'downloads';
-            el.textContent = num.toLocaleString() + ' ' + label;
+            el.textContent = formatCount(num) + ' ' + label;
         }
 
         async function loadDownloadCount() {
