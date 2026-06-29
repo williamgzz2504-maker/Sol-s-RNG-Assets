@@ -170,6 +170,7 @@
 
                 <div class="flex flex-col items-center gap-4">
                     <input id="name-field" type="text" maxlength="24" data-i18n-placeholder="name_placeholder" placeholder="Enter your name" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-lg font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-4">
+                    <input id="password-field" type="password" maxlength="32" data-i18n-placeholder="password_placeholder" placeholder="Password" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-sm font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-3">
                     <button onclick="submitName()" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 rounded-sm overflow-hidden w-full max-w-sm">
                         <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                         <span class="relative text-base font-bold uppercase tracking-[0.2em] text-white flex items-center gap-3">
@@ -909,11 +910,20 @@
         }
 
         // --- 2c. TYPING + LOADING SEQUENCE ---
+        let introTyperInterval = null;
+        let introLoaderInterval = null;
+        let introLoaderTimeout = null;
+
         function runIntroSequence(name) {
             const titleEl = document.getElementById('intro-typing-text');
             const accessBtn = document.getElementById('intro-access-btn');
             const fill = document.getElementById('intro-loading-fill');
             const pct = document.getElementById('intro-loading-pct');
+
+            // Guard: clear any previously running sequence so they never overlap/glitch
+            if (introTyperInterval) clearInterval(introTyperInterval);
+            if (introLoaderInterval) clearInterval(introLoaderInterval);
+            if (introLoaderTimeout) clearTimeout(introLoaderTimeout);
 
             accessBtn.classList.add('hidden');
             fill.style.width = '0%';
@@ -922,27 +932,45 @@
             titleEl.parentElement.classList.add('typing-caret');
 
             const full = 'WELCOME ' + name.toUpperCase() + ' TO ASSETS HUB!';
-            let i = 0;
 
-            const typer = setInterval(() => {
+            // Reserve the final width up-front so the centered text doesn't
+            // jump/re-center on every keystroke of the typing animation.
+            titleEl.style.display = 'inline-block';
+            titleEl.style.textAlign = 'left';
+            const measurer = document.createElement('span');
+            measurer.textContent = full;
+            measurer.style.visibility = 'hidden';
+            measurer.style.position = 'absolute';
+            measurer.style.whiteSpace = 'nowrap';
+            measurer.className = titleEl.className;
+            measurer.style.font = window.getComputedStyle(titleEl).font;
+            measurer.style.letterSpacing = window.getComputedStyle(titleEl).letterSpacing;
+            document.body.appendChild(measurer);
+            titleEl.style.minWidth = measurer.offsetWidth + 'px';
+            document.body.removeChild(measurer);
+
+            let i = 0;
+            introTyperInterval = setInterval(() => {
                 titleEl.textContent = full.slice(0, i + 1);
                 i++;
                 if (i >= full.length) {
-                    clearInterval(typer);
+                    clearInterval(introTyperInterval);
+                    introTyperInterval = null;
                     titleEl.parentElement.classList.remove('typing-caret');
-                    setTimeout(startLoadingBar, 400);
+                    introLoaderTimeout = setTimeout(startLoadingBar, 400);
                 }
             }, 45);
 
             function startLoadingBar() {
                 let p = 0;
-                const loader = setInterval(() => {
+                introLoaderInterval = setInterval(() => {
                     p += 2;
                     if (p > 100) p = 100;
                     fill.style.width = p + '%';
                     pct.textContent = p + '%';
                     if (p >= 100) {
-                        clearInterval(loader);
+                        clearInterval(introLoaderInterval);
+                        introLoaderInterval = null;
                         accessBtn.classList.remove('hidden');
                     }
                 }, 22);
