@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Assets Hub & Sol's RNG Release</title>
+
+    <!-- Favicon (inline SVG, diamond/aura icon matching HUD theme) -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' fill='%2307080a'/%3E%3Cpath d='M12 2 L20 9 L12 22 L4 9 Z' fill='none' stroke='%233b82f6' stroke-width='1.6'/%3E%3Cpath d='M12 2 L20 9 L4 9 Z' fill='%233b82f6' fill-opacity='0.35'/%3E%3C/svg%3E">
+
+    <!-- Open Graph / Social Sharing Preview -->
+    <meta property="og:title" content="Assets Hub — Sol's RNG System">
+    <meta property="og:description" content="Sistema completo de RNG de auras para Roblox: equip/skip, auto-roll infinito y quick roll. Descarga el asset y revisa la documentación.">
+    <meta property="og:image" content="Sol%27s%20RNG%20Photo%20V0.1.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Assets Hub — Sol's RNG System">
+    <meta name="twitter:description" content="Sistema completo de RNG de auras para Roblox: equip/skip, auto-roll infinito y quick roll.">
+    <meta name="twitter:image" content="Sol%27s%20RNG%20Photo%20V0.1.png">
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Official Rajdhani Font -->
@@ -425,6 +439,26 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- Changelog -->
+                    <div class="mt-6 pt-6 border-t border-white/10">
+                        <h3 class="text-xs font-bold uppercase tracking-[0.3em] text-gray-500 mb-4" data-i18n="sols_changelog_title">Changelog</h3>
+                        <div class="space-y-4">
+                            <div class="flex gap-4">
+                                <div class="flex flex-col items-center pt-1">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-blue-500 flex-shrink-0"></span>
+                                </div>
+                                <div>
+                                    <p class="text-white text-sm font-bold uppercase tracking-wide">V0.1 <span class="text-gray-500 font-medium normal-case tracking-normal ml-2" data-i18n="sols_changelog_v01_date">— Jun 27, 2026</span></p>
+                                    <ul class="mt-2 space-y-1 text-gray-400 text-xs md:text-sm font-medium list-none">
+                                        <li data-i18n="sols_changelog_v01_1">+ Roll System with equip/skip selectors</li>
+                                        <li data-i18n="sols_changelog_v01_2">+ Auto-Roll System (infinite rolling)</li>
+                                        <li data-i18n="sols_changelog_v01_3">+ Quick Roll System (animation bypass)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </section>
 
                 <!-- Media Section -->
@@ -580,11 +614,12 @@
                         Download the main file to import into Roblox Studio.
                     </p>
                     
-                    <a href="Sols%20RNG%20SYSTEM%20V0.1.rbxl" download class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-4 rounded-sm border border-white/20 transition-colors uppercase tracking-widest text-sm flex items-center justify-center gap-2 shadow-lg">
+                    <a href="Sols%20RNG%20SYSTEM%20V0.1.rbxl" download onclick="incrementDownloadCount()" class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3 px-4 rounded-sm border border-white/20 transition-colors uppercase tracking-widest text-sm flex items-center justify-center gap-2 shadow-lg">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                         <span data-i18n="sols_dl_btn">Download .RBXL</span>
                     </a>
-                    <p id="rbxl-filesize" class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mt-3"></p>
+                    <p id="rbxl-filesize" class="text-center text-gray-500 text-xs font-bold uppercase tracking-widest mt-3">…</p>
+                    <p id="rbxl-download-count" class="text-center text-gray-600 text-[10px] font-medium uppercase tracking-widest mt-1"></p>
                 </section>
 
                 <!-- Previous Versions Panel -->
@@ -679,6 +714,11 @@
                 'sols_tbl_r2_d': 'Initiates an automated and infinite rolling process, sending sequential results directly to your character loop without manual action.',
                 'sols_tbl_r3_t': 'Quick Roll System',
                 'sols_tbl_r3_d': 'Safely bypasses all chronological animations and camera delays to return the calculated auras instantly.',
+                'sols_changelog_title': 'Changelog',
+                'sols_changelog_v01_date': '— Jun 27, 2026',
+                'sols_changelog_v01_1': '+ Roll System with equip/skip selectors',
+                'sols_changelog_v01_2': '+ Auto-Roll System (infinite rolling)',
+                'sols_changelog_v01_3': '+ Quick Roll System (animation bypass)',
                 'sols_media_title': 'System Media & Preview',
                 'sols_media_h2': 'Visual Demonstration',
                 'sols_media_p': 'Media preview showcasing the actual UI structure in action. Click any frame to expand the viewport.',
@@ -745,6 +785,11 @@
                 'sols_tbl_r2_d': 'Inicia un proceso de tirada infinito y automatizado, enviando resultados secuenciales directamente al bucle de tu personaje sin acción manual.',
                 'sols_tbl_r3_t': 'Tirada Rápida',
                 'sols_tbl_r3_d': 'Omite de forma segura todas las animaciones cronológicas y retrasos de cámara para devolver las auras calculadas al instante.',
+                'sols_changelog_title': 'Registro de Cambios',
+                'sols_changelog_v01_date': '— 27 jun 2026',
+                'sols_changelog_v01_1': '+ Sistema de Tirada con selectores de equipar/omitir',
+                'sols_changelog_v01_2': '+ Sistema de Auto-Tirada (tiradas infinitas)',
+                'sols_changelog_v01_3': '+ Sistema de Tirada Rápida (omite animaciones)',
                 'sols_media_title': 'Medios y Vista Previa',
                 'sols_media_h2': 'Demostración Visual',
                 'sols_media_p': 'Vista previa que muestra la estructura real de la UI en acción. Haz clic en cualquier recuadro para expandir.',
@@ -960,7 +1005,35 @@
         async function loadRbxlFileSize() {
             const el = document.getElementById('rbxl-filesize');
             if (!el) return;
-            el.textContent = await getRemoteFileSize('Sols%20RNG%20SYSTEM%20V0.1.rbxl');
+            const size = await getRemoteFileSize('Sols%20RNG%20SYSTEM%20V0.1.rbxl');
+            el.textContent = size || '';
+        }
+
+        // --- 3d. DOWNLOAD COUNTER (uses free CountAPI service, no backend needed) ---
+        const DOWNLOAD_COUNTER_NAMESPACE = 'sols-rng-assets-hub';
+        const DOWNLOAD_COUNTER_KEY = 'rbxl-v0-1-downloads';
+
+        function renderDownloadCount(value) {
+            const el = document.getElementById('rbxl-download-count');
+            if (!el || typeof value !== 'number') return;
+            const label = (currentLang === 'es-LA') ? 'descargas' : 'downloads';
+            el.textContent = value.toLocaleString() + ' ' + label;
+        }
+
+        async function loadDownloadCount() {
+            try {
+                const res = await fetch(`https://api.countapi.xyz/get/${DOWNLOAD_COUNTER_NAMESPACE}/${DOWNLOAD_COUNTER_KEY}`);
+                const data = await res.json();
+                renderDownloadCount(data.value || 0);
+            } catch (e) {}
+        }
+
+        async function incrementDownloadCount() {
+            try {
+                const res = await fetch(`https://api.countapi.xyz/hit/${DOWNLOAD_COUNTER_NAMESPACE}/${DOWNLOAD_COUNTER_KEY}`);
+                const data = await res.json();
+                renderDownloadCount(data.value);
+            } catch (e) {}
         }
 
         // --- 3c. PREVIOUS VERSIONS ARCHIVE ---
@@ -1009,6 +1082,7 @@
         // --- 4. Event Listeners ---
         document.addEventListener('DOMContentLoaded', () => {
             loadRbxlFileSize();
+            loadDownloadCount();
             renderPreviousVersions();
             document.getElementById('video-card').addEventListener('click', function() {
                 const src = this.querySelector('video').src;
