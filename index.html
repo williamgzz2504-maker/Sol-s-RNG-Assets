@@ -153,6 +153,16 @@
 </head>
 <body class="py-6 px-4 md:px-8 lg:px-12 min-h-screen flex flex-col relative">
 
+    <!-- SITE-WIDE ANNOUNCEMENT BANNER (controlled by owner) -->
+    <div id="site-announcement-banner" class="hidden fixed top-0 left-0 right-0 z-[60] bg-blue-600/95 border-b border-blue-400/40 backdrop-blur-sm">
+        <div class="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
+            <p id="site-announcement-text" class="text-white text-xs md:text-sm font-bold uppercase tracking-wide flex-1"></p>
+            <button onclick="dismissAnnouncement()" class="flex-shrink-0 text-white/80 hover:text-white transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+    </div>
+
     <!-- VIEW -1: AUTH (Login / Create Account) -->
     <div id="view-name" class="view-section view-section-flex flex-col items-center justify-center min-h-[85vh] w-full max-w-4xl mx-auto text-center space-y-8">
         <div class="relative w-full max-w-xl">
@@ -188,8 +198,8 @@
                         LOG IN
                     </h1>
                     <div class="flex flex-col items-center gap-4">
-                        <input id="login-name-field" type="text" maxlength="24" data-i18n-placeholder="name_placeholder" placeholder="Enter your name" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-lg font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-4">
-                        <input id="login-password-field" type="password" maxlength="32" data-i18n-placeholder="password_placeholder" placeholder="Password" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-sm font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-3">
+                        <input id="login-name-field" type="text" maxlength="24" oninput="this.value=this.value.toUpperCase()" data-i18n-placeholder="name_placeholder" placeholder="Enter your name" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-lg font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-4">
+                        <input id="login-password-field" type="password" maxlength="32" oninput="this.value=this.value.toUpperCase()" data-i18n-placeholder="password_placeholder" placeholder="Password" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-sm font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-3">
                         <p id="login-error" class="text-red-400 text-xs font-bold uppercase tracking-wider hidden"></p>
                         <button onclick="submitLogin()" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 rounded-sm overflow-hidden w-full max-w-sm">
                             <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
@@ -208,8 +218,8 @@
                         CREATE ACCOUNT
                     </h1>
                     <div class="flex flex-col items-center gap-4">
-                        <input id="create-name-field" type="text" maxlength="24" data-i18n-placeholder="name_placeholder" placeholder="Enter your name" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-lg font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-4">
-                        <input id="create-password-field" type="password" maxlength="32" data-i18n-placeholder="password_placeholder" placeholder="Password" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-sm font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-3">
+                        <input id="create-name-field" type="text" maxlength="24" oninput="this.value=this.value.toUpperCase()" data-i18n-placeholder="name_placeholder" placeholder="Enter your name" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-lg font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-4">
+                        <input id="create-password-field" type="password" maxlength="32" oninput="this.value=this.value.toUpperCase()" data-i18n-placeholder="password_placeholder" placeholder="Password" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-sm font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-3">
                         <p id="create-error" class="text-red-400 text-xs font-bold uppercase tracking-wider hidden"></p>
                         <button onclick="submitCreateAccount()" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 rounded-sm overflow-hidden w-full max-w-sm">
                             <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
@@ -341,9 +351,33 @@
                     ASSETS DIRECTORY
                 </h1>
                 <p id="hub-greeting" class="text-blue-400 text-sm mt-1 font-bold uppercase tracking-widest"></p>
+                <span id="owner-badge" class="hidden mt-1 px-3 py-1 bg-blue-500/15 border border-blue-500/40 rounded-sm text-blue-300 text-[11px] font-bold uppercase tracking-[0.2em]">★ <span data-i18n="owner_badge_label">OWNER ACCESS</span></span>
                 <p class="text-gray-400 text-sm mt-2 font-medium" data-i18n="hub_desc">Select a module to view documentation, previews, and download links.</p>
             </div>
         </header>
+
+        <!-- OWNER-ONLY PANEL: site-wide announcement control -->
+        <section id="owner-announcement-section" class="hud-card p-6 rounded-sm hidden border-blue-500/30">
+            <div class="hud-corner hud-corner-tl"></div>
+            <div class="hud-corner hud-corner-tr"></div>
+            <div class="hud-corner hud-corner-bl"></div>
+            <div class="hud-corner hud-corner-br"></div>
+
+            <div class="flex items-center gap-2 mb-4 text-blue-400 font-bold uppercase text-xs tracking-widest">
+                <span class="text-base">▪</span> <span data-i18n="owner_announce_title">Site Announcement</span>
+            </div>
+            <p class="text-gray-400 text-xs leading-relaxed mb-4 font-medium" data-i18n="owner_announce_desc">
+                Shown as a banner at the top of the site to every visitor until you clear it.
+            </p>
+            <div class="flex flex-col md:flex-row items-stretch gap-2">
+                <input id="owner-announcement-field" type="text" maxlength="140" data-i18n-placeholder="owner_announce_placeholder" placeholder="Type an announcement..." class="flex-1 bg-[#0d0e12] border border-white/10 text-white text-sm font-medium rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-3">
+                <div class="flex gap-2">
+                    <button onclick="publishAnnouncement()" class="px-4 py-3 bg-blue-500/15 hover:bg-blue-500/25 border border-blue-500/40 rounded-sm text-blue-300 text-xs font-bold uppercase tracking-wider transition-colors whitespace-nowrap" data-i18n="owner_announce_publish">Publish</button>
+                    <button onclick="clearAnnouncement()" class="px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-sm text-gray-300 text-xs font-bold uppercase tracking-wider transition-colors whitespace-nowrap" data-i18n="owner_announce_clear">Clear</button>
+                </div>
+            </div>
+            <p id="owner-announcement-status" class="text-gray-500 text-[11px] font-medium mt-2"></p>
+        </section>
 
         <!-- OWNER-ONLY PANEL: list of everyone who registered -->
         <section id="owner-panel-section" class="hud-card p-6 rounded-sm hidden border-blue-500/30">
@@ -756,6 +790,12 @@
                 'owner_panel_empty': 'No registrations logged yet.',
                 'owner_panel_reset': 'Reset All',
                 'owner_panel_search': 'Search by name...',
+                'owner_badge_label': 'OWNER ACCESS',
+                'owner_announce_title': 'Site Announcement',
+                'owner_announce_desc': 'Shown as a banner at the top of the site to every visitor until you clear it.',
+                'owner_announce_placeholder': 'Type an announcement...',
+                'owner_announce_publish': 'Publish',
+                'owner_announce_clear': 'Clear',
                 'auth_choice_title': 'ACCESS REQUIRED',
                 'auth_login_btn': 'LOG IN',
                 'auth_create_btn': 'CREATE ACCOUNT',
@@ -842,6 +882,12 @@
                 'owner_panel_empty': 'Aún no hay registros guardados.',
                 'owner_panel_reset': 'Borrar Todo',
                 'owner_panel_search': 'Buscar por nombre...',
+                'owner_badge_label': 'ACCESO DE OWNER',
+                'owner_announce_title': 'Anuncio del Sitio',
+                'owner_announce_desc': 'Se muestra como banner arriba del sitio a todos los visitantes hasta que lo borres.',
+                'owner_announce_placeholder': 'Escribe un anuncio...',
+                'owner_announce_publish': 'Publicar',
+                'owner_announce_clear': 'Borrar',
                 'auth_choice_title': 'ACCESO REQUERIDO',
                 'auth_login_btn': 'INICIAR SESIÓN',
                 'auth_create_btn': 'CREAR CUENTA',
@@ -1080,6 +1126,56 @@
         function showOwnerPanel() {
             const panel = document.getElementById('owner-panel-section');
             if (panel) panel.classList.remove('hidden');
+            const announcePanel = document.getElementById('owner-announcement-section');
+            if (announcePanel) announcePanel.classList.remove('hidden');
+        }
+
+        // --- SITE-WIDE ANNOUNCEMENT BANNER (owner-controlled, KVdb-backed) ---
+        async function loadAnnouncement() {
+            const data = await kvGet('site-announcement');
+            const banner = document.getElementById('site-announcement-banner');
+            const textEl = document.getElementById('site-announcement-text');
+            if (!data || !data.text) {
+                banner.classList.add('hidden');
+                return;
+            }
+            let dismissed = null;
+            try { dismissed = sessionStorage.getItem('dismissedAnnouncementText'); } catch(e) {}
+            if (dismissed === data.text) {
+                banner.classList.add('hidden');
+                return;
+            }
+            textEl.textContent = data.text;
+            banner.classList.remove('hidden');
+        }
+
+        function dismissAnnouncement() {
+            const banner = document.getElementById('site-announcement-banner');
+            const textEl = document.getElementById('site-announcement-text');
+            try { sessionStorage.setItem('dismissedAnnouncementText', textEl.textContent || ''); } catch(e) {}
+            banner.classList.add('hidden');
+        }
+
+        async function publishAnnouncement() {
+            const field = document.getElementById('owner-announcement-field');
+            const status = document.getElementById('owner-announcement-status');
+            const text = (field.value || '').trim();
+            if (!text) {
+                status.textContent = currentLang === 'es-LA' ? 'Escribe un mensaje primero.' : 'Type a message first.';
+                return;
+            }
+            await kvSet('site-announcement', { text: text, time: new Date().toISOString() });
+            status.textContent = currentLang === 'es-LA' ? 'Anuncio publicado a todos los visitantes.' : 'Announcement published to all visitors.';
+            try { sessionStorage.removeItem('dismissedAnnouncementText'); } catch(e) {}
+            loadAnnouncement();
+        }
+
+        async function clearAnnouncement() {
+            const status = document.getElementById('owner-announcement-status');
+            await kvSet('site-announcement', { text: '', time: new Date().toISOString() });
+            document.getElementById('owner-announcement-field').value = '';
+            status.textContent = currentLang === 'es-LA' ? 'Anuncio eliminado.' : 'Announcement cleared.';
+            loadAnnouncement();
         }
 
         function renderOwnerRows(regs) {
@@ -1150,8 +1246,8 @@
         async function submitLogin() {
             const nameField = document.getElementById('login-name-field');
             const passField = document.getElementById('login-password-field');
-            const name = (nameField.value || '').trim();
-            const pass = (passField.value || '').trim();
+            const name = (nameField.value || '').trim().toUpperCase();
+            const pass = (passField.value || '').trim().toUpperCase();
 
             if (!name || !pass) {
                 showAuthError('login', currentLang === 'es-LA' ? 'Completa nombre y contraseña.' : 'Enter both name and password.');
@@ -1159,13 +1255,13 @@
             }
 
             // Hardcoded owner login, independent of KVdb-stored accounts.
-            if (name.toLowerCase() === OWNER_USER.toLowerCase() && pass === OWNER_PASS) {
+            if (name === OWNER_USER.toUpperCase() && pass === OWNER_PASS.toUpperCase()) {
                 completeLogin(name, true);
                 return;
             }
 
             const account = await kvGet(accountKey(name));
-            if (account && account.password === pass) {
+            if (account && (account.password || '').toUpperCase() === pass) {
                 completeLogin(account.name || name, false);
             } else {
                 showAuthError('login', currentLang === 'es-LA' ? 'Nombre o contraseña incorrectos.' : 'Incorrect name or password.');
@@ -1175,14 +1271,14 @@
         async function submitCreateAccount() {
             const nameField = document.getElementById('create-name-field');
             const passField = document.getElementById('create-password-field');
-            const name = (nameField.value || '').trim();
-            const pass = (passField.value || '').trim();
+            const name = (nameField.value || '').trim().toUpperCase();
+            const pass = (passField.value || '').trim().toUpperCase();
 
             if (!name || !pass) {
                 showAuthError('create', currentLang === 'es-LA' ? 'Completa nombre y contraseña.' : 'Enter both name and password.');
                 return;
             }
-            if (name.toLowerCase() === OWNER_USER.toLowerCase()) {
+            if (name === OWNER_USER.toUpperCase()) {
                 showAuthError('create', currentLang === 'es-LA' ? 'Ese nombre está reservado.' : 'That name is reserved.');
                 return;
             }
@@ -1209,7 +1305,11 @@
             switchView('view-intro');
             runIntroSequence(name);
 
-            if (ownerLogin) showOwnerPanel();
+            if (ownerLogin) {
+                showOwnerPanel();
+                renderOwnerPanel();
+            }
+            updateGreeting();
         }
 
         function forgetName() {
@@ -1224,6 +1324,7 @@
         function updateGreeting() {
             const name = getSavedName();
             const greetEl = document.getElementById('hub-greeting');
+            const badgeEl = document.getElementById('owner-badge');
             if (!greetEl) return;
             if (name) {
                 const template = translations[currentLang]['hub_greeting'] || 'Welcome back, {name}';
@@ -1231,7 +1332,12 @@
             } else {
                 greetEl.textContent = '';
             }
-            if (isOwner()) showOwnerPanel();
+            if (isOwner()) {
+                if (badgeEl) badgeEl.classList.remove('hidden');
+                showOwnerPanel();
+            } else {
+                if (badgeEl) badgeEl.classList.add('hidden');
+            }
         }
 
         // --- 2c. TYPING + LOADING SEQUENCE (smoothed with requestAnimationFrame) ---
@@ -1467,6 +1573,7 @@
 
             // Reset any session created under an older auth schema (forces re-login).
             enforceAuthVersion();
+            loadAnnouncement();
 
             // Decide entry point: ask to log in/create account, or greet returning visitor
             const savedName = getSavedName();
