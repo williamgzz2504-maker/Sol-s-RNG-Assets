@@ -149,19 +149,59 @@
             opacity: 0.6;
             pointer-events: none;
         }
+
+        /* ============================================
+           OWNER GOLD THEME
+           Activated by toggling the .owner-theme class
+           on <body>. Re-skins the blue HUD accents into
+           gold so owner mode is unmistakable at a glance.
+           ============================================ */
+        body.owner-theme {
+            --owner-gold: #f5c542;
+            --owner-gold-soft: rgba(245, 197, 66, 0.12);
+            --owner-gold-border: rgba(245, 197, 66, 0.4);
+        }
+        body.owner-theme .hud-corner {
+            border-color: var(--owner-gold) !important;
+        }
+        body.owner-theme .text-blue-400,
+        body.owner-theme .text-blue-500,
+        body.owner-theme .text-blue-300 {
+            color: var(--owner-gold) !important;
+        }
+        body.owner-theme .border-blue-500\/50,
+        body.owner-theme .border-blue-500\/40,
+        body.owner-theme .border-blue-500\/30,
+        body.owner-theme .border-blue-500\/10,
+        body.owner-theme .focus\:border-blue-500:focus {
+            border-color: var(--owner-gold-border) !important;
+        }
+        body.owner-theme .bg-blue-500\/10,
+        body.owner-theme .hover\:bg-blue-500\/10:hover,
+        body.owner-theme .bg-blue-500\/15,
+        body.owner-theme .hover\:bg-blue-500\/25:hover {
+            background-color: var(--owner-gold-soft) !important;
+        }
+        body.owner-theme .focus\:ring-blue-500:focus {
+            box-shadow: 0 0 0 2px var(--owner-gold-border) !important;
+        }
+        body.owner-theme .animate-\[pulse-slow_3s_ease-in-out_infinite\],
+        body.owner-theme .bg-blue-500\/10.blur-\[50px\] {
+            background-color: var(--owner-gold-soft) !important;
+        }
+        body.owner-theme .typing-caret::after {
+            color: var(--owner-gold) !important;
+        }
+        body.owner-theme .loading-fill {
+            background: linear-gradient(90deg, #b8860b, var(--owner-gold)) !important;
+        }
+        /* Subtle gold glow on the outer page edge so it reads as a "skin" even on scroll */
+        body.owner-theme::before {
+            box-shadow: inset 0 0 120px rgba(245, 197, 66, 0.05);
+        }
     </style>
 </head>
 <body class="py-6 px-4 md:px-8 lg:px-12 min-h-screen flex flex-col relative">
-
-    <!-- SITE-WIDE ANNOUNCEMENT BANNER (controlled by owner) -->
-    <div id="site-announcement-banner" class="hidden fixed top-0 left-0 right-0 z-[60] bg-blue-600/95 border-b border-blue-400/40 backdrop-blur-sm">
-        <div class="max-w-6xl mx-auto px-4 py-2.5 flex items-center justify-between gap-3">
-            <p id="site-announcement-text" class="text-white text-xs md:text-sm font-bold uppercase tracking-wide flex-1"></p>
-            <button onclick="dismissAnnouncement()" class="flex-shrink-0 text-white/80 hover:text-white transition-colors">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-    </div>
 
     <!-- VIEW -1: AUTH (Login / Create Account) -->
     <div id="view-name" class="view-section view-section-flex flex-col items-center justify-center min-h-[85vh] w-full max-w-4xl mx-auto text-center space-y-8">
@@ -351,58 +391,9 @@
                     ASSETS DIRECTORY
                 </h1>
                 <p id="hub-greeting" class="text-blue-400 text-sm mt-1 font-bold uppercase tracking-widest"></p>
-                <span id="owner-badge" class="hidden mt-1 px-3 py-1 bg-blue-500/15 border border-blue-500/40 rounded-sm text-blue-300 text-[11px] font-bold uppercase tracking-[0.2em]">★ <span data-i18n="owner_badge_label">OWNER ACCESS</span></span>
                 <p class="text-gray-400 text-sm mt-2 font-medium" data-i18n="hub_desc">Select a module to view documentation, previews, and download links.</p>
             </div>
         </header>
-
-        <!-- OWNER-ONLY PANEL: site-wide announcement control -->
-        <section id="owner-announcement-section" class="hud-card p-6 rounded-sm hidden border-blue-500/30">
-            <div class="hud-corner hud-corner-tl"></div>
-            <div class="hud-corner hud-corner-tr"></div>
-            <div class="hud-corner hud-corner-bl"></div>
-            <div class="hud-corner hud-corner-br"></div>
-
-            <div class="flex items-center gap-2 mb-4 text-blue-400 font-bold uppercase text-xs tracking-widest">
-                <span class="text-base">▪</span> <span data-i18n="owner_announce_title">Site Announcement</span>
-            </div>
-            <p class="text-gray-400 text-xs leading-relaxed mb-4 font-medium" data-i18n="owner_announce_desc">
-                Shown as a banner at the top of the site to every visitor until you clear it.
-            </p>
-            <div class="flex flex-col md:flex-row items-stretch gap-2">
-                <input id="owner-announcement-field" type="text" maxlength="140" data-i18n-placeholder="owner_announce_placeholder" placeholder="Type an announcement..." class="flex-1 bg-[#0d0e12] border border-white/10 text-white text-sm font-medium rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-3">
-                <div class="flex gap-2">
-                    <button onclick="publishAnnouncement()" class="px-4 py-3 bg-blue-500/15 hover:bg-blue-500/25 border border-blue-500/40 rounded-sm text-blue-300 text-xs font-bold uppercase tracking-wider transition-colors whitespace-nowrap" data-i18n="owner_announce_publish">Publish</button>
-                    <button onclick="clearAnnouncement()" class="px-4 py-3 bg-white/5 hover:bg-white/10 border border-white/10 rounded-sm text-gray-300 text-xs font-bold uppercase tracking-wider transition-colors whitespace-nowrap" data-i18n="owner_announce_clear">Clear</button>
-                </div>
-            </div>
-            <p id="owner-announcement-status" class="text-gray-500 text-[11px] font-medium mt-2"></p>
-        </section>
-
-        <!-- OWNER-ONLY PANEL: list of everyone who registered -->
-        <section id="owner-panel-section" class="hud-card p-6 rounded-sm hidden border-blue-500/30">
-            <div class="hud-corner hud-corner-tl"></div>
-            <div class="hud-corner hud-corner-tr"></div>
-            <div class="hud-corner hud-corner-bl"></div>
-            <div class="hud-corner hud-corner-br"></div>
-
-            <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
-                <div class="flex items-center gap-2 text-blue-400 font-bold uppercase text-xs tracking-widest">
-                    <span class="text-base">▪</span> <span data-i18n="owner_panel_title">Owner Panel — Registered Visitors</span>
-                    <span class="ml-2 px-2 py-0.5 bg-blue-500/10 border border-blue-500/30 rounded-sm text-blue-300" id="owner-registrations-count">0</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <button onclick="renderOwnerPanel()" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-sm text-xs font-bold uppercase tracking-wider text-gray-300 transition-colors" data-i18n="owner_panel_refresh">Refresh</button>
-                    <button onclick="resetAllRegistrations()" class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 rounded-sm text-xs font-bold uppercase tracking-wider text-red-300 transition-colors" data-i18n="owner_panel_reset">Reset All</button>
-                </div>
-            </div>
-
-            <input id="owner-search-field" type="text" oninput="filterOwnerRegs()" data-i18n-placeholder="owner_panel_search" placeholder="Search by name..." class="w-full bg-[#0d0e12] border border-white/10 text-white text-sm font-medium rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-2.5 mb-4">
-
-            <p id="owner-registrations-loading" class="text-gray-500 text-xs font-medium uppercase tracking-widest hidden" data-i18n="owner_panel_loading">Loading registrations...</p>
-            <p id="owner-registrations-empty" class="text-gray-500 text-xs font-medium italic hidden" data-i18n="owner_panel_empty">No registrations logged yet.</p>
-            <div id="owner-registrations-list" class="space-y-2 max-h-80 overflow-y-auto"></div>
-        </section>
 
         <!-- Assets Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start mt-8">
@@ -784,18 +775,6 @@
                 'name_placeholder': 'Enter your name',
                 'name_btn': 'CONFIRM IDENTITY',
                 'password_placeholder': 'Password',
-                'owner_panel_title': 'Owner Panel — Registered Visitors',
-                'owner_panel_refresh': 'Refresh',
-                'owner_panel_loading': 'Loading registrations...',
-                'owner_panel_empty': 'No registrations logged yet.',
-                'owner_panel_reset': 'Reset All',
-                'owner_panel_search': 'Search by name...',
-                'owner_badge_label': 'OWNER ACCESS',
-                'owner_announce_title': 'Site Announcement',
-                'owner_announce_desc': 'Shown as a banner at the top of the site to every visitor until you clear it.',
-                'owner_announce_placeholder': 'Type an announcement...',
-                'owner_announce_publish': 'Publish',
-                'owner_announce_clear': 'Clear',
                 'auth_choice_title': 'ACCESS REQUIRED',
                 'auth_login_btn': 'LOG IN',
                 'auth_create_btn': 'CREATE ACCOUNT',
@@ -876,18 +855,6 @@
                 'name_placeholder': 'Escribe tu nombre',
                 'name_btn': 'CONFIRMAR IDENTIDAD',
                 'password_placeholder': 'Contraseña',
-                'owner_panel_title': 'Panel del Owner — Visitantes Registrados',
-                'owner_panel_refresh': 'Actualizar',
-                'owner_panel_loading': 'Cargando registros...',
-                'owner_panel_empty': 'Aún no hay registros guardados.',
-                'owner_panel_reset': 'Borrar Todo',
-                'owner_panel_search': 'Buscar por nombre...',
-                'owner_badge_label': 'ACCESO DE OWNER',
-                'owner_announce_title': 'Anuncio del Sitio',
-                'owner_announce_desc': 'Se muestra como banner arriba del sitio a todos los visitantes hasta que lo borres.',
-                'owner_announce_placeholder': 'Escribe un anuncio...',
-                'owner_announce_publish': 'Publicar',
-                'owner_announce_clear': 'Borrar',
                 'auth_choice_title': 'ACCESO REQUERIDO',
                 'auth_login_btn': 'INICIAR SESIÓN',
                 'auth_create_btn': 'CREAR CUENTA',
@@ -1064,7 +1031,7 @@
             el.classList.remove('hidden');
         }
 
-        // --- KVdb helpers ---
+        // --- KVdb helpers (used only for account storage now) ---
         async function kvGet(key) {
             try {
                 const res = await fetch(`${KVDB_BASE}/${key}`);
@@ -1079,167 +1046,16 @@
                 return true;
             } catch (e) { return false; }
         }
-        async function kvDelete(key) {
-            try {
-                await fetch(`${KVDB_BASE}/${key}`, { method: 'DELETE' });
-                return true;
-            } catch (e) { return false; }
-        }
 
         function accountKey(name) {
             return `account-${name.toLowerCase().replace(/[^a-z0-9_-]/g, '')}`;
         }
 
-        async function appendToRegistrationIndex(key) {
-            const list = (await kvGet('reg-index')) || [];
-            list.push(key);
-            await kvSet('reg-index', list);
-        }
-
-        async function removeFromRegistrationIndex(key) {
-            const list = (await kvGet('reg-index')) || [];
-            const filtered = list.filter(k => k !== key);
-            await kvSet('reg-index', filtered);
-        }
-
-        async function logRegistrationFull(name) {
-            const key = `reg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
-            await kvSet(key, { name: name, time: new Date().toISOString(), regKey: key });
-            await appendToRegistrationIndex(key);
-        }
-
-        async function fetchAllRegistrations() {
-            const keys = (await kvGet('reg-index')) || [];
-            const entries = await Promise.all(keys.map(k => kvGet(k).then(v => v ? { ...v, regKey: k } : null)));
-            return entries.filter(Boolean).sort((a, b) => new Date(b.time) - new Date(a.time));
-        }
-
-        async function deleteRegistration(regKey) {
-            await kvDelete(regKey);
-            await removeFromRegistrationIndex(regKey);
-            renderOwnerPanel();
-        }
-
-        // --- Owner panel: extra functions (search, delete, stats, reset all) ---
-        let ownerAllRegs = [];
-
-        function showOwnerPanel() {
-            const panel = document.getElementById('owner-panel-section');
-            if (panel) panel.classList.remove('hidden');
-            const announcePanel = document.getElementById('owner-announcement-section');
-            if (announcePanel) announcePanel.classList.remove('hidden');
-        }
-
-        // --- SITE-WIDE ANNOUNCEMENT BANNER (owner-controlled, KVdb-backed) ---
-        async function loadAnnouncement() {
-            const data = await kvGet('site-announcement');
-            const banner = document.getElementById('site-announcement-banner');
-            const textEl = document.getElementById('site-announcement-text');
-            if (!data || !data.text) {
-                banner.classList.add('hidden');
-                return;
-            }
-            let dismissed = null;
-            try { dismissed = sessionStorage.getItem('dismissedAnnouncementText'); } catch(e) {}
-            if (dismissed === data.text) {
-                banner.classList.add('hidden');
-                return;
-            }
-            textEl.textContent = data.text;
-            banner.classList.remove('hidden');
-        }
-
-        function dismissAnnouncement() {
-            const banner = document.getElementById('site-announcement-banner');
-            const textEl = document.getElementById('site-announcement-text');
-            try { sessionStorage.setItem('dismissedAnnouncementText', textEl.textContent || ''); } catch(e) {}
-            banner.classList.add('hidden');
-        }
-
-        async function publishAnnouncement() {
-            const field = document.getElementById('owner-announcement-field');
-            const status = document.getElementById('owner-announcement-status');
-            const text = (field.value || '').trim();
-            if (!text) {
-                status.textContent = currentLang === 'es-LA' ? 'Escribe un mensaje primero.' : 'Type a message first.';
-                return;
-            }
-            await kvSet('site-announcement', { text: text, time: new Date().toISOString() });
-            status.textContent = currentLang === 'es-LA' ? 'Anuncio publicado a todos los visitantes.' : 'Announcement published to all visitors.';
-            try { sessionStorage.removeItem('dismissedAnnouncementText'); } catch(e) {}
-            loadAnnouncement();
-        }
-
-        async function clearAnnouncement() {
-            const status = document.getElementById('owner-announcement-status');
-            await kvSet('site-announcement', { text: '', time: new Date().toISOString() });
-            document.getElementById('owner-announcement-field').value = '';
-            status.textContent = currentLang === 'es-LA' ? 'Anuncio eliminado.' : 'Announcement cleared.';
-            loadAnnouncement();
-        }
-
-        function renderOwnerRows(regs) {
-            const listEl = document.getElementById('owner-registrations-list');
-            const emptyEl = document.getElementById('owner-registrations-empty');
-            listEl.innerHTML = '';
-            if (!regs.length) {
-                emptyEl.classList.remove('hidden');
-                return;
-            }
-            emptyEl.classList.add('hidden');
-            regs.forEach(r => {
-                const row = document.createElement('div');
-                row.className = 'flex items-center justify-between gap-3 p-3 bg-white/5 border border-white/10 rounded-sm';
-                const date = new Date(r.time);
-                const dateStr = isNaN(date.getTime()) ? '' : date.toLocaleString();
-                const safeName = (r.name || 'unknown').replace(/</g, '&lt;');
-                row.innerHTML = `
-                    <div class="min-w-0 text-left">
-                        <p class="text-white text-sm font-bold uppercase tracking-wide truncate">${safeName}</p>
-                        <p class="text-gray-500 text-[11px] font-medium">${dateStr}</p>
-                    </div>
-                    <button data-regkey="${r.regKey}" class="owner-delete-btn flex-shrink-0 flex items-center justify-center w-8 h-8 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 rounded-sm text-red-300 transition-colors">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                    </button>
-                `;
-                listEl.appendChild(row);
-            });
-            listEl.querySelectorAll('.owner-delete-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    const key = btn.getAttribute('data-regkey');
-                    if (key) deleteRegistration(key);
-                });
-            });
-        }
-
-        function filterOwnerRegs() {
-            const q = (document.getElementById('owner-search-field').value || '').toLowerCase().trim();
-            if (!q) { renderOwnerRows(ownerAllRegs); return; }
-            renderOwnerRows(ownerAllRegs.filter(r => (r.name || '').toLowerCase().includes(q)));
-        }
-
-        async function renderOwnerPanel() {
-            const loadingEl = document.getElementById('owner-registrations-loading');
-            const countEl = document.getElementById('owner-registrations-count');
-            loadingEl.classList.remove('hidden');
-            document.getElementById('owner-registrations-empty').classList.add('hidden');
-            document.getElementById('owner-registrations-list').innerHTML = '';
-
-            ownerAllRegs = await fetchAllRegistrations();
-            loadingEl.classList.add('hidden');
-            countEl.textContent = ownerAllRegs.length.toString();
-            filterOwnerRegs();
-        }
-
-        async function resetAllRegistrations() {
-            const confirmMsg = (currentLang === 'es-LA')
-                ? '¿Seguro que quieres borrar TODOS los registros? Esto no se puede deshacer.'
-                : 'Are you sure you want to delete ALL registrations? This cannot be undone.';
-            if (!window.confirm(confirmMsg)) return;
-            const keys = (await kvGet('reg-index')) || [];
-            await Promise.all(keys.map(k => kvDelete(k)));
-            await kvSet('reg-index', []);
-            renderOwnerPanel();
+        // --- OWNER GOLD THEME ---
+        // Applies/removes a body-level class that re-skins the HUD blue accents
+        // into gold, purely visual — makes it unmistakable you're logged in as owner.
+        function applyOwnerTheme() {
+            document.body.classList.toggle('owner-theme', isOwner());
         }
 
         // --- Auth submit handlers ---
@@ -1300,15 +1116,9 @@
                 localStorage.setItem('authVersion', AUTH_VERSION);
             } catch(e) {}
 
-            logRegistrationFull(name);
-
             switchView('view-intro');
             runIntroSequence(name);
-
-            if (ownerLogin) {
-                showOwnerPanel();
-                renderOwnerPanel();
-            }
+            applyOwnerTheme();
             updateGreeting();
         }
 
@@ -1324,7 +1134,6 @@
         function updateGreeting() {
             const name = getSavedName();
             const greetEl = document.getElementById('hub-greeting');
-            const badgeEl = document.getElementById('owner-badge');
             if (!greetEl) return;
             if (name) {
                 const template = translations[currentLang]['hub_greeting'] || 'Welcome back, {name}';
@@ -1332,12 +1141,7 @@
             } else {
                 greetEl.textContent = '';
             }
-            if (isOwner()) {
-                if (badgeEl) badgeEl.classList.remove('hidden');
-                showOwnerPanel();
-            } else {
-                if (badgeEl) badgeEl.classList.add('hidden');
-            }
+            applyOwnerTheme();
         }
 
         // --- 2c. TYPING + LOADING SEQUENCE (smoothed with requestAnimationFrame) ---
@@ -1573,7 +1377,6 @@
 
             // Reset any session created under an older auth schema (forces re-login).
             enforceAuthVersion();
-            loadAnnouncement();
 
             // Decide entry point: ask to log in/create account, or greet returning visitor
             const savedName = getSavedName();
@@ -1585,9 +1388,7 @@
                 switchView('view-name');
             }
             updateGreeting();
-            if (isOwner()) {
-                renderOwnerPanel();
-            }
+            applyOwnerTheme();
 
             document.getElementById('login-name-field').addEventListener('keydown', function(e){
                 if (e.key === 'Enter') submitLogin();
