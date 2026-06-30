@@ -153,7 +153,7 @@
 </head>
 <body class="py-6 px-4 md:px-8 lg:px-12 min-h-screen flex flex-col relative">
 
-    <!-- VIEW -1: NAME CAPTURE -->
+    <!-- VIEW -1: AUTH (Login / Create Account) -->
     <div id="view-name" class="view-section view-section-flex flex-col items-center justify-center min-h-[85vh] w-full max-w-4xl mx-auto text-center space-y-8">
         <div class="relative w-full max-w-xl">
             <div class="absolute inset-0 bg-blue-500/10 blur-[50px] rounded-full animate-[pulse-slow_3s_ease-in-out_infinite]"></div>
@@ -164,21 +164,64 @@
                 <div class="hud-corner hud-corner-br"></div>
 
                 <p class="text-sm md:text-base uppercase tracking-[0.5em] text-blue-500 font-bold mb-4" data-i18n="name_sys">Identity Verification</p>
-                <h1 class="text-3xl md:text-4xl font-black tracking-widest text-white uppercase mb-8" data-i18n="name_title">
-                    STATE YOUR NAME
-                </h1>
 
-                <div class="flex flex-col items-center gap-4">
-                    <input id="name-field" type="text" maxlength="24" data-i18n-placeholder="name_placeholder" placeholder="Enter your name" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-lg font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-4">
-                    <input id="password-field" type="password" maxlength="32" data-i18n-placeholder="password_placeholder" placeholder="Password" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-sm font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-3">
-                    <button onclick="submitName()" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 rounded-sm overflow-hidden w-full max-w-sm">
-                        <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                        <span class="relative text-base font-bold uppercase tracking-[0.2em] text-white flex items-center gap-3">
-                            <span data-i18n="name_btn">CONFIRM IDENTITY</span>
-                            <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </span>
-                    </button>
+                <!-- STEP A: choose Login or Create Account -->
+                <div id="auth-choice-step">
+                    <h1 class="text-3xl md:text-4xl font-black tracking-widest text-white uppercase mb-8" data-i18n="auth_choice_title">
+                        ACCESS REQUIRED
+                    </h1>
+                    <div class="flex flex-col items-center gap-4">
+                        <button onclick="showAuthStep('login')" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 rounded-sm overflow-hidden w-full max-w-sm">
+                            <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                            <span class="relative text-base font-bold uppercase tracking-[0.2em] text-white" data-i18n="auth_login_btn">LOG IN</span>
+                        </button>
+                        <button onclick="showAuthStep('create')" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 rounded-sm overflow-hidden w-full max-w-sm">
+                            <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                            <span class="relative text-base font-bold uppercase tracking-[0.2em] text-white" data-i18n="auth_create_btn">CREATE ACCOUNT</span>
+                        </button>
+                    </div>
                 </div>
+
+                <!-- STEP B1: Login form -->
+                <div id="auth-login-step" class="hidden">
+                    <h1 class="text-3xl md:text-4xl font-black tracking-widest text-white uppercase mb-6" data-i18n="auth_login_title">
+                        LOG IN
+                    </h1>
+                    <div class="flex flex-col items-center gap-4">
+                        <input id="login-name-field" type="text" maxlength="24" data-i18n-placeholder="name_placeholder" placeholder="Enter your name" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-lg font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-4">
+                        <input id="login-password-field" type="password" maxlength="32" data-i18n-placeholder="password_placeholder" placeholder="Password" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-sm font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-3">
+                        <p id="login-error" class="text-red-400 text-xs font-bold uppercase tracking-wider hidden"></p>
+                        <button onclick="submitLogin()" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 rounded-sm overflow-hidden w-full max-w-sm">
+                            <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                            <span class="relative text-base font-bold uppercase tracking-[0.2em] text-white flex items-center gap-3">
+                                <span data-i18n="auth_login_submit">LOG IN</span>
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </span>
+                        </button>
+                        <button onclick="showAuthStep('choice')" class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-colors mt-2" data-i18n="auth_back">← Back</button>
+                    </div>
+                </div>
+
+                <!-- STEP B2: Create Account form -->
+                <div id="auth-create-step" class="hidden">
+                    <h1 class="text-3xl md:text-4xl font-black tracking-widest text-white uppercase mb-6" data-i18n="auth_create_title">
+                        CREATE ACCOUNT
+                    </h1>
+                    <div class="flex flex-col items-center gap-4">
+                        <input id="create-name-field" type="text" maxlength="24" data-i18n-placeholder="name_placeholder" placeholder="Enter your name" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-lg font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-4">
+                        <input id="create-password-field" type="password" maxlength="32" data-i18n-placeholder="password_placeholder" placeholder="Password" class="w-full max-w-sm bg-[#0d0e12] border border-white/20 text-white text-center text-sm font-bold uppercase tracking-widest rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-3">
+                        <p id="create-error" class="text-red-400 text-xs font-bold uppercase tracking-wider hidden"></p>
+                        <button onclick="submitCreateAccount()" class="group relative inline-flex items-center justify-center px-8 py-4 bg-white/5 border border-white/20 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all duration-300 rounded-sm overflow-hidden w-full max-w-sm">
+                            <div class="absolute inset-0 bg-gradient-to-r from-blue-500/0 via-blue-500/10 to-blue-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                            <span class="relative text-base font-bold uppercase tracking-[0.2em] text-white flex items-center gap-3">
+                                <span data-i18n="auth_create_submit">CREATE ACCOUNT</span>
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                            </span>
+                        </button>
+                        <button onclick="showAuthStep('choice')" class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-white transition-colors mt-2" data-i18n="auth_back">← Back</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -198,8 +241,8 @@
                 
                 <div class="relative z-10">
                     <p class="text-sm md:text-base uppercase tracking-[0.5em] text-blue-500 font-bold mb-4" data-i18n="intro_sys">Independent Asset Distribution</p>
-                    <h1 id="intro-typing-title" class="text-3xl md:text-5xl font-black tracking-widest text-white uppercase mb-8 min-h-[3em] flex items-center justify-center">
-                        <span id="intro-typing-text"></span>
+                    <h1 id="intro-typing-title" class="text-2xl md:text-5xl font-black tracking-widest text-white uppercase mb-8 min-h-[3em] flex items-center justify-center break-words px-2">
+                        <span id="intro-typing-text" class="break-words"></span>
                     </h1>
 
                     <!-- Loading bar (shown while typing/loading sequence runs) -->
@@ -301,6 +344,31 @@
                 <p class="text-gray-400 text-sm mt-2 font-medium" data-i18n="hub_desc">Select a module to view documentation, previews, and download links.</p>
             </div>
         </header>
+
+        <!-- OWNER-ONLY PANEL: list of everyone who registered -->
+        <section id="owner-panel-section" class="hud-card p-6 rounded-sm hidden border-blue-500/30">
+            <div class="hud-corner hud-corner-tl"></div>
+            <div class="hud-corner hud-corner-tr"></div>
+            <div class="hud-corner hud-corner-bl"></div>
+            <div class="hud-corner hud-corner-br"></div>
+
+            <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                <div class="flex items-center gap-2 text-blue-400 font-bold uppercase text-xs tracking-widest">
+                    <span class="text-base">▪</span> <span data-i18n="owner_panel_title">Owner Panel — Registered Visitors</span>
+                    <span class="ml-2 px-2 py-0.5 bg-blue-500/10 border border-blue-500/30 rounded-sm text-blue-300" id="owner-registrations-count">0</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="renderOwnerPanel()" class="px-3 py-1.5 bg-white/5 hover:bg-white/10 border border-white/10 rounded-sm text-xs font-bold uppercase tracking-wider text-gray-300 transition-colors" data-i18n="owner_panel_refresh">Refresh</button>
+                    <button onclick="resetAllRegistrations()" class="px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 rounded-sm text-xs font-bold uppercase tracking-wider text-red-300 transition-colors" data-i18n="owner_panel_reset">Reset All</button>
+                </div>
+            </div>
+
+            <input id="owner-search-field" type="text" oninput="filterOwnerRegs()" data-i18n-placeholder="owner_panel_search" placeholder="Search by name..." class="w-full bg-[#0d0e12] border border-white/10 text-white text-sm font-medium rounded-sm focus:ring-blue-500 focus:border-blue-500 outline-none p-2.5 mb-4">
+
+            <p id="owner-registrations-loading" class="text-gray-500 text-xs font-medium uppercase tracking-widest hidden" data-i18n="owner_panel_loading">Loading registrations...</p>
+            <p id="owner-registrations-empty" class="text-gray-500 text-xs font-medium italic hidden" data-i18n="owner_panel_empty">No registrations logged yet.</p>
+            <div id="owner-registrations-list" class="space-y-2 max-h-80 overflow-y-auto"></div>
+        </section>
 
         <!-- Assets Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start mt-8">
@@ -681,6 +749,21 @@
                 'name_title': 'STATE YOUR NAME',
                 'name_placeholder': 'Enter your name',
                 'name_btn': 'CONFIRM IDENTITY',
+                'password_placeholder': 'Password',
+                'owner_panel_title': 'Owner Panel — Registered Visitors',
+                'owner_panel_refresh': 'Refresh',
+                'owner_panel_loading': 'Loading registrations...',
+                'owner_panel_empty': 'No registrations logged yet.',
+                'owner_panel_reset': 'Reset All',
+                'owner_panel_search': 'Search by name...',
+                'auth_choice_title': 'ACCESS REQUIRED',
+                'auth_login_btn': 'LOG IN',
+                'auth_create_btn': 'CREATE ACCOUNT',
+                'auth_login_title': 'LOG IN',
+                'auth_login_submit': 'LOG IN',
+                'auth_create_title': 'CREATE ACCOUNT',
+                'auth_create_submit': 'CREATE ACCOUNT',
+                'auth_back': '← Back',
                 'hub_greeting': 'Welcome back, {name}',
                 'settings_title': 'SYSTEM SETTINGS',
                 'settings_back': 'Return to Directory',
@@ -752,6 +835,21 @@
                 'name_title': 'DI TU NOMBRE',
                 'name_placeholder': 'Escribe tu nombre',
                 'name_btn': 'CONFIRMAR IDENTIDAD',
+                'password_placeholder': 'Contraseña',
+                'owner_panel_title': 'Panel del Owner — Visitantes Registrados',
+                'owner_panel_refresh': 'Actualizar',
+                'owner_panel_loading': 'Cargando registros...',
+                'owner_panel_empty': 'Aún no hay registros guardados.',
+                'owner_panel_reset': 'Borrar Todo',
+                'owner_panel_search': 'Buscar por nombre...',
+                'auth_choice_title': 'ACCESO REQUERIDO',
+                'auth_login_btn': 'INICIAR SESIÓN',
+                'auth_create_btn': 'CREAR CUENTA',
+                'auth_login_title': 'INICIAR SESIÓN',
+                'auth_login_submit': 'INICIAR SESIÓN',
+                'auth_create_title': 'CREAR CUENTA',
+                'auth_create_submit': 'CREAR CUENTA',
+                'auth_back': '← Volver',
                 'hub_greeting': 'Bienvenido de nuevo, {name}',
                 'settings_title': 'CONFIGURACIÓN DEL SISTEMA',
                 'settings_back': 'Volver al Directorio',
@@ -873,27 +971,253 @@
             }
         }
 
-        // --- 2b. IDENTITY (name capture) ---
+        // --- 2b. IDENTITY: LOGIN / CREATE ACCOUNT + OWNER SYSTEM ---
+        const KVDB_BUCKET = 'XWGMfjDCY2EA8dzTfM51xt';
+        const KVDB_BASE = `https://kvdb.io/${KVDB_BUCKET}`;
+        const OWNER_USER = 'william';
+        const OWNER_PASS = 'Owner213';
+        // Bump this whenever the auth schema changes — anyone logged in under an
+        // older version gets logged out automatically and sent back to Login/Create.
+        const AUTH_VERSION = '2';
+
         function getSavedName() {
             try { return localStorage.getItem('visitorName'); } catch(e) { return null; }
         }
 
-        function submitName() {
-            const field = document.getElementById('name-field');
-            const val = (field.value || '').trim();
-            if (!val) {
-                field.focus();
-                field.classList.add('border-red-500');
-                setTimeout(() => field.classList.remove('border-red-500'), 600);
+        function isOwner() {
+            try { return localStorage.getItem('isOwner') === 'true'; } catch(e) { return false; }
+        }
+
+        // Wipes any session created under an older auth schema, forcing everyone
+        // (including previously "logged in" visitors) back through Login/Create.
+        function enforceAuthVersion() {
+            try {
+                const stored = localStorage.getItem('authVersion');
+                if (stored !== AUTH_VERSION) {
+                    localStorage.removeItem('visitorName');
+                    localStorage.removeItem('isOwner');
+                    localStorage.setItem('authVersion', AUTH_VERSION);
+                }
+            } catch(e) {}
+        }
+
+        function showAuthStep(step) {
+            document.getElementById('auth-choice-step').classList.add('hidden');
+            document.getElementById('auth-login-step').classList.add('hidden');
+            document.getElementById('auth-create-step').classList.add('hidden');
+            document.getElementById('login-error').classList.add('hidden');
+            document.getElementById('create-error').classList.add('hidden');
+            if (step === 'login') document.getElementById('auth-login-step').classList.remove('hidden');
+            else if (step === 'create') document.getElementById('auth-create-step').classList.remove('hidden');
+            else document.getElementById('auth-choice-step').classList.remove('hidden');
+        }
+
+        function showAuthError(which, msg) {
+            const el = document.getElementById(which + '-error');
+            el.textContent = msg;
+            el.classList.remove('hidden');
+        }
+
+        // --- KVdb helpers ---
+        async function kvGet(key) {
+            try {
+                const res = await fetch(`${KVDB_BASE}/${key}`);
+                if (!res.ok) return null;
+                const text = await res.text();
+                try { return JSON.parse(text); } catch(e) { return null; }
+            } catch (e) { return null; }
+        }
+        async function kvSet(key, value) {
+            try {
+                await fetch(`${KVDB_BASE}/${key}`, { method: 'POST', body: JSON.stringify(value) });
+                return true;
+            } catch (e) { return false; }
+        }
+        async function kvDelete(key) {
+            try {
+                await fetch(`${KVDB_BASE}/${key}`, { method: 'DELETE' });
+                return true;
+            } catch (e) { return false; }
+        }
+
+        function accountKey(name) {
+            return `account-${name.toLowerCase().replace(/[^a-z0-9_-]/g, '')}`;
+        }
+
+        async function appendToRegistrationIndex(key) {
+            const list = (await kvGet('reg-index')) || [];
+            list.push(key);
+            await kvSet('reg-index', list);
+        }
+
+        async function removeFromRegistrationIndex(key) {
+            const list = (await kvGet('reg-index')) || [];
+            const filtered = list.filter(k => k !== key);
+            await kvSet('reg-index', filtered);
+        }
+
+        async function logRegistrationFull(name) {
+            const key = `reg-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`;
+            await kvSet(key, { name: name, time: new Date().toISOString(), regKey: key });
+            await appendToRegistrationIndex(key);
+        }
+
+        async function fetchAllRegistrations() {
+            const keys = (await kvGet('reg-index')) || [];
+            const entries = await Promise.all(keys.map(k => kvGet(k).then(v => v ? { ...v, regKey: k } : null)));
+            return entries.filter(Boolean).sort((a, b) => new Date(b.time) - new Date(a.time));
+        }
+
+        async function deleteRegistration(regKey) {
+            await kvDelete(regKey);
+            await removeFromRegistrationIndex(regKey);
+            renderOwnerPanel();
+        }
+
+        // --- Owner panel: extra functions (search, delete, stats, reset all) ---
+        let ownerAllRegs = [];
+
+        function showOwnerPanel() {
+            const panel = document.getElementById('owner-panel-section');
+            if (panel) panel.classList.remove('hidden');
+        }
+
+        function renderOwnerRows(regs) {
+            const listEl = document.getElementById('owner-registrations-list');
+            const emptyEl = document.getElementById('owner-registrations-empty');
+            listEl.innerHTML = '';
+            if (!regs.length) {
+                emptyEl.classList.remove('hidden');
                 return;
             }
-            try { localStorage.setItem('visitorName', val); } catch(e) {}
+            emptyEl.classList.add('hidden');
+            regs.forEach(r => {
+                const row = document.createElement('div');
+                row.className = 'flex items-center justify-between gap-3 p-3 bg-white/5 border border-white/10 rounded-sm';
+                const date = new Date(r.time);
+                const dateStr = isNaN(date.getTime()) ? '' : date.toLocaleString();
+                const safeName = (r.name || 'unknown').replace(/</g, '&lt;');
+                row.innerHTML = `
+                    <div class="min-w-0 text-left">
+                        <p class="text-white text-sm font-bold uppercase tracking-wide truncate">${safeName}</p>
+                        <p class="text-gray-500 text-[11px] font-medium">${dateStr}</p>
+                    </div>
+                    <button data-regkey="${r.regKey}" class="owner-delete-btn flex-shrink-0 flex items-center justify-center w-8 h-8 bg-red-500/10 hover:bg-red-500/20 border border-red-500/30 rounded-sm text-red-300 transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                    </button>
+                `;
+                listEl.appendChild(row);
+            });
+            listEl.querySelectorAll('.owner-delete-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const key = btn.getAttribute('data-regkey');
+                    if (key) deleteRegistration(key);
+                });
+            });
+        }
+
+        function filterOwnerRegs() {
+            const q = (document.getElementById('owner-search-field').value || '').toLowerCase().trim();
+            if (!q) { renderOwnerRows(ownerAllRegs); return; }
+            renderOwnerRows(ownerAllRegs.filter(r => (r.name || '').toLowerCase().includes(q)));
+        }
+
+        async function renderOwnerPanel() {
+            const loadingEl = document.getElementById('owner-registrations-loading');
+            const countEl = document.getElementById('owner-registrations-count');
+            loadingEl.classList.remove('hidden');
+            document.getElementById('owner-registrations-empty').classList.add('hidden');
+            document.getElementById('owner-registrations-list').innerHTML = '';
+
+            ownerAllRegs = await fetchAllRegistrations();
+            loadingEl.classList.add('hidden');
+            countEl.textContent = ownerAllRegs.length.toString();
+            filterOwnerRegs();
+        }
+
+        async function resetAllRegistrations() {
+            const confirmMsg = (currentLang === 'es-LA')
+                ? '¿Seguro que quieres borrar TODOS los registros? Esto no se puede deshacer.'
+                : 'Are you sure you want to delete ALL registrations? This cannot be undone.';
+            if (!window.confirm(confirmMsg)) return;
+            const keys = (await kvGet('reg-index')) || [];
+            await Promise.all(keys.map(k => kvDelete(k)));
+            await kvSet('reg-index', []);
+            renderOwnerPanel();
+        }
+
+        // --- Auth submit handlers ---
+        async function submitLogin() {
+            const nameField = document.getElementById('login-name-field');
+            const passField = document.getElementById('login-password-field');
+            const name = (nameField.value || '').trim();
+            const pass = (passField.value || '').trim();
+
+            if (!name || !pass) {
+                showAuthError('login', currentLang === 'es-LA' ? 'Completa nombre y contraseña.' : 'Enter both name and password.');
+                return;
+            }
+
+            // Hardcoded owner login, independent of KVdb-stored accounts.
+            if (name.toLowerCase() === OWNER_USER.toLowerCase() && pass === OWNER_PASS) {
+                completeLogin(name, true);
+                return;
+            }
+
+            const account = await kvGet(accountKey(name));
+            if (account && account.password === pass) {
+                completeLogin(account.name || name, false);
+            } else {
+                showAuthError('login', currentLang === 'es-LA' ? 'Nombre o contraseña incorrectos.' : 'Incorrect name or password.');
+            }
+        }
+
+        async function submitCreateAccount() {
+            const nameField = document.getElementById('create-name-field');
+            const passField = document.getElementById('create-password-field');
+            const name = (nameField.value || '').trim();
+            const pass = (passField.value || '').trim();
+
+            if (!name || !pass) {
+                showAuthError('create', currentLang === 'es-LA' ? 'Completa nombre y contraseña.' : 'Enter both name and password.');
+                return;
+            }
+            if (name.toLowerCase() === OWNER_USER.toLowerCase()) {
+                showAuthError('create', currentLang === 'es-LA' ? 'Ese nombre está reservado.' : 'That name is reserved.');
+                return;
+            }
+
+            const existing = await kvGet(accountKey(name));
+            if (existing) {
+                showAuthError('create', currentLang === 'es-LA' ? 'Esa cuenta ya existe. Usa Iniciar Sesión.' : 'That account already exists. Use Log In instead.');
+                return;
+            }
+
+            await kvSet(accountKey(name), { name: name, password: pass, created: new Date().toISOString() });
+            completeLogin(name, false);
+        }
+
+        function completeLogin(name, ownerLogin) {
+            try {
+                localStorage.setItem('visitorName', name);
+                localStorage.setItem('isOwner', ownerLogin ? 'true' : 'false');
+                localStorage.setItem('authVersion', AUTH_VERSION);
+            } catch(e) {}
+
+            logRegistrationFull(name);
+
             switchView('view-intro');
-            runIntroSequence(val);
+            runIntroSequence(name);
+
+            if (ownerLogin) showOwnerPanel();
         }
 
         function forgetName() {
-            try { localStorage.removeItem('visitorName'); } catch(e) {}
+            try {
+                localStorage.removeItem('visitorName');
+                localStorage.removeItem('isOwner');
+            } catch(e) {}
+            showAuthStep('choice');
             switchView('view-name');
         }
 
@@ -907,12 +1231,11 @@
             } else {
                 greetEl.textContent = '';
             }
+            if (isOwner()) showOwnerPanel();
         }
 
-        // --- 2c. TYPING + LOADING SEQUENCE ---
-        let introTyperInterval = null;
-        let introLoaderInterval = null;
-        let introLoaderTimeout = null;
+        // --- 2c. TYPING + LOADING SEQUENCE (smoothed with requestAnimationFrame) ---
+        let introAnimFrame = null;
 
         function runIntroSequence(name) {
             const titleEl = document.getElementById('intro-typing-text');
@@ -920,10 +1243,7 @@
             const fill = document.getElementById('intro-loading-fill');
             const pct = document.getElementById('intro-loading-pct');
 
-            // Guard: clear any previously running sequence so they never overlap/glitch
-            if (introTyperInterval) clearInterval(introTyperInterval);
-            if (introLoaderInterval) clearInterval(introLoaderInterval);
-            if (introLoaderTimeout) clearTimeout(introLoaderTimeout);
+            if (introAnimFrame) cancelAnimationFrame(introAnimFrame);
 
             accessBtn.classList.add('hidden');
             fill.style.width = '0%';
@@ -932,49 +1252,40 @@
             titleEl.parentElement.classList.add('typing-caret');
 
             const full = 'WELCOME ' + name.toUpperCase() + ' TO ASSETS HUB!';
+            const msPerChar = 45;
+            const typingDuration = full.length * msPerChar;
+            const pauseAfterTyping = 400;
+            const loadingDuration = 1100;
+            const totalDuration = typingDuration + pauseAfterTyping + loadingDuration;
+            const startTime = performance.now();
 
-            // Reserve the final width up-front so the centered text doesn't
-            // jump/re-center on every keystroke of the typing animation.
-            titleEl.style.display = 'inline-block';
-            titleEl.style.textAlign = 'left';
-            const measurer = document.createElement('span');
-            measurer.textContent = full;
-            measurer.style.visibility = 'hidden';
-            measurer.style.position = 'absolute';
-            measurer.style.whiteSpace = 'nowrap';
-            measurer.className = titleEl.className;
-            measurer.style.font = window.getComputedStyle(titleEl).font;
-            measurer.style.letterSpacing = window.getComputedStyle(titleEl).letterSpacing;
-            document.body.appendChild(measurer);
-            titleEl.style.minWidth = measurer.offsetWidth + 'px';
-            document.body.removeChild(measurer);
+            function frame(now) {
+                const elapsed = now - startTime;
 
-            let i = 0;
-            introTyperInterval = setInterval(() => {
-                titleEl.textContent = full.slice(0, i + 1);
-                i++;
-                if (i >= full.length) {
-                    clearInterval(introTyperInterval);
-                    introTyperInterval = null;
-                    titleEl.parentElement.classList.remove('typing-caret');
-                    introLoaderTimeout = setTimeout(startLoadingBar, 400);
-                }
-            }, 45);
-
-            function startLoadingBar() {
-                let p = 0;
-                introLoaderInterval = setInterval(() => {
-                    p += 2;
-                    if (p > 100) p = 100;
+                if (elapsed <= typingDuration) {
+                    const charsToShow = Math.min(full.length, Math.floor(elapsed / msPerChar) + 1);
+                    titleEl.textContent = full.slice(0, charsToShow);
+                } else if (elapsed <= typingDuration + pauseAfterTyping) {
+                    if (titleEl.textContent !== full) titleEl.textContent = full;
+                    if (titleEl.parentElement.classList.contains('typing-caret')) {
+                        titleEl.parentElement.classList.remove('typing-caret');
+                    }
+                } else {
+                    const loadElapsed = elapsed - typingDuration - pauseAfterTyping;
+                    const p = Math.min(100, Math.round((loadElapsed / loadingDuration) * 100));
                     fill.style.width = p + '%';
                     pct.textContent = p + '%';
                     if (p >= 100) {
-                        clearInterval(introLoaderInterval);
-                        introLoaderInterval = null;
                         accessBtn.classList.remove('hidden');
+                        introAnimFrame = null;
+                        return;
                     }
-                }, 22);
+                }
+
+                introAnimFrame = requestAnimationFrame(frame);
             }
+
+            introAnimFrame = requestAnimationFrame(frame);
         }
 
         // --- 3. Modal Expansion Logic ---
@@ -1154,18 +1465,34 @@
                 if(event.key === "Escape"){ closeModal(); }
             });
 
-            // Decide entry point: ask for name, or greet returning visitor
+            // Reset any session created under an older auth schema (forces re-login).
+            enforceAuthVersion();
+
+            // Decide entry point: ask to log in/create account, or greet returning visitor
             const savedName = getSavedName();
             if (savedName) {
                 switchView('view-intro');
                 runIntroSequence(savedName);
             } else {
+                showAuthStep('choice');
                 switchView('view-name');
             }
             updateGreeting();
+            if (isOwner()) {
+                renderOwnerPanel();
+            }
 
-            document.getElementById('name-field').addEventListener('keydown', function(e){
-                if (e.key === 'Enter') submitName();
+            document.getElementById('login-name-field').addEventListener('keydown', function(e){
+                if (e.key === 'Enter') submitLogin();
+            });
+            document.getElementById('login-password-field').addEventListener('keydown', function(e){
+                if (e.key === 'Enter') submitLogin();
+            });
+            document.getElementById('create-name-field').addEventListener('keydown', function(e){
+                if (e.key === 'Enter') submitCreateAccount();
+            });
+            document.getElementById('create-password-field').addEventListener('keydown', function(e){
+                if (e.key === 'Enter') submitCreateAccount();
             });
         });
     </script>
